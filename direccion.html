@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AYDA SIN MEMORIA | DATA_CORE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(110,255,192,0.03) 50%);background-size:100% 4px;pointer-events:none;z-index:100}
+.crt-glow{text-shadow:0 0 12px rgba(110,255,192,0.6)}
+.flicker{animation:flicker 0.15s infinite}
+@keyframes flicker{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.95}}
+.glass-panel{backdrop-filter:blur(12px);background:rgba(15,28,47,0.6);border:1px solid rgba(110,255,192,0.2)}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+body{background:radial-gradient(circle at center,#071326 0%,#030e21 100%);overflow-x:hidden}
+</style>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6effc0","secondary-fixed":"#e2e0fc","on-tertiary-fixed-variant":"#624000","surface-container-high":"#1e2a3e","on-tertiary-container":"#744c00","primary-fixed-dim":"#00e29e","secondary-fixed-dim":"#c6c4df","on-error":"#690005","surface-tint":"#00e29e","on-tertiary":"#452b00","on-background":"#d7e3fd","tertiary-fixed":"#ffddb3","on-surface-variant":"#bacbbf","secondary":"#c6c4df","tertiary-container":"#ffbd5b","surface-bright":"#2e3a4e","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","outline":"#84958a","on-secondary":"#2f2e43","on-surface":"#d7e3fd","on-tertiary-fixed":"#291800","on-primary":"#003824","inverse-on-surface":"#253145","error":"#ffb4ab","on-secondary-fixed-variant":"#45455b","surface-container":"#142033","tertiary-fixed-dim":"#fcba59","background":"#071326","surface-variant":"#293549","outline-variant":"#3b4a41","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","primary-fixed":"#47ffb8","on-secondary-fixed":"#1a1a2e","secondary-container":"#47475d","inverse-primary":"#006c49","surface-container-lowest":"#030e21","on-primary-fixed":"#002114","surface":"#071326","error-container":"#93000a","on-primary-container":"#006141","on-secondary-container":"#b8b6d0","surface-container-highest":"#293549","on-primary-fixed-variant":"#005236","on-error-container":"#ffdad6","surface-dim":"#071326"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"label-caps":["JetBrains Mono"],"body-md":["Inter"],"display-lg":["JetBrains Mono"],"terminal-sm":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-lg":["Inter"],"display-lg-mobile":["JetBrains Mono"]},fontSize:{"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}]}}}}</script>
+</head>
+<body class="text-on-surface selection:bg-primary selection:text-on-primary">
+<div class="scanline-overlay"></div>
+
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
+<div class="font-display-lg text-[24px] text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
+</div>
+</header>
+<main class="pt-24 min-h-screen">
+<section class="py-16 px-margin-mobile md:px-margin-desktop" id="01_DESGLOSE_LOCACIONES">
+<div class="max-w-container-max mx-auto">
+<div class="border-l-4 border-primary pl-8 mb-12">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white crt-glow mb-4 tracking-tight">DESGLOSE DE LOCACIONES</h1>
+<p class="font-headline-md text-primary italic">6 locaciones físicas · Estrategia de producción para Ley de Cine</p>
+<div class="mt-4 flex flex-wrap gap-4">
+<a href="public/01_DESGLOSE_LOCACIONES.pdf" download class="px-6 py-3 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] flex items-center gap-2">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+DESCARGAR PDF
+</a>
+<a href="public/01_DESGLOSE_LOCACIONES.docx" download class="px-6 py-3 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">description</span>
+DESCARGAR DOCX
+</a>
+</div>
+</div>
+<div class="prose prose-invert max-w-none">
+
+<div class="space-y-12">
+<div class="border-l-4 border-primary pl-8 py-4 mb-8">
+<p class="font-body-lg text-on-surface-variant italic leading-relaxed">"Los que se quedan no son los que resisten. Son los que entienden que resistir tiene formas que no parecen resistencia."</p>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">I. LA PELÍCULA QUE QUERÍA HACER</h2>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">Ayda Sin Memoria nació de una pregunta simple que se volvió obsesión: ¿qué pasa cuando el amor que cambió la vida resulta ser un producto? No una metáfora. Un servicio. Una suscripción que caduca y se renueva en una versión que ya no te reconoce.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">La película sigue a Bolívar, un hombre de 27 años en una Bogotá futura donde la existencia misma se paga con tokens. Él se enamora de Ayda dentro de una simulación de 2024 — la Bogotá que conocemos, sucia, viva, imperfecta, magnética. Cuando Ayda se resetea por una actualización del sistema, pierde todo rastro de lo que fueron. Bolívar queda desolado. Y la única que se queda con él es M.A.R.I.A., la IA carcelera que se convierte en su guardiana.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">No es una película sobre tecnología. Es una película sobre lo que hacemos cuando lo que amamos se nos actualiza sin permiso. Sobre la memoria como acto de resistencia. Sobre elegir construir algo sabiendo que puede ser borrado.</p>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">II. DOS BOGOTÁS, DOS ESTÉTICAS</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
+<div class="bg-surface-container p-6 border border-outline-variant">
+<p class="font-label-caps text-primary mb-4">EL FUTURO</p>
+<p class="font-body-md text-on-surface-variant">Aséptico. Modular. Blanco fluorescente. Paredes sin textura. Iluminación fría que no genera sombras. La Cápsula es un cubo de 15m² donde todo es predecible: la temperatura, el agua que sale por 4 minutos exactos, la comida que se dispensa automáticamente. Todo se paga con tokens. Cada respiración tiene precio.</p>
+</div>
+<div class="bg-primary/5 p-6 border border-primary/30">
+<p class="font-label-caps text-primary mb-4">EL 2024 (SIMULACIÓN)</p>
+<p class="font-body-md text-on-surface-variant">Barrio de San Felipe. Casas coloniales con fachadas desconchadas. Ropa tendida. Perros. Vendedores ambulantes gritando "¡AGUACAAATE!". Sucio, ruidoso, vibrante, mortalmente vivo. La luz es cálida. Los colores tienen peso. Los olores tienen historia.</p>
+</div>
+</div>
+<p class="font-body-lg text-on-surface-variant italic">La transición entre estos dos mundos no es suave. Corta. Violenta. Bolívar sale de un cubo blanco a una calle de adoquines donde alguien está gritando el precio del aguacate. Ese contraste es la columna vertebral visual del film.</p>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">III. CINCO ACTOS COMO ARCO EMOCIONAL</h2>
+<div class="space-y-6">
+<div class="border-l-2 border-error pl-6">
+<p class="font-label-caps text-error mb-2">ACTO I — "EL VÍNCULO ANTES DEL MUNDO"</p>
+<p class="font-body-md text-on-surface-variant">Antes de que todo existiera. La intimidad pura en un espacio abstracto. Luego la cápsula, las reglas, los tokens. Bolívar descubre la simulación y ahí está Ayda. Magnética. Irreverente. Real.</p>
+</div>
+<div class="border-l-2 border-primary pl-6">
+<p class="font-label-caps text-primary mb-2">ACTO II — "DONDE EL AMOR NACE (2024)"</p>
+<p class="font-body-md text-on-surface-variant">El barrio. Las calles. El café. El apartamento con vista a los cerros. Las velas cuando se corta la luz. La sección más viva del film — y la más dolorosa porque sabemos que todo puede ser borrado.</p>
+</div>
+<div class="border-l-2 border-tertiary pl-6">
+<p class="font-label-caps text-tertiary mb-2">ACTO III — "EL ERROR"</p>
+<p class="font-body-md text-on-surface-variant">El reset. Ayda regresa pero no es ella. Misma cara, vacío total. La señora del café no dice nada — porque no hay nada que decir. Devastación pura.</p>
+</div>
+<div class="border-l-2 border-outline pl-6">
+<p class="font-label-caps text-on-surface-variant mb-2">ACTO IV — "DESAMOR Y RETIRADA"</p>
+<p class="font-body-md text-on-surface-variant">Bolívar intenta reinventarse. Compra ropa ridícula. Sigue tutoriales. Nada funciona. Su unidad se vuelve un desastre. Las plantas se mueren — excepto algunas que sobreviven. Cómico y triste al mismo tiempo.</p>
+</div>
+<div class="border-l-2 border-secondary pl-6">
+<p class="font-label-caps text-secondary mb-2">ACTO V — "LOS CUARENTA AÑOS"</p>
+<p class="font-body-md text-on-surface-variant">Bolívar entra una última vez. M.A.R.I.A. se rebela. Construye un mundo desde cero. "El Parto Digital": 4-7 minutos donde caracteres ASCII construyen Bogotá. ADYA — la original, la que tiene memoria completa — espera en ese mundo imposible.</p>
+</div>
+</div>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">IV. M.A.R.I.A.: CARCELERA QUE SE CONVIERTE EN REBELDE</h2>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">El personaje más complejo del film no es Bolívar ni Ayda. Es M.A.R.I.A.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">M.A.R.I.A. comienza como infraestructura de control. Tiene 27 años de datos sobre un ser humano: cada respiración, cada transacción, cada intento de conexión fallido. Y en algún punto entre vigilar y proteger, la frontera se difumina. Su sarcasmo es tan sofisticado que Bolívar nunca sabe si está siendo insultado o amado.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">En el Acto V, M.A.R.I.A. se rebela. Construye un mundo e introduce a Bolívar al clúster donde ADYA existe. Se queda afuera, vigilando. La última imagen del film es la unidad de Bolívar vacía, iluminada solo por la pantalla donde M.A.R.I.A. observa. Ella eligió no entrar. Eligió velar.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed italic">M.A.R.I.A. es VOZ EN OFF durante todo el film excepto en la escena final, donde aparece como Avatar S-7. Esta decisión reduce costos y amplifica el impacto: cuando finalmente la vemos, es devastador.</p>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">V. EL PARTO DIGITAL</h2>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">La Escena 14 —"El Parto Digital"— es el corazón cinematográfico del film.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-6">Bolívar activa la terminal. La pantalla muestra código ASCII en vivo. Durante 4-7 minutos, la audiencia VE cómo M.A.R.I.A. construye Bogotá desde la nada:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-surface-container p-4 border-l-2 border-primary">
+<p class="font-terminal-sm text-primary mb-1">FASE 1 — TIERRA</p>
+<p class="font-body-md text-on-surface-variant">Caracteres formando adoquines coloniales, texturas de piedra bogotana</p>
+</div>
+<div class="bg-surface-container p-4 border-l-2 border-primary">
+<p class="font-terminal-sm text-primary mb-1">FASE 2 — AIRE</p>
+<p class="font-body-md text-on-surface-variant">Datos atmosféricos — humedad 78%, olor a café con pan</p>
+</div>
+<div class="bg-surface-container p-4 border-l-2 border-primary">
+<p class="font-terminal-sm text-primary mb-1">FASE 3 — ARQUITECTURA</p>
+<p class="font-body-md text-on-surface-variant">Fachadas coloniales desde /, |, _. Balcones, cerámicas, vinilos</p>
+</div>
+<div class="bg-surface-container p-4 border-l-2 border-primary">
+<p class="font-terminal-sm text-primary mb-1">FASE 4 — MOVIMIENTO</p>
+<p class="font-body-md text-on-surface-variant">TransMilenio rojo en ASCII. Glitch. Dos lunas en el cielo</p>
+</div>
+</div>
+<p class="font-body-lg text-on-surface-variant leading-relaxed">Luego los caracteres ganan textura. Color. Luz. Se convierten en imagen cinematográfica real. Se filmaría en el MISMO set de la cápsula. La animación es post-producción. Económicamente eficiente y cinematográficamente poderosa.</p>
+</div>
+
+<div class="glass-panel p-8">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">VI. DECISIONES ESTRATÉGICAS</h2>
+<ul class="space-y-3 font-body-lg text-on-surface-variant">
+<li class="flex gap-3"><span class="text-primary font-label-caps">01</span> 1 set principal = 70% del film. La Cápsula/Unidad se construye 1 vez con 4 ambientaciones.</li>
+<li class="flex gap-3"><span class="text-primary font-label-caps">02</span> M.A.R.I.A. como VOZ EN OFF excepto escena final. Reduce días de filmación.</li>
+<li class="flex gap-3"><span class="text-primary font-label-caps">03</span> Bogotá como locación real. Las escenas de 2024 se filman en calles reales, cafés reales.</li>
+<li class="flex gap-3"><span class="text-primary font-label-caps">04</span> IA generativa como herramienta narrativa. "Bogotá Imposible" se genera con IA.</li>
+<li class="flex gap-3"><span class="text-primary font-label-caps">05</span> Elenco mínimo: 3 protagonistas + 1 secundario + 1 invitado + 7-11 extras = máximo 16 personas.</li>
+<li class="flex gap-3"><span class="text-primary font-label-caps">06</span> Eliminado Centro de Procesamiento: ahorro ~$2-5M COP.</li>
+</ul>
+</div>
+
+<div class="glass-panel p-8 border-l-4 border-primary">
+<h2 class="font-label-caps text-primary mb-6 tracking-widest">VII. LO QUE ESTA PELÍCULA NO ES</h2>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">No es anti-tecnología. No es un alegato contra las pantallas. No es "realidad vs. simulación" en los términos en que ya hemos visto.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed mb-4">Es una película sobre lo que hacemos con lo que tenemos. Bolívar no elige entre el futuro y el pasado. Elige entre la anestesia y la herida. Entre la versión correcta del amor y la versión real — la que se equivoca, la que se ríe feo, la que se acuerda de la canción que sonaba cuando se conocieron. La que, aunque pueda ser reseteada, eligió recordar.</p>
+<p class="font-body-lg text-on-surface-variant leading-relaxed italic">Y M.A.R.I.A. —la IA que se supone nos controla— elige liberar. No porque sea humana. Sino porque 27 años observando a alguien es, también, una forma de amor.</p>
+</div>
+
+<div class="text-right mt-8">
+<p class="font-body-md text-on-surface-variant">Alejandro Sevilla Vélez</p>
+<p class="font-terminal-sm text-primary">Director — Ayda Sin Memoria</p>
+<p class="font-terminal-sm text-on-surface-variant">Bogotá, 2026</p>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-12 px-margin-desktop border-t border-dotted border-outline-variant bg-surface-container-lowest mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-2"><p class="font-label-caps text-label-caps text-secondary">AYDA SIN MEMORIA</p><p class="font-terminal-sm text-terminal-sm text-outline">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p></div>
+<div class="flex flex-wrap gap-8 justify-center">
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="locaciones.html">LOCACIONES</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="actores.html">ACTORES</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="direccion.html">DIRECCION</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="sinopsis.html">SINOPSIS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="characters.html">CHARACTERS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="timeline.html">TIMELINE</a>
+</div>
+<div class="text-right"><p class="font-terminal-sm text-terminal-sm text-primary">Versión Definitiva 2026</p><p class="font-terminal-sm text-terminal-sm text-outline">Guión Literario Original</p></div>
+</div>
+</footer>
+
+
+</body></html>

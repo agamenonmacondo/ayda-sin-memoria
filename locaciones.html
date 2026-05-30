@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AYDA SIN MEMORIA | DATA_CORE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(110,255,192,0.03) 50%);background-size:100% 4px;pointer-events:none;z-index:100}
+.crt-glow{text-shadow:0 0 12px rgba(110,255,192,0.6)}
+.flicker{animation:flicker 0.15s infinite}
+@keyframes flicker{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.95}}
+.glass-panel{backdrop-filter:blur(12px);background:rgba(15,28,47,0.6);border:1px solid rgba(110,255,192,0.2)}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+body{background:radial-gradient(circle at center,#071326 0%,#030e21 100%);overflow-x:hidden}
+</style>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6effc0","secondary-fixed":"#e2e0fc","on-tertiary-fixed-variant":"#624000","surface-container-high":"#1e2a3e","on-tertiary-container":"#744c00","primary-fixed-dim":"#00e29e","secondary-fixed-dim":"#c6c4df","on-error":"#690005","surface-tint":"#00e29e","on-tertiary":"#452b00","on-background":"#d7e3fd","tertiary-fixed":"#ffddb3","on-surface-variant":"#bacbbf","secondary":"#c6c4df","tertiary-container":"#ffbd5b","surface-bright":"#2e3a4e","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","outline":"#84958a","on-secondary":"#2f2e43","on-surface":"#d7e3fd","on-tertiary-fixed":"#291800","on-primary":"#003824","inverse-on-surface":"#253145","error":"#ffb4ab","on-secondary-fixed-variant":"#45455b","surface-container":"#142033","tertiary-fixed-dim":"#fcba59","background":"#071326","surface-variant":"#293549","outline-variant":"#3b4a41","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","primary-fixed":"#47ffb8","on-secondary-fixed":"#1a1a2e","secondary-container":"#47475d","inverse-primary":"#006c49","surface-container-lowest":"#030e21","on-primary-fixed":"#002114","surface":"#071326","error-container":"#93000a","on-primary-container":"#006141","on-secondary-container":"#b8b6d0","surface-container-highest":"#293549","on-primary-fixed-variant":"#005236","on-error-container":"#ffdad6","surface-dim":"#071326"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"label-caps":["JetBrains Mono"],"body-md":["Inter"],"display-lg":["JetBrains Mono"],"terminal-sm":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-lg":["Inter"],"display-lg-mobile":["JetBrains Mono"]},fontSize:{"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}]}}}}</script>
+</head>
+<body class="text-on-surface selection:bg-primary selection:text-on-primary">
+<div class="scanline-overlay"></div>
+
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
+<div class="font-display-lg text-[24px] text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
+</div>
+</header>
+<main class="pt-24 min-h-screen">
+<section class="py-16 px-margin-mobile md:px-margin-desktop" id="01_DESGLOSE_LOCACIONES">
+<div class="max-w-container-max mx-auto">
+<div class="border-l-4 border-primary pl-8 mb-12">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white crt-glow mb-4 tracking-tight">DESGLOSE DE LOCACIONES</h1>
+<p class="font-headline-md text-primary italic">6 locaciones físicas · Estrategia de producción para Ley de Cine</p>
+<div class="mt-4 flex flex-wrap gap-4">
+<a href="public/01_DESGLOSE_LOCACIONES.pdf" download class="px-6 py-3 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] flex items-center gap-2">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+DESCARGAR PDF
+</a>
+<a href="public/01_DESGLOSE_LOCACIONES.docx" download class="px-6 py-3 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">description</span>
+DESCARGAR DOCX
+</a>
+</div>
+</div>
+<div class="prose prose-invert max-w-none">
+
+<div class="glass-panel p-6 mb-8">
+<h2 class="font-label-caps text-primary mb-4 tracking-widest">METODOLOGÍA</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-primary/10 p-4 border border-primary/30">
+<p class="font-label-caps text-primary mb-1">REAL</p>
+<p class="font-body-md text-on-surface-variant">Locación física existente en Bogotá</p>
+</div>
+<div class="bg-primary/10 p-4 border border-primary/30">
+<p class="font-label-caps text-primary mb-1">SET</p>
+<p class="font-body-md text-on-surface-variant">Construcción en estudio/teatro</p>
+</div>
+<div class="bg-primary/10 p-4 border border-primary/30">
+<p class="font-label-caps text-primary mb-1">REAL + VFX</p>
+<p class="font-body-md text-on-surface-variant">Base real + extensión digital</p>
+</div>
+</div>
+</div>
+
+<h2 class="font-label-caps text-primary mb-8 tracking-widest">[ INVENTARIO DE LOCACIONES ]</h2>
+
+<div class="space-y-8">
+<div class="glass-panel p-6 border-l-4 border-error">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-02: CÁPSULA DE INTERFAZ / UNIDAD HABITACIONAL</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: MÁXIMA ★</p>
+</div>
+<span class="bg-error/20 text-error font-label-caps px-3 py-1">SET · ~12 escenas</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Espacio de 15m², paredes blancas, iluminación fluorescente fría, cápsula ovoide metálica, superficie modular, dispensador, pantalla holográfica.</p>
+<div class="bg-surface-container p-4 mb-3">
+<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">4 AMBIENTACIONES:</span> limpia (Acto I) → normal (Acto II) → caótica/devastada (Acto IV) → mínima/aceptación (Acto V)</p>
+</div>
+<p class="font-terminal-sm text-primary">SET MÁS IMPORTANTE DEL FILM. Aparece en ~70% de las escenas.</p>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-primary">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-16: CÁPSULA / TERMINAL ASCII — EL PARTO DIGITAL</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: MÁXIMA ★</p>
+</div>
+<span class="bg-primary/20 text-primary font-label-caps px-3 py-1">SET + VFX · Esc. 13, 14</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Misma cápsula (LOC-02) pero la pantalla muestra TERMINAL ASCII EN VIVO. 4-7 minutos de PURO CÓDIGO VIVO construyendo un mundo.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">5 FASES:</span> Tierra → Aire → Arquitectura → Movimiento → Cielo. Código se vuelve imagen cinematográfica.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-tertiary">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-06: CALLES DE SAN FELIPE — BOGOTÁ 2024</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: ALTA</p>
+</div>
+<span class="bg-tertiary/20 text-tertiary font-label-caps px-3 py-1">REAL · Esc. 4, 6</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Barrio San Felipe. Carrera 23 hacia los cerros. Casas coloniales, fachadas desconchadas, balcones, ropa tendida, perros, vendedores.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">LOCACIÓN SUGERIDA:</span> Chapineroalto, Calles 58-62 entre Carreras 4-7. Alternativa: La Candelaria.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-tertiary">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-07: CAFÉ MONTANA RECORDS — SAN FELIPE</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: ALTA</p>
+</div>
+<span class="bg-tertiary/20 text-tertiary font-label-caps px-3 py-1">REAL · Esc. 5, 9</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Café-vinilo en casa vieja. Cerámicas, mesas desparejadas, estanterías de vinilos, luz verde cálida, tocadiscos.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">CLAVE NARRATIVA:</span> Escena 5 (primer encuentro) + Escena 9 (devolución devastadora). MISMA mesa, MISMA ventana. La repetición visual es esencial.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-tertiary">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-08: APARTAMENTO DE AYDA — SAN FELIPE</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: ALTA</p>
+</div>
+<span class="bg-tertiary/20 text-tertiary font-label-caps px-3 py-1">REAL · Esc. 6, 7</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Apartamento desastre hermoso. Segundo piso, ventanas a los cerros, paredes amarillo dorado, libros en el piso, plantas, sofá recuperado.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">2 MOMENTOS:</span> Atardecer (luz natural) + madrugada (vela, oscuridad). Filmable en 1 locación con 2 setups.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-outline">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-01: ESPACIO ABSTRACTO / SIMULACIÓN ÍNTIMA</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: ALTA</p>
+</div>
+<span class="bg-surface-container font-label-caps px-3 py-1 text-on-surface-variant">SET · Esc. 1</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Sin paredes, sin techo, sin tiempo. Luz cálida ambarina que recorta siluetas contra fondo indistinto.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant">Ciclorama negro, iluminación cálida, humo. Transición a Esc. 2 es CONTINUA.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-outline">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-17: BOGOTÁ IMPOSIBLE (CLÚSTER CORF-00)</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: ALTA</p>
+</div>
+<span class="bg-surface-container font-label-caps px-3 py-1 text-on-surface-variant">REAL + VFX/AI · Esc. 15</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Calle de adoquines coloniales. Olor a café con pan. TransMilenio rojo entre casas del siglo XVIII. Cielo con DOS LUNAS.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant">Base real (La Candelaria) + composición AI en post. TransMilenio rojo y segunda luna se insertan.</p>
+</div>
+</div>
+
+<div class="glass-panel p-6 border-l-4 border-outline">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-primary mb-1">LOC-18: MONITOR RESIDUAL DE M.A.R.I.A.</h3>
+<p class="font-terminal-sm text-on-surface-variant">Prioridad: MEDIA</p>
+</div>
+<span class="bg-surface-container font-label-caps px-3 py-1 text-on-surface-variant">SET · Esc. 15 (cierre)</span>
+</div>
+<p class="font-body-md text-on-surface-variant mb-3">Misma unidad habitacional (LOC-02) pero vacía, oscura. Solo iluminada por el monitor. M.A.R.I.A. en Avatar S-7 vela.</p>
+<div class="bg-surface-container p-4">
+<p class="font-terminal-sm text-on-surface-variant">ÚLTIMA ESCENA DEL FILM. ZOOM OUT: monitor → habitación → torre → ciudad → punto verde.</p>
+</div>
+</div>
+</div>
+
+<h2 class="font-label-caps text-primary mt-16 mb-8 tracking-widest">[ RESUMEN ESTRATÉGICO ]</h2>
+<div class="glass-panel p-6 mb-6">
+<h3 class="font-label-caps text-error mb-4">LOCACIONES FÍSICAS ÚNICAS: 6</h3>
+<div class="space-y-3 font-body-md text-on-surface-variant">
+<ol class="list-decimal list-inside space-y-2">
+<li><span class="text-primary">SET Cápsula/Unidad Habitacional</span> — Se construye 1 vez, ~12 escenas, 4 ambientaciones</li>
+<li><span class="text-primary">SET Espacio Abstracto</span> — Estudio negro con iluminación</li>
+<li><span class="text-primary">REAL Café Montana Records</span> — Contratar café-vinilo en Chapinero</li>
+<li><span class="text-primary">REAL Apartamento de Ayda</span> — Apartamento viejo con vista a cerros</li>
+<li><span class="text-primary">REAL Calles San Felipe / La Candelaria</span> — Permisos de filmación</li>
+<li><span class="text-primary">REAL Cine</span> — Contratar cine independiente</li>
+</ol>
+</div>
+</div>
+
+<div class="glass-panel p-6">
+<h3 class="font-label-caps text-on-surface-variant mb-4">NOTAS PARA LEY DE CINE</h3>
+<ul class="space-y-2 font-body-md text-on-surface-variant">
+<li>• 1 set principal = 70% del film. Construcción una vez, reutilización máxima.</li>
+<li>• Contraste visual FUTURO vs 2024: ILUMINACIÓN (fría vs cálida) + LOCACIONES</li>
+<li>• Acto V se resuelve con IA generativa (Bogotá Imposible)</li>
+<li>• Secuencia ASCII "El Parto Digital" es ANIMACIÓN DE TEXTO — económicamente eficiente</li>
+<li>• M.A.R.I.A. es VOZ EN OFF excepto escena final — reduce costos</li>
+<li>• Eliminado Centro de Procesamiento: ahorro ~$2-5M COP</li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-12 px-margin-desktop border-t border-dotted border-outline-variant bg-surface-container-lowest mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-2"><p class="font-label-caps text-label-caps text-secondary">AYDA SIN MEMORIA</p><p class="font-terminal-sm text-terminal-sm text-outline">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p></div>
+<div class="flex flex-wrap gap-8 justify-center">
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="locaciones.html">LOCACIONES</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="actores.html">ACTORES</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="direccion.html">DIRECCION</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="sinopsis.html">SINOPSIS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="characters.html">CHARACTERS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="timeline.html">TIMELINE</a>
+</div>
+<div class="text-right"><p class="font-terminal-sm text-terminal-sm text-primary">Versión Definitiva 2026</p><p class="font-terminal-sm text-terminal-sm text-outline">Guión Literario Original</p></div>
+</div>
+</footer>
+
+
+</body></html>

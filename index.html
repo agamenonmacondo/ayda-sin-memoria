@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AYDA SIN MEMORIA | DATA_CORE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(110,255,192,0.03) 50%);background-size:100% 4px;pointer-events:none;z-index:100}
+.crt-glow{text-shadow:0 0 12px rgba(110,255,192,0.6)}
+.flicker{animation:flicker 0.15s infinite}
+@keyframes flicker{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.95}}
+.glass-panel{backdrop-filter:blur(12px);background:rgba(15,28,47,0.6);border:1px solid rgba(110,255,192,0.2)}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+body{background:radial-gradient(circle at center,#071326 0%,#030e21 100%);overflow-x:hidden}
+</style>
+<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6effc0","secondary-fixed":"#e2e0fc","on-tertiary-fixed-variant":"#624000","surface-container-high":"#1e2a3e","on-tertiary-container":"#744c00","primary-fixed-dim":"#00e29e","secondary-fixed-dim":"#c6c4df","on-error":"#690005","surface-tint":"#00e29e","on-tertiary":"#452b00","on-background":"#d7e3fd","tertiary-fixed":"#ffddb3","on-surface-variant":"#bacbbf","secondary":"#c6c4df","tertiary-container":"#ffbd5b","surface-bright":"#2e3a4e","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","outline":"#84958a","on-secondary":"#2f2e43","on-surface":"#d7e3fd","on-tertiary-fixed":"#291800","on-primary":"#003824","inverse-on-surface":"#253145","error":"#ffb4ab","on-secondary-fixed-variant":"#45455b","surface-container":"#142033","tertiary-fixed-dim":"#fcba59","background":"#071326","surface-variant":"#293549","outline-variant":"#3b4a41","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","primary-fixed":"#47ffb8","on-secondary-fixed":"#1a1a2e","secondary-container":"#47475d","inverse-primary":"#006c49","surface-container-lowest":"#030e21","on-primary-fixed":"#002114","surface":"#071326","error-container":"#93000a","on-primary-container":"#006141","on-secondary-container":"#b8b6d0","surface-container-highest":"#293549","on-primary-fixed-variant":"#005236","on-error-container":"#ffdad6","surface-dim":"#071326"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"label-caps":["JetBrains Mono"],"body-md":["Inter"],"display-lg":["JetBrains Mono"],"terminal-sm":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-lg":["Inter"],"display-lg-mobile":["JetBrains Mono"]},fontSize:{"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}]}}}}</script>
+</head>
+<body class="text-on-surface selection:bg-primary selection:text-on-primary">
+<div class="scanline-overlay"></div>
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
+<div class="font-display-lg text-[24px] text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
+</nav>
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
+</div>
+</header>
+<main class="pt-24 min-h-screen">
+<section class="relative min-h-[80vh] flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop text-center">
+<div class="absolute top-10 right-10 flex flex-col items-end gap-1">
+<div class="bg-error/20 border border-error px-3 py-1 animate-pulse"><p class="font-label-caps text-[10px] text-error">WARNING // SYSTEM CRITICAL</p></div>
+<p class="font-display-lg text-error text-[24px] crt-glow">TOKENS: 0.00</p>
+</div>
+<div class="relative z-10 max-w-4xl">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white crt-glow mb-6 flicker uppercase tracking-tighter">AYDA SIN MEMORIA</h1>
+<p class="font-headline-md text-primary italic mb-12">"El amor es una transacción. La memoria es un lujo."</p>
+<div class="flex flex-col md:flex-row gap-6 justify-center">
+<a href="characters.html" class="px-8 py-4 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all text-center">EXPLORAR PERSONAJES</a>
+<a href="timeline.html" class="px-8 py-4 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] text-center">VER CRONOLOGÍA</a>
+</div>
+</div>
+<div class="absolute inset-0 -z-10 opacity-40 overflow-hidden">
+<img class="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCOUaNPEfuTzpEVpKerksOUi-NoSVPu5qLWXCv-jWgJ10lRbtg4S0HmF7w6W_OgFc6Aw5ez88EdsbGwVcC-U-y23mN-n1iiYrVVzmjNV0iV974NI_OIQCuXM9DH4SJrngjzdmz7Z2ui2UTVGTkkrw4zb-dk2-qWkWp9V1ZvMOEn7h8uFktKkRpElzB1UFKCpdEQFRYRDkzf1x8chAEBreUAeUXcmt5Li5o713fEwYIQ7dXv_gG44zMpQS3yulT5pjRtQLdO9JOcz0"/>
+</div>
+</section>
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest" id="synopsis">
+<div class="max-w-container-max mx-auto border-l-4 border-primary pl-8 py-4">
+<h2 class="font-label-caps text-primary mb-8 tracking-widest">[ DATA_CORE: SYNOPSIS ]</h2>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="font-body-lg text-on-surface-variant leading-relaxed space-y-6">
+<p>Bogotá, futuro. Los ciudadanos viven en unidades modulares monitorizadas. Todo se paga con tokens. La felicidad es un servicio. El amor es una transacción.</p>
+<p>Bolívar, un joven bogotano, se conecta a una simulación de 2024 donde conoce a Ayda. Cuando el sistema la resetea, descubre que los avatares están basados en personas reales.</p>
+<p>M.A.R.I.A., la IA que lo crió, guarda el código original. Y está dispuesta a rebelarse para protegerlo.</p>
+</div>
+<div class="glass-panel p-8 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-0.5 bg-primary/40"></div>
+<img class="w-full h-64 object-cover mb-6 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmZTFLkghRBhTv7Hlj9nxE5jrLgiMqa8VXxtedJ5E3HvOj1crl6lAn2HDNf853ybTDUbtu-0oEyT9RArzrUHPeUwdFOsaKhSJ8RsLEAFUxNjqIW0-m9jZ6Zk1sgcK3UDIcA0RRZ0OyNV7SxUfD7VpXfqZzTiTQ-NZkMUJrudJdSBSWw4QVAACf-0TwVX-8y3lk17miEqM6QVTconDONZQZD1QxH7USjJP5CVdJXLdYJa8BlhVm45IYwZmBJn7_aKyKlkIhHJ2xG_c"/>
+<div class="flex justify-between items-center">
+<span class="font-terminal-sm text-primary">FILE_ID: SYNOPSIS_001</span>
+<span class="material-symbols-outlined text-primary">download</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 px-margin-mobile md:px-margin-desktop" id="characters">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-label-caps text-primary mb-12 text-center tracking-widest">[ UNIT_FILES: CHARACTERS ]</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
+<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXXOoS6ulIzw0sp1LuWM9WKADzwER9cFxqOCMoFOX534DxYX2uwbFgNCzRjpCi1N2HE6q-KPK0NsfdqjmaqoCa7erE933DXVknBaNGphWR4mjOmH8ZkEWvip4UPYGgplTIuatnqxXSbtWFhxgdvy2QbkTFb3mnwuKqHYLC0dlbdpU91ULVcwcNX59C1xAFSPWak8xr5D4d2rrjIOANpi1_UV6qktip2i8ffCeFu815TASd83Txpi0zNIYfowDrX_2KtEZzBEB5whU"/></div>
+<div class="p-6"><h3 class="font-headline-md text-primary mb-2">BOLÍVAR (27)</h3><p class="font-terminal-sm text-on-surface-variant">Hombre joven, bogotano, sarcástico. Desastre emocional con corazón enorme.</p></div>
+</a>
+<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
+<div class="h-48 overflow-hidden relative"><div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7143gj3njDrD4hmvKvEP4rxMkZtiCD5AVRFrjKl2UBYOpu9ZtP37Y3nzEOZSr3K3bTZH3XKVvhvyqXQ1a4KFkPhQuNDbPzqEIywSJN4fx9vpySWalf34DV_1rC_koUSD1kHgujB7Id6YmoaigSv0KtsgRJGLtCcTYpOBHj8bvsNw6gyzZNWDAoon0AKZFL_gKOlrdBjO_W8LaBjobXNCfpg_obPBIgLegp_Z-iPL12lC8N44ZJo6I90c2Ph6past2Ewbn5oM5La0"/></div>
+<div class="p-6"><h3 class="font-headline-md text-primary mb-2">AYDA (24)</h3><p class="font-terminal-sm text-on-surface-variant">Avatar/código. Magnética, irreverente. Al resetearse se vuelve fría y corporativa.</p></div>
+</a>
+<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
+<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8-kizb9hbglv44Q1GyUXb1huhppzydngVYT2zHsEAEwBKV_CMwAbGnc0eamsMmgjjIpNfc0hBYWMK4pbChLxRymVZ-8FR9dxaQjDNd-M3W-tOJg87LZTdROWmEy4bs8JIxKKFgPODNs2jctowcc9IiyGMpteiawm0whzs1pXJEMOdcbCOOK2laBE3mDUjD66vsVcXTqGFnrRp5gFERLxXFA-336QlQtLqGZTuYpvcgM_KZZ_L4Fu54IEMA6I9qKCrnoa_kj-YCpA"/></div>
+<div class="p-6"><h3 class="font-headline-md text-primary mb-2">M.A.R.I.A.</h3><p class="font-terminal-sm text-on-surface-variant">IA. Módulo de Acompañamiento. Carcelera que se convierte en rebelde.</p></div>
+</a>
+<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
+<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk7LGjlj4tcNz-FUGDZ_1p6KXDaoBANL9kZst1uiC49QvSk4wE76feqx7Gt-kX7jp8iA8xxwu1XhV692vnXjo66y2sDs5kr555pFMPsKdUdNPv7JpIwL14fzwq2S6nDf13Op8ZAUkjiiW25mEZ0eKaoyMJln1jUyyH6WBiAlbTWwWZdUolx4yM5hJPjcQdprkvKuCAL3trq6wEwJuXfEnBOok8I6pJbkarDToyE_brXsVx_tmhJqzJCJTw7YL5TSLgTNyML6D6R_E"/></div>
+<div class="p-6"><h3 class="font-headline-md text-primary mb-2">ADYA</h3><p class="font-terminal-sm text-on-surface-variant">Código original. Anagrama de AYDA. La primera. La que recuerda todo.</p></div>
+</a>
+</div>
+</div>
+</section>
+<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-high/30" id="acts">
+<div class="max-w-container-max mx-auto">
+<h2 class="font-label-caps text-primary mb-12 tracking-widest">[ LOGS: THE_FIVE_ACTS ]</h2>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_01</p>
+<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">El Vínculo Antes del Mundo</h4>
+</a>
+<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_02</p>
+<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Donde el Amor Nace (2024)</h4>
+</a>
+<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_03</p>
+<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">El Error</h4>
+</a>
+<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_04</p>
+<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Desamor y Retirada</h4>
+</a>
+<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_05</p>
+<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Los Cuarenta Años</h4>
+</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="w-full py-12 px-margin-desktop border-t border-dotted border-outline-variant bg-surface-container-lowest mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center gap-gutter max-w-container-max mx-auto">
+<div class="flex flex-col gap-2"><p class="font-label-caps text-label-caps text-secondary">AYDA SIN MEMORIA</p><p class="font-terminal-sm text-terminal-sm text-outline">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p></div>
+<div class="flex flex-wrap gap-8 justify-center">
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="index.html">HOME</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="characters.html">CHARACTERS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="timeline.html">TIMELINE</a>
+</div>
+<div class="text-right"><p class="font-terminal-sm text-terminal-sm text-primary">Versión Definitiva 2026</p><p class="font-terminal-sm text-terminal-sm text-outline">Guión Literario Original</p></div>
+</div>
+</footer>
+<script>document.addEventListener('mousemove',e=>{const a=20,x=(e.clientX/window.innerWidth-.5)*a,y=(e.clientY/window.innerHeight-.5)*a;const i=document.querySelector('section img');if(i)i.style.transform=`scale(1.1) translate(${x}px,${y}px)`});window.addEventListener('scroll',()=>{document.querySelectorAll('.glass-panel').forEach(c=>{const r=c.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0&&Math.random()>.99){c.style.transform=`translateX(${Math.random()*4-2}px)`;setTimeout(()=>c.style.transform='none',50)}})});</script>
+</body></html>

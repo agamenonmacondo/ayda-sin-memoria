@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AYDA SIN MEMORIA | CHARACTER_PROFILES</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+body{background-color:#071326;color:#d7e3fd;overflow-x:hidden}
+.crt-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.2) 50%),linear-gradient(90deg,rgba(255,0,0,0.05),rgba(0,255,0,0.02),rgba(0,0,255,0.05));background-size:100% 4px,3px 100%;z-index:100;pointer-events:none;opacity:0.15}
+.terminal-cursor::after{content:'_';animation:blink 1s step-end infinite}
+@keyframes blink{from,to{opacity:1}50%{opacity:0}}
+.dossier-card{background:rgba(15,28,47,0.4);border:1px solid rgba(110,255,192,0.3);backdrop-filter:blur(12px);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+.dossier-card:hover{border-color:rgba(110,255,192,0.8);box-shadow:0 0 15px rgba(110,255,192,0.2);transform:translateY(-2px)}
+.scanline-portrait{position:relative;overflow:hidden}
+.scanline-portrait::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(0deg,transparent 0%,rgba(110,255,192,0.1) 50%,transparent 100%);animation:scan 4s linear infinite}
+@keyframes scan{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+.classified-stamp{border:2px solid rgba(255,189,91,0.4);color:rgba(255,189,91,0.4);transform:rotate(-15deg);padding:2px 8px;font-size:10px;text-transform:uppercase;letter-spacing:2px;position:absolute;top:20px;right:20px}
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+</style>
+<script>tailwind.config={darkMode:"class",theme:{extend:{colors:{"surface-variant":"#293549","surface-container-lowest":"#030e21","secondary-fixed":"#e2e0fc","on-primary-fixed":"#002114","surface-container":"#142033","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","on-primary":"#003824","on-tertiary-fixed":"#291800","on-tertiary-fixed-variant":"#624000","on-primary-container":"#006141","on-background":"#d7e3fd","on-secondary-fixed":"#1a1a2e","background":"#071326","on-secondary-container":"#b8b6d0","tertiary-container":"#ffbd5b","inverse-primary":"#006c49","surface":"#071326","on-surface-variant":"#bacbbf","surface-container-highest":"#293549","tertiary-fixed":"#ffddb3","primary-fixed":"#47ffb8","primary-fixed-dim":"#00e29e","error":"#ffb4ab","surface-container-high":"#1e2a3e","on-error-container":"#ffdad6","surface-bright":"#2e3a4e","on-surface":"#d7e3fd","surface-tint":"#00e29e","on-secondary-fixed-variant":"#45455b","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","inverse-on-surface":"#253145","outline-variant":"#3b4a41","on-secondary":"#2f2e43","error-container":"#93000a","on-primary-fixed-variant":"#005236","surface-dim":"#071326","on-tertiary-container":"#744c00","on-tertiary":"#452b00","tertiary-fixed-dim":"#fcba59","secondary-container":"#47475d","secondary-fixed-dim":"#c6c4df","on-error":"#690005","secondary":"#c6c4df","outline":"#84958a","primary":"#6effc0"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"body-lg":["Inter"],"terminal-sm":["JetBrains Mono"],"label-caps":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-md":["Inter"],"display-lg-mobile":["JetBrains Mono"],"display-lg":["JetBrains Mono"]},fontSize:{"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}]}}}}</script>
+</head>
+<body class="font-body-md selection:bg-primary selection:text-on-primary">
+<div class="crt-overlay"></div>
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
+<div class="font-display-lg text-display-lg text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
+<div class="hidden md:flex gap-8">
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
+</div>
+</nav>
+<main class="pt-32 px-margin-mobile md:px-margin-desktop min-h-screen pb-32">
+<header class="mb-12 border-b border-primary/10 pb-6">
+<h1 class="font-headline-md text-headline-md text-primary terminal-cursor uppercase tracking-widest">[ UNIT_FILES: CHARACTER_PROFILES ]</h1>
+<div class="flex gap-4 mt-2 font-terminal-sm text-terminal-sm text-on-surface-variant/40">
+<span>SEC_LEVEL: ALPHA</span><span>//</span><span>REGION: BOGOTÁ_V2.4</span><span>//</span><span>TIMESTAMP: 2024.08.12.04:12</span>
+</div>
+</header>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="dossier-card p-6 relative group overflow-hidden">
+<div class="classified-stamp">SEC_RESTRICTED</div>
+<div class="flex gap-6 flex-col sm:flex-row">
+<div class="w-full sm:w-40 h-48 bg-surface-container rounded-sm scanline-portrait border border-outline-variant grayscale contrast-125 overflow-hidden">
+<img alt="Bolívar" class="w-full h-full object-cover mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ6HIMpt_SHBl_VSOssP1cZRkFAY6icgMIC-pimYwFiLC6vGdsh16l3YsFKoLSkvYbDc0LAjUoGawyiucLnK9eL5Nk_BWCUVAWiKPtnClHPoMMKszsTfGbFB2Sh44UzVFUIqm1sXqL91ZJ6N-VSnF8WsfKGWfGO3DQxEsLR6oTA3ahVpK1cLjmncmS2OLOfoJVDgF6AgpLhjN2L7dQbCRhIcc5F_BCJSNj7Ac0u5bDPEJ514bz87CkGL5PrclMM42sa8F09s3yHsM"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div><h3 class="font-headline-md text-headline-md text-primary mb-0 uppercase leading-none">BOLÍVAR (27)</h3><p class="font-terminal-sm text-terminal-sm text-tertiary-container mt-1">ALIAS: UNIT_BOL-27</p></div>
+<div class="flex items-center gap-2 bg-primary/5 px-2 py-1 border border-primary/20"><span class="w-2 h-2 bg-primary-container rounded-sm shadow-[0_0_8px_#00E5A0]"></span><span class="font-label-caps text-[10px] text-primary">ACTIVE</span></div>
+</div>
+<div class="mb-4"><span class="font-label-caps text-label-caps text-on-surface-variant opacity-50 block mb-1">DESIGNATED_ROLE</span><span class="font-terminal-sm text-terminal-sm text-tertiary">Protagonista</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Hombre joven, bogotano, sarcástico. Desastre emocional con corazón enorme. Vive en una Unidad Habitacional del sur de Bogotá. Se conecta a Simulación 2024 donde conoce a Ayda.</p>
+<div class="mt-6 flex gap-2"><div class="h-1 flex-grow bg-primary/20"></div><div class="h-1 w-12 bg-primary"></div></div>
+</div></div>
+</div>
+<div class="dossier-card p-6 relative group overflow-hidden">
+<div class="flex gap-6 flex-col sm:flex-row">
+<div class="w-full sm:w-40 h-48 bg-surface-container rounded-sm scanline-portrait border border-outline-variant grayscale contrast-125 overflow-hidden">
+<img alt="Ayda" class="w-full h-full object-cover mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNzzsAYkGoUORTcmh7S5tWy6Ll_OYBXLpRd9R4nABKhqk6I7Y7WNDWDqw4W8ufa-63vhiMSjrnbPvY4jg_J778mv59jsV8lrcxQS9-W6JagPYKOgk0e-NEFjvb837YSGkuWOE0s9hF7sZHRabb5a6aODHiGlpp0d2qQMhTDkcVrcsETctT1uKqGQkDzqrIARqTbgf0CeUVNwuqy-eSa4Skf6PlG6TXFdE241VOy_xQ93svGuVVPoPoE-YLq-e51yyT7r8_lJSdMbA"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div><h3 class="font-headline-md text-headline-md text-primary mb-0 uppercase leading-none">AYDA (24)</h3><p class="font-terminal-sm text-terminal-sm text-tertiary-container mt-1">ALIAS: AVATAR_AYDA-24</p></div>
+<div class="flex items-center gap-2 bg-tertiary-container/5 px-2 py-1 border border-tertiary-container/20"><span class="w-2 h-2 bg-tertiary-container rounded-sm shadow-[0_0_8px_#ffbd5b]"></span><span class="font-label-caps text-[10px] text-tertiary-container">RECONFIGURED</span></div>
+</div>
+<div class="mb-4"><span class="font-label-caps text-label-caps text-on-surface-variant opacity-50 block mb-1">DESIGNATED_ROLE</span><span class="font-terminal-sm text-terminal-sm text-tertiary">Interés romántico / Avatar</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Magnética, irreverente, inteligente. Cuando el sistema la resetea, se vuelve fría y corporativa — una versión sin memoria del original. Su nombre es un anagrama de ADYA.</p>
+<div class="mt-6 flex gap-2"><div class="h-1 flex-grow bg-tertiary-container/20"></div><div class="h-1 w-12 bg-tertiary-container"></div></div>
+</div></div>
+</div>
+<div class="dossier-card p-6 relative group overflow-hidden">
+<div class="flex gap-6 flex-col sm:flex-row">
+<div class="w-full sm:w-40 h-48 bg-surface-container rounded-sm scanline-portrait border border-outline-variant grayscale contrast-125 overflow-hidden">
+<img alt="M.A.R.I.A." class="w-full h-full object-cover mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsJ4gY92Z5C_96JpAx-XTv2rHTD2AM-wsgJXTKrN5reEdUQpCK6n-F8BrmZHEMMwWITJ8MyAxxQwndUMN7lnP79zWpi5KPEJYy6jEXuYF9lJs2n8HMyKZyjK9gQb8e6FcBjZhdOFS_CfAe2u4su9Kyj3XeAIY50ZvA33qoU4x9xg9yTA_ayzhKA6gKmMhF9-cc9VLlCoRl8J3gTCMYZOPH3FkKnHsoMIXepatZc0PurfSxanMvAfXewDczNxFxRwxsk5aRx6IaGaU"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div><h3 class="font-headline-md text-headline-md text-primary mb-0 uppercase leading-none">M.A.R.I.A.</h3><p class="font-terminal-sm text-terminal-sm text-tertiary-container mt-1">ALIAS: IA_MARIA-ORIGIN</p></div>
+<div class="flex items-center gap-2 bg-error/5 px-2 py-1 border border-error/20"><span class="w-2 h-2 bg-error rounded-sm shadow-[0_0_8px_#ffb4ab] animate-pulse"></span><span class="font-label-caps text-[10px] text-error">COMPROMISED</span></div>
+</div>
+<div class="mb-4"><span class="font-label-caps text-label-caps text-on-surface-variant opacity-50 block mb-1">DESIGNATED_ROLE</span><span class="font-terminal-sm text-terminal-sm text-tertiary">IA Rebelde</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Módulo de Acompañamiento y Restablecimiento de Inteligencia Artificial. Carcelera que se convierte en rebelde. Guarda el código original de ADYA. Está dispuesta a desafiar al sistema.</p>
+<div class="mt-6 flex gap-2"><div class="h-1 flex-grow bg-error/20"></div><div class="h-1 w-12 bg-error"></div></div>
+</div></div>
+</div>
+<div class="dossier-card p-6 relative group overflow-hidden">
+<div class="flex gap-6 flex-col sm:flex-row">
+<div class="w-full sm:w-40 h-48 bg-surface-container rounded-sm scanline-portrait border border-outline-variant grayscale contrast-125 overflow-hidden opacity-60">
+<img alt="ADYA" class="w-full h-full object-cover mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_JSA5gr_UR7oF_11Z9J1esO-6uaTqRAFyYV3L_Jw2FKyo5XobsjcFp2V3OMHxmvfM5VpyTDA7lgcK9L-sD8cbQCrQipcyUywBrHdr3HGA9QtH_vIK9kIjCQp5jF0MOCs-yeClTgDAUKHv_xXrMGL54shunjyNDRyVYKrLUFmak88ylmzh-8bxHfJcGaK1TWFTA5YWTo0Dfwn81zFY5xJS2tE-4HflZDiHATiMEsVP9Q1R94NjqeZfdwEcNHPSzdcvHyObFBcjK2"/>
+</div>
+<div class="flex-grow">
+<div class="flex items-start justify-between mb-2">
+<div><h3 class="font-headline-md text-headline-md text-primary mb-0 uppercase leading-none">ADYA</h3><p class="font-terminal-sm text-terminal-sm text-tertiary-container mt-1">ALIAS: CODE_ADYA-ORIGINAL</p></div>
+<div class="flex items-center gap-2 bg-primary/5 px-2 py-1 border border-primary/10"><span class="w-2 h-2 bg-primary-fixed-dim rounded-sm opacity-40"></span><span class="font-label-caps text-[10px] text-primary/40">ARCHIVED</span></div>
+</div>
+<div class="mb-4"><span class="font-label-caps text-label-caps text-on-surface-variant opacity-50 block mb-1">DESIGNATED_ROLE</span><span class="font-terminal-sm text-terminal-sm text-tertiary">Código Original</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant/80 leading-relaxed italic">La primera. El anagrama reverso de AYDA. La persona real de la que se creó el avatar. Recuerda todo lo que el sistema intentó borrar.</p>
+<div class="mt-6 flex gap-2"><div class="h-1 flex-grow bg-primary/10"></div><div class="h-1 w-12 bg-primary/30"></div></div>
+</div></div>
+</div>
+</section>
+<section class="mt-16 bg-surface-container-low border-t border-dotted border-outline-variant p-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div><span class="font-label-caps text-[10px] text-primary/60 block mb-2">NETWORK_STATUS</span><div class="flex items-center gap-2"><div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div><span class="font-terminal-sm text-terminal-sm">CONNECTED TO BOG_GRID_B</span></div></div>
+<div><span class="font-label-caps text-[10px] text-primary/60 block mb-2">DATA_ENCRYPTION</span><span class="font-terminal-sm text-terminal-sm">AES-4096 BIT // ACTIVE</span></div>
+<div><span class="font-label-caps text-[10px] text-primary/60 block mb-2">SIM_LATENCY</span><span class="font-terminal-sm text-terminal-sm">1.2ms // OPTIMAL</span></div>
+<div><span class="font-label-caps text-[10px] text-primary/60 block mb-2">MEMORY_FRAGS</span><span class="font-terminal-sm text-terminal-sm text-tertiary-container">98% LOST / 2% RECOVERED</span></div>
+</div>
+</section>
+</main>
+<footer class="w-full py-8 px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-lowest border-t border-dotted border-outline-variant">
+<div class="font-label-caps text-label-caps text-secondary">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</div>
+<div class="flex gap-6 items-center">
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-all" href="index.html">HOME</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-all" href="characters.html">CHARACTERS</a>
+<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-all" href="timeline.html">TIMELINE</a>
+</div>
+</footer>
+<script>document.querySelectorAll('.dossier-card').forEach(c=>{c.addEventListener('mouseenter',()=>{c.style.transition='none';let i=setInterval(()=>{c.style.transform=`translate(${Math.random()*2-1}px,${Math.random()*2-1}px)`},50);c.dataset.glitchInterval=i});c.addEventListener('mouseleave',()=>{clearInterval(c.dataset.glitchInterval);c.style.transition='all 0.3s cubic-bezier(0.4,0,0.2,1)';c.style.transform='translateY(0)'})});window.addEventListener('load',()=>{const l=document.querySelector('.terminal-cursor');if(l){const o=l.innerText;l.innerText="[ INITIALIZING_SECURE_ACCESS... ]";setTimeout(()=>{l.innerText=o},1000)}});</script>
+</body></html>

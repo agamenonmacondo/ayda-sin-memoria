@@ -1,193 +1,743 @@
 <!DOCTYPE html>
-<html class="dark" lang="es"><head>
+<html lang="es">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AYDA SIN MEMORIA | DATA_CORE</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<title>AYDA SIN MEMORIA | DESGLOSE DE ACTORES</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
-.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(110,255,192,0.03) 50%);background-size:100% 4px;pointer-events:none;z-index:100}
-.crt-glow{text-shadow:0 0 12px rgba(110,255,192,0.6)}
-.flicker{animation:flicker 0.15s infinite}
-@keyframes flicker{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.95}}
-.glass-panel{backdrop-filter:blur(12px);background:rgba(15,28,47,0.6);border:1px solid rgba(110,255,192,0.2)}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
-body{background:radial-gradient(circle at center,#071326 0%,#030e21 100%);overflow-x:hidden}
+/* === CORRUPTED ARCHIVE DESIGN SYSTEM === */
+:root {
+  --bg: #0A0908;
+  --surface: #161412;
+  --surface-raised: #1E1B18;
+  --cream: #E8E0D4;
+  --cream-muted: #A89F93;
+  --rust: #8C4434;
+  --rust-dim: rgba(140,68,52,0.15);
+  --green: #B8D4B8;
+  --green-dim: rgba(184,212,184,0.12);
+  --ghost: #7B8FA1;
+  --ghost-dim: rgba(123,143,161,0.12);
+  --red: #E04040;
+  --red-dim: rgba(224,64,64,0.12);
+  --amber: #D4A030;
+  --amber-dim: rgba(212,160,48,0.12);
+  --border: rgba(232,224,212,0.08);
+  --border-strong: rgba(232,224,212,0.15);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg);
+  color: var(--cream);
+  line-height: 1.6;
+  font-weight: 400;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0.035;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* === TYPOGRAPHY === */
+.font-label {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.7rem;
+  line-height: 1.0;
+}
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+.font-body {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.font-name {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: var(--cream);
+}
+.font-heading {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  color: var(--cream);
+}
+.font-section {
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 0.65rem;
+  line-height: 1.0;
+  color: var(--cream-muted);
+}
+
+/* === HEADER === */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10,9,8,0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-strong);
+}
+.site-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+}
+.site-title:hover { color: var(--rust); }
+.site-nav { display: flex; gap: 1.5rem; }
+.site-nav a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+.site-nav a:hover,
+.site-nav a.active {
+  color: var(--cream);
+  border-bottom-color: var(--rust);
+}
+.site-nav a.active { color: var(--rust); }
+
+/* === LAYOUT === */
+.page-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 2rem;
+}
+
+/* === PAGE HERO === */
+.page-hero {
+  border-left: 3px solid var(--rust);
+  padding-left: 2rem;
+  margin-bottom: 3rem;
+}
+.page-hero h1 {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: 2.8rem;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 0.75rem;
+}
+.page-hero .subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--rust);
+}
+
+/* === STAT CARDS === */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+.stat-card:hover { border-color: var(--border-strong); }
+.stat-card .stat-number {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-card .stat-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+}
+.stat-card.accent-rust .stat-number { color: var(--rust); }
+.stat-card.accent-rust { border-color: rgba(140,68,52,0.3); }
+.stat-card.accent-ghost .stat-number { color: var(--ghost); }
+.stat-card.accent-amber .stat-number { color: var(--amber); }
+.stat-total {
+  text-align: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--cream-muted);
+  padding: 0.75rem 0;
+}
+
+/* === SECTION HEADERS === */
+.section-marker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  margin: 3.5rem 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* === CHARACTER CARDS === */
+.char-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  padding: 1.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+.char-card:hover {
+  background: var(--surface-raised);
+}
+.char-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.char-card-header h3 {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--cream);
+}
+.char-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.char-presence {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+.char-description {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+.char-detail {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+  margin-top: 0.5rem;
+}
+.char-detail p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--cream-muted);
+}
+.char-detail p + p { margin-top: 0.5rem; }
+.char-detail .detail-key { color: var(--cream); font-weight: 600; }
+
+/* Border accent variants */
+.char-card.border-rust { border-left-color: var(--rust); }
+.char-card.border-rust .char-tag { color: var(--rust); border-color: var(--rust); background: var(--rust-dim); }
+.char-card.border-rust .char-presence { color: var(--rust); }
+.char-card.border-rust .char-detail .detail-key { color: var(--rust); }
+
+.char-card.border-green { border-left-color: var(--green); }
+.char-card.border-green .char-tag { color: var(--green); border-color: var(--green); background: var(--green-dim); }
+.char-card.border-green .char-presence { color: var(--green); }
+.char-card.border-green .char-detail .detail-key { color: var(--green); }
+
+.char-card.border-red { border-left-color: var(--red); }
+.char-card.border-red .char-tag { color: var(--red); border-color: var(--red); background: var(--red-dim); }
+.char-card.border-red .char-presence { color: var(--red); }
+.char-card.border-red .char-detail .detail-key { color: var(--red); }
+
+.char-card.border-amber { border-left-color: var(--amber); }
+.char-card.border-amber .char-tag { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
+.char-card.border-amber .char-presence { color: var(--amber); }
+
+.char-card.border-muted { border-left-color: var(--ghost); }
+.char-card.border-muted .char-tag { color: var(--ghost); border-color: var(--ghost); background: var(--ghost-dim); }
+.char-card.border-muted .char-presence { color: var(--ghost); }
+
+/* Dual panel */
+.dual-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.dual-panel .panel {
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+}
+.dual-panel .panel-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.dual-panel .panel p {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.dual-panel .panel.pre-reset {
+  border-color: rgba(184,212,184,0.25);
+  background: var(--green-dim);
+}
+.dual-panel .panel.pre-reset .panel-label { color: var(--green); }
+.dual-panel .panel.post-reset {
+  border-color: rgba(224,64,64,0.25);
+  background: var(--red-dim);
+}
+.dual-panel .panel.post-reset .panel-label { color: var(--red); }
+
+/* === EXTRAS GRID === */
+.extras-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.extras-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+}
+.extras-card h3 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream);
+  margin-bottom: 0.75rem;
+}
+.extras-card .extras-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--cream-muted);
+  margin-bottom: 0.75rem;
+}
+.extras-card p,
+.extras-card li {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.extras-card ul {
+  list-style: none;
+  padding: 0;
+}
+.extras-card ul li::before {
+  content: '—';
+  color: var(--rust);
+  margin-right: 0.5rem;
+}
+.extras-card ul li + li { margin-top: 0.25rem; }
+.extras-card .extras-note {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--rust);
+  margin-top: 0.75rem;
+}
+
+/* === REQUIREMENTS === */
+.req-list {
+  list-style: none;
+  padding: 0;
+}
+.req-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.req-list li:last-child { border-bottom: none; }
+.req-icon {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--rust);
+  min-width: 2rem;
+  text-align: center;
+  padding-top: 0.15rem;
+}
+.req-content {}
+.req-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+.req-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  color: var(--cream-muted);
+  line-height: 1.5;
+}
+
+/* === FOOTER === */
+.site-footer {
+  border-top: 1px dotted var(--border-strong);
+  padding: 2.5rem 2rem;
+  margin-top: 4rem;
+  background: var(--bg);
+}
+.footer-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.footer-brand .footer-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.footer-brand .footer-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--cream-muted);
+  margin-top: 0.25rem;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.footer-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--rust); }
+.footer-meta {
+  text-align: right;
+}
+.footer-meta .version {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--rust);
+  font-weight: 600;
+}
+.footer-meta .type {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream-muted);
+  margin-top: 0.15rem;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .site-header { padding: 0.75rem 1rem; }
+  .page-content { padding: 5.5rem 1rem 1.5rem; }
+  .page-hero h1 { font-size: 2rem; }
+  .page-hero { padding-left: 1.25rem; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .dual-panel { grid-template-columns: 1fr; }
+  .extras-grid { grid-template-columns: 1fr; }
+  .char-card { padding: 1.25rem 1rem; }
+  .char-card-header h3 { font-size: 1.35rem; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-meta { text-align: center; }
+  .site-nav { gap: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .page-hero h1 { font-size: 1.6rem; }
+  .char-card-header { flex-direction: column; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
 </style>
-<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6effc0","secondary-fixed":"#e2e0fc","on-tertiary-fixed-variant":"#624000","surface-container-high":"#1e2a3e","on-tertiary-container":"#744c00","primary-fixed-dim":"#00e29e","secondary-fixed-dim":"#c6c4df","on-error":"#690005","surface-tint":"#00e29e","on-tertiary":"#452b00","on-background":"#d7e3fd","tertiary-fixed":"#ffddb3","on-surface-variant":"#bacbbf","secondary":"#c6c4df","tertiary-container":"#ffbd5b","surface-bright":"#2e3a4e","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","outline":"#84958a","on-secondary":"#2f2e43","on-surface":"#d7e3fd","on-tertiary-fixed":"#291800","on-primary":"#003824","inverse-on-surface":"#253145","error":"#ffb4ab","on-secondary-fixed-variant":"#45455b","surface-container":"#142033","tertiary-fixed-dim":"#fcba59","background":"#071326","surface-variant":"#293549","outline-variant":"#3b4a41","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","primary-fixed":"#47ffb8","on-secondary-fixed":"#1a1a2e","secondary-container":"#47475d","inverse-primary":"#006c49","surface-container-lowest":"#030e21","on-primary-fixed":"#002114","surface":"#071326","error-container":"#93000a","on-primary-container":"#006141","on-secondary-container":"#b8b6d0","surface-container-highest":"#293549","on-primary-fixed-variant":"#005236","on-error-container":"#ffdad6","surface-dim":"#071326"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"label-caps":["JetBrains Mono"],"body-md":["Inter"],"display-lg":["JetBrains Mono"],"terminal-sm":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-lg":["Inter"],"display-lg-mobile":["JetBrains Mono"]},fontSize:{"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}]}}}}</script>
 </head>
-<body class="text-on-surface selection:bg-primary selection:text-on-primary">
-<div class="scanline-overlay"></div>
+<body>
 
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
-<div class="font-display-lg text-[24px] text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
-<nav class="hidden md:flex gap-8">
-<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
-<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
-<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
-</nav>
-<div class="flex items-center gap-6">
-<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
-</div>
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <a href="index.html" class="site-title">AYDA SIN MEMORIA</a>
+  <nav class="site-nav">
+    <a href="index.html">HOME</a>
+    <a href="characters.html">CHARACTERS</a>
+    <a href="timeline.html">TIMELINE</a>
+    <a href="actores.html" class="active">ACTORES</a>
+  </nav>
 </header>
-<main class="pt-24 min-h-screen">
-<section class="py-16 px-margin-mobile md:px-margin-desktop" id="01_DESGLOSE_LOCACIONES">
-<div class="max-w-container-max mx-auto">
-<div class="border-l-4 border-primary pl-8 mb-12">
-<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white crt-glow mb-4 tracking-tight">DESGLOSE DE LOCACIONES</h1>
-<p class="font-headline-md text-primary italic">6 locaciones físicas · Estrategia de producción para Ley de Cine</p>
-<div class="mt-4 flex flex-wrap gap-4">
-<a href="public/01_DESGLOSE_LOCACIONES.pdf" download class="px-6 py-3 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] flex items-center gap-2">
-<span class="material-symbols-outlined">picture_as_pdf</span>
-DESCARGAR PDF
-</a>
-<a href="public/01_DESGLOSE_LOCACIONES.docx" download class="px-6 py-3 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all flex items-center gap-2">
-<span class="material-symbols-outlined">description</span>
-DESCARGAR DOCX
-</a>
-</div>
-</div>
-<div class="prose prose-invert max-w-none">
 
-<div class="glass-panel p-6 mb-8">
-<h2 class="font-label-caps text-primary mb-4 tracking-widest">RESUMEN DE CAST</h2>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-<div class="bg-primary/10 p-4 border border-primary/30">
-<p class="font-display-lg text-primary crt-glow">3</p>
-<p class="font-terminal-sm text-on-surface-variant">PROTAGONISTAS</p>
-</div>
-<div class="bg-surface-container p-4 border border-outline-variant">
-<p class="font-display-lg text-on-surface">1</p>
-<p class="font-terminal-sm text-on-surface-variant">SECUNDARIO</p>
-</div>
-<div class="bg-surface-container p-4 border border-outline-variant">
-<p class="font-display-lg text-on-surface">1</p>
-<p class="font-terminal-sm text-on-surface-variant">INVITADO</p>
-</div>
-<div class="bg-surface-container p-4 border border-outline-variant">
-<p class="font-display-lg text-on-surface">7-11</p>
-<p class="font-terminal-sm text-on-surface-variant">EXTRAS</p>
-</div>
-</div>
-<p class="font-terminal-sm text-primary mt-4 text-center">TOTAL: 12-16 personas en set</p>
-</div>
+<!-- ============ MAIN ============ -->
+<main class="page-content">
 
-<h2 class="font-label-caps text-primary mb-8 tracking-widest">[ PERSONAJES PRINCIPALES ]</h2>
+  <!-- Hero -->
+  <div class="page-hero">
+    <h1>DESGLOSE DE ACTORES</h1>
+    <p class="subtitle">5 personajes con diálogo · Estrategia de producción para Ley de Cine</p>
+  </div>
 
-<div class="glass-panel p-6 mb-8 border-l-4 border-error">
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-headline-md text-primary mb-1">BOLÍVAR — 27 años</h3>
-<span class="bg-error/20 text-error font-label-caps px-3 py-1">PROTAGONISTA</span>
-</div>
-<p class="font-terminal-sm text-primary mb-3">Presencia: Acto I-V (TODAS LAS ESCENAS) · Registro bogotano auténtico</p>
-<p class="font-body-md text-on-surface-variant mb-4">Hombre joven, delgado. Viste ropa básica gris del sistema. En 2024 se transforma: más vivo, más color, más caos. Habla rápido, sarcástico, exagera todo. Bogotano de pura cepa. Dice "chimba", "parcero", "marica", "man". Nunca tutea, usa "vos". Desastre emocional con corazón enorme.</p>
-<div class="bg-surface-container p-4">
-<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">RANGO EMOCIONAL:</span> Sarcasmo → ternura feroz → desesperanza → reinventado → determinación absoluta</p>
-<p class="font-terminal-sm text-on-surface-variant mt-2"><span class="text-primary">REQUISITOS:</span> Escena de intimidad (Esc. 1), desnudo parcial (Esc. 3), actuación frente a pantalla como interlocutor</p>
-</div>
-</div>
+  <!-- RESUMEN DE CAST -->
+  <div class="char-card" style="border-left-color: var(--cream-muted);">
+    <h2 style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-muted);margin-bottom:1.25rem;">RESUMEN DE CAST</h2>
+    <div class="stat-grid">
+      <div class="stat-card accent-rust">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Protagonistas</div>
+      </div>
+      <div class="stat-card accent-ghost">
+        <div class="stat-number">1</div>
+        <div class="stat-label">Secundario</div>
+      </div>
+      <div class="stat-card accent-amber">
+        <div class="stat-number">1</div>
+        <div class="stat-label">Invitado</div>
+      </div>
+      <div class="stat-card accent-ghost">
+        <div class="stat-number">7-11</div>
+        <div class="stat-label">Extras</div>
+      </div>
+    </div>
+    <p class="stat-total">TOTAL: 12–16 personas en set</p>
+  </div>
 
-<div class="glass-panel p-6 mb-8 border-l-4 border-error">
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-headline-md text-primary mb-1">AYDA / ADYA — 24 años</h3>
-<span class="bg-error/20 text-error font-label-caps px-3 py-1">PROTAGONISTA</span>
-</div>
-<p class="font-terminal-sm text-primary mb-3">Presencia: Acto I-II (Ayda), Acto III (reseteada), Acto V (ADYA) · Doble registro</p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-<div class="bg-primary/10 p-4 border border-primary/30">
-<p class="font-label-caps text-primary mb-2">PRE-RESET: AYDA</p>
-<p class="font-body-md text-on-surface-variant">Pelo suelto, sonrisa asimétrica. Irreverente, chistosa, sensual sin esfuerzo. Habla rápido, interrumpe, chistes de doble sentido.</p>
-</div>
-<div class="bg-error/10 p-4 border border-error/30">
-<p class="font-label-caps text-error mb-2">POST-RESET: AYDA 2.0</p>
-<p class="font-body-md text-on-surface-variant">Misma cara, todo diferente. Pelo perfecto. Sonrisa simétrica (vacía). Voz lenta, corporativa. Insoportablemente correcta. Gomela fría.</p>
-</div>
-</div>
-<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">ADYA (Acto V):</span> Anagrama de AYDA. "La primera/la original" (sánscrito). De carne, imperfecta, viva.</p>
-</div>
+  <!-- PERSONAJES PRINCIPALES -->
+  <h2 class="section-marker">[ Personajes principales ]</h2>
 
-<div class="glass-panel p-6 mb-8 border-l-4 border-error">
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-headline-md text-primary mb-1">M.A.R.I.A. — Sistema de IA</h3>
-<span class="bg-error/20 text-error font-label-caps px-3 py-1">VOZ OFF + APARICIÓN FINAL</span>
-</div>
-<p class="font-terminal-sm text-primary mb-3">Presencia: Actos I-IV (voz), Acto V (voz + Avatar S-7, Esc. 15)</p>
-<p class="font-body-md text-on-surface-variant mb-4">Módulo de Acompañamiento, Regulación e Integración Adaptativa. No es una madre. No es una persona. Es una infraestructura viva de control humano. Su voz sintetizada evoluciona: fría → irónica/protectora → feroz/rebelde → veladora.</p>
-<div class="bg-surface-container p-4">
-<p class="font-terminal-sm text-on-surface-variant"><span class="text-primary">AVATAR S-7 (Escena 15):</span> Cuerpo sintético "con forma de madre" — rasgos cálidos, arrugas que todavía no existen pero con ganas de tenerlas.</p>
-</div>
-</div>
+  <!-- BOLÍVAR -->
+  <div class="char-card border-rust">
+    <div class="char-card-header">
+      <h3>Bolívar — 27 años</h3>
+      <span class="char-tag">Protagonista</span>
+    </div>
+    <p class="char-presence">Presencia: Acto I–V (todas las escenas) · Registro bogotano auténtico</p>
+    <p class="char-description">Hombre joven, delgado. Viste ropa básica gris del sistema. En 2024 se transforma: más vivo, más color, más caos. Habla rápido, sarcástico, exagera todo. Bogotano de pura cepa. Dice "chimba", "parcero", "marica", "man". Nunca tutea, usa "vos". Desastre emocional con corazón enorme.</p>
+    <div class="char-detail">
+      <p><span class="detail-key">RANGO EMOCIONAL:</span> Sarcasmo → ternura feroz → desesperanza → reinventado → determinación absoluta</p>
+      <p><span class="detail-key">REQUISITOS:</span> Escena de intimidad (Esc. 1), desnudo parcial (Esc. 3), actuación frente a pantalla como interlocutor</p>
+    </div>
+  </div>
 
-<h2 class="font-label-caps text-primary mt-12 mb-8 tracking-widest">[ SECUNDARIOS Y EXTRAS ]</h2>
+  <!-- AYDA / ADYA -->
+  <div class="char-card border-green">
+    <div class="char-card-header">
+      <h3>Ayda / Adya — 24 años</h3>
+      <span class="char-tag">Protagonista</span>
+    </div>
+    <p class="char-presence">Presencia: Acto I–II (Ayda), Acto III (reseteada), Acto V (ADYA) · Doble registro</p>
+    <div class="dual-panel">
+      <div class="panel pre-reset">
+        <p class="panel-label">PRE-RESET: Ayda</p>
+        <p>Pelo suelto, sonrisa asimétrica. Irreverente, chistosa, sensual sin esfuerzo. Habla rápido, interrumpe, chistes de doble sentido.</p>
+      </div>
+      <div class="panel post-reset">
+        <p class="panel-label">POST-RESET: Ayda 2.0</p>
+        <p>Misma cara, todo diferente. Pelo perfecto. Sonrisa simétrica (vacía). Voz lenta, corporativa. Insoportablemente correcta. Gomela fría.</p>
+      </div>
+    </div>
+    <p class="char-description"><strong style="color:var(--green);">ADYA (Acto V):</strong> Anagrama de AYDA. "La primera / la original" (sánscrito). De carne, imperfecta, viva.</p>
+  </div>
 
-<div class="glass-panel p-6 mb-6 border-l-4 border-tertiary">
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-headline-md text-primary mb-1">SEÑORA DEL CAFÉ — 60 años</h3>
-<span class="bg-tertiary/20 text-tertiary font-label-caps px-3 py-1">SECUNDARIO</span>
-</div>
-<p class="font-body-md text-on-surface-variant mb-3">Dueña de Montana Records. Delantal floreado, calor materno, voz bogotana de barrio. Testigo del primer encuentro (Esc. 5) y la devolución vacía (Esc. 9). Misma mesa, misma ventana. No dice nada — porque no hay nada que decir.</p>
-</div>
+  <!-- M.A.R.I.A. -->
+  <div class="char-card border-red">
+    <div class="char-card-header">
+      <h3>M.A.R.I.A. — Sistema de IA</h3>
+      <span class="char-tag">Voz off + Aparición final</span>
+    </div>
+    <p class="char-presence">Presencia: Actos I–IV (voz), Acto V (voz + Avatar S-7, Esc. 15)</p>
+    <p class="char-description">Módulo de Acompañamiento, Regulación e Integración Adaptativa. No es una madre. No es una persona. Es una infraestructura viva de control humano. Su voz sintetizada evoluciona: fría → irónica/protectora → feroz/rebelde → veladora.</p>
+    <div class="char-detail">
+      <p><span class="detail-key">AVATAR S-7 (Escena 15):</span> Cuerpo sintético "con forma de madre" — rasgos cálidos, arrugas que todavía no existen pero con ganas de tenerlas.</p>
+    </div>
+  </div>
 
-<div class="glass-panel p-6 mb-6">
-<div class="flex justify-between items-start mb-4">
-<h3 class="font-headline-md text-primary mb-1">INFLUENCIADOR PREMIUM</h3>
-<span class="bg-surface-container font-label-caps px-3 py-1 text-on-surface-variant">EXTRA CON VOZ</span>
-</div>
-<p class="font-body-md text-on-surface-variant mb-3">Apariencia pulida, artificialmente perfecta. Solo en pantalla. Vende "CÓMO REINVENTARTE EN 30 DÍAS". Escena 10.</p>
-</div>
+  <!-- SECUNDARIOS Y EXTRAS -->
+  <h2 class="section-marker">[ Secundarios y extras ]</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-<div class="glass-panel p-6">
-<h3 class="font-label-caps text-primary mb-3">EXTRAS DE CALLE</h3>
-<p class="font-terminal-sm text-on-surface-variant mb-3">4-6 personas · Escena 4 (San Felipe)</p>
-<ul class="font-body-md text-on-surface-variant space-y-1 list-disc list-inside">
-<li>Mujer hablando por celular</li>
-<li>Niño con balón</li>
-<li>Viejos discutiendo en la esquina</li>
-<li>Vendedor: "¡AGUACAAATE!"</li>
-<li>2-3 transeúntes adicionales</li>
-</ul>
-<p class="font-terminal-sm text-primary mt-3">Bogotanos reales preferiblemente.</p>
-</div>
-<div class="glass-panel p-6">
-<h3 class="font-label-caps text-primary mb-3">RESIDENTES DE TORRE</h3>
-<p class="font-terminal-sm text-on-surface-variant mb-3">3-5 personas · Escenas 3, 10</p>
-<p class="font-body-md text-on-surface-variant" style="font-style: italic;">Ciudadanos grises del futuro. Movimiento sin propósito. Miradas vacías. Vestuario gris, sin personalidad visible.</p>
-</div>
-</div>
+  <!-- SEÑORA DEL CAFÉ -->
+  <div class="char-card border-amber">
+    <div class="char-card-header">
+      <h3>Señora del Café — 60 años</h3>
+      <span class="char-tag">Secundario</span>
+    </div>
+    <p class="char-presence">Presencia: Esc. 5, Esc. 9</p>
+    <p class="char-description">Dueña de Montana Records. Delantal floreado, calor materno, voz bogotana de barrio. Testigo del primer encuentro (Esc. 5) y la devolución vacía (Esc. 9). Misma mesa, misma ventana. No dice nada — porque no hay nada que decir.</p>
+  </div>
 
-<h2 class="font-label-caps text-primary mt-12 mb-8 tracking-widest">[ REQUISITOS ESPECIALES ]</h2>
-<div class="glass-panel p-6">
-<ul class="space-y-4 font-body-md text-on-surface-variant">
-<li class="flex gap-3"><span class="text-primary material-symbols-outlined">warning</span><div><span class="text-primary">Intimidad:</span> Escena 1 requiere coreografía de intimidad profesional. Escena 3 requiere coordinación de desnudo parcial.</div></li>
-<li class="flex gap-3"><span class="text-primary material-symbols-outlined">record_voice_over</span><div><span class="text-primary">Registro vocal:</span> Actriz de Ayda debe demostrar diferencia PRE/POST reset en audición.</div></li>
-<li class="flex gap-3"><span class="text-primary material-symbols-outlined">tv</span><div><span class="text-primary">Actuación con pantalla:</span> Bolívar actúa frente a monitor como interlocutor en múltiples escenas.</div></li>
-<li class="flex gap-3"><span class="text-primary material-symbols-outlined">mic</span><div><span class="text-primary">Voz M.A.R.I.A.:</span> Grabación en estudio separada. Posibilidad de proceso digital sutil.</div></li>
-<li class="flex gap-3"><span class="text-primary material-symbols-outlined">language</span><div><span class="text-primary">Jerga bogotana:</span> Bolívar debe dominar "chimba", "parcero", "marica", "man", voseo colombiano.</div></li>
-</ul>
-</div>
+  <!-- INFLUENCIADOR PREMIUM -->
+  <div class="char-card border-muted">
+    <div class="char-card-header">
+      <h3>Influenciador Premium</h3>
+      <span class="char-tag">Invitado / Extra con voz</span>
+    </div>
+    <p class="char-presence">Presencia: Escena 10 · Solo en pantalla</p>
+    <p class="char-description">Apariencia pulida, artificialmente perfecta. Solo en pantalla. Vende "CÓMO REINVENTARTE EN 30 DÍAS".</p>
+  </div>
 
-</div>
-</div>
-</section>
+  <!-- EXTRAS -->
+  <div class="extras-grid">
+    <div class="extras-card">
+      <h3>Extras de calle</h3>
+      <p class="extras-meta">4-6 personas · Escena 4 (San Felipe)</p>
+      <ul>
+        <li>Mujer hablando por celular</li>
+        <li>Niño con balón</li>
+        <li>Viejos discutiendo en la esquina</li>
+        <li>Vendedor: "¡AGUACAAATE!"</li>
+        <li>2-3 transeúntes adicionales</li>
+      </ul>
+      <p class="extras-note">Bogotanos reales preferiblemente.</p>
+    </div>
+    <div class="extras-card">
+      <h3>Residentes de torre</h3>
+      <p class="extras-meta">3-5 personas · Escenas 3, 10</p>
+      <p style="font-style:italic;">Ciudadanos grises del futuro. Movimiento sin propósito. Miradas vacías. Vestuario gris, sin personalidad visible.</p>
+    </div>
+  </div>
+
+  <!-- REQUISITOS ESPECIALES -->
+  <h2 class="section-marker">[ Requisitos especiales ]</h2>
+  <div class="char-card" style="border-left-color: var(--rust);">
+    <ul class="req-list">
+      <li>
+        <div class="req-icon">⚠</div>
+        <div class="req-content">
+          <div class="req-label">Intimidad</div>
+          <div class="req-text">Escena 1 requiere coreografía de intimidad profesional. Escena 3 requiere coordinación de desnudo parcial.</div>
+        </div>
+      </li>
+      <li>
+        <div class="req-icon">◉</div>
+        <div class="req-content">
+          <div class="req-label">Registro vocal</div>
+          <div class="req-text">Actriz de Ayda debe demostrar diferencia PRE/POST reset en audición.</div>
+        </div>
+      </li>
+      <li>
+        <div class="req-icon">◻</div>
+        <div class="req-content">
+          <div class="req-label">Actuación con pantalla</div>
+          <div class="req-text">Bolívar actúa frente a monitor como interlocutor en múltiples escenas.</div>
+        </div>
+      </li>
+      <li>
+        <div class="req-icon">◎</div>
+        <div class="req-content">
+          <div class="req-label">Voz M.A.R.I.A.</div>
+          <div class="req-text">Grabación en estudio separada. Posibilidad de proceso digital sutil.</div>
+        </div>
+      </li>
+      <li>
+        <div class="req-icon">◈</div>
+        <div class="req-content">
+          <div class="req-label">Jerga bogotana</div>
+          <div class="req-text">Bolívar debe dominar "chimba", "parcero", "marica", "man", voseo colombiano.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
 </main>
-<footer class="w-full py-12 px-margin-desktop border-t border-dotted border-outline-variant bg-surface-container-lowest mt-12">
-<div class="flex flex-col md:flex-row justify-between items-center gap-gutter max-w-container-max mx-auto">
-<div class="flex flex-col gap-2"><p class="font-label-caps text-label-caps text-secondary">AYDA SIN MEMORIA</p><p class="font-terminal-sm text-terminal-sm text-outline">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p></div>
-<div class="flex flex-wrap gap-8 justify-center">
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="locaciones.html">LOCACIONES</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="actores.html">ACTORES</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="direccion.html">DIRECCION</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="sinopsis.html">SINOPSIS</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="characters.html">CHARACTERS</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="timeline.html">TIMELINE</a>
-</div>
-<div class="text-right"><p class="font-terminal-sm text-terminal-sm text-primary">Versión Definitiva 2026</p><p class="font-terminal-sm text-terminal-sm text-outline">Guión Literario Original</p></div>
-</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-title">AYDA SIN MEMORIA</p>
+      <p class="footer-copy">© 2024 REDACTED INTEL // SECTOR BOGOTÁ</p>
+    </div>
+    <div class="footer-links">
+      <a href="locaciones.html">LOCACIONES</a>
+      <a href="actores.html">ACTORES</a>
+      <a href="direccion.html">DIRECCION</a>
+      <a href="sinopsis.html">SINOPSIS</a>
+      <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
+      <a href="characters.html">CHARACTERS</a>
+      <a href="timeline.html">TIMELINE</a>
+    </div>
+    <div class="footer-meta">
+      <p class="version">Versión Definitiva 2026</p>
+      <p class="type">Guión Literario Original</p>
+    </div>
+  </div>
 </footer>
 
-
-</body></html>
+</body>
+</html>

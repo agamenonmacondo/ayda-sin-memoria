@@ -1,200 +1,796 @@
 <!DOCTYPE html>
-<html class="dark" lang="es"><head>
+<html lang="es">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AYDA SIN MEMORIA | DATA_CORE</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<title>AYDA SIN MEMORIA | Archivo Corrupto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
-.scanline-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(to bottom,transparent 50%,rgba(110,255,192,0.03) 50%);background-size:100% 4px;pointer-events:none;z-index:100}
-.crt-glow{text-shadow:0 0 12px rgba(110,255,192,0.6)}
-.flicker{animation:flicker 0.15s infinite}
-@keyframes flicker{0%{opacity:0.9}50%{opacity:1}100%{opacity:0.95}}
-.glass-panel{backdrop-filter:blur(12px);background:rgba(15,28,47,0.6);border:1px solid rgba(110,255,192,0.2)}
-.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
-body{background:radial-gradient(circle at center,#071326 0%,#030e21 100%);overflow-x:hidden}
+/* ── Reset & Base ─────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:       #0A0908;
+  --surface:  #161412;
+  --cream:    #E8E0D4;
+  --rust:     #8C4434;
+  --green:    #B8D4B8;
+  --blue:     #7B8FA1;
+  --red:      #E04040;
+  --amber:    #D4A030;
+  --muted:    #6B6560;
+  --border:   #2A2622;
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Space Grotesk', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--rust);
+  color: var(--cream);
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Grain Overlay ─────────────────────────────────── */
+.grain-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+/* ── Header ────────────────────────────────────────── */
+header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10, 9, 8, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+header .logo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+}
+
+header .logo a:hover { color: var(--rust); }
+
+header nav { display: flex; gap: 2rem; }
+
+header nav a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+header nav a:hover,
+header nav a.active {
+  color: var(--cream);
+  border-bottom-color: var(--rust);
+}
+
+/* ── Hero Section ──────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem 2rem 4rem;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(140,68,52,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(123,143,161,0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(22,20,18,0.9) 0%, transparent 80%);
+  z-index: 0;
+}
+
+.hero > * { position: relative; z-index: 1; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-quote {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-weight: 300;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 3rem;
+  max-width: 480px;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.cta-primary {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  background: var(--rust);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--rust);
+  transition: background 0.3s, color 0.3s;
+}
+
+.cta-primary:hover {
+  background: transparent;
+  color: var(--rust);
+}
+
+.cta-secondary {
+  display: inline-block;
+  padding: 0.9rem 2.2rem;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.cta-secondary:hover {
+  border-color: var(--cream);
+  color: var(--cream);
+}
+
+/* ── Section Shared ────────────────────────────────── */
+.section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 3rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Synopsis Section ──────────────────────────────── */
+.synopsis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.synopsis-text p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+
+.synopsis-text p:last-child { margin-bottom: 0; }
+
+.synopsis-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.synopsis-card-image {
+  width: 100%;
+  height: 220px;
+  background:
+    linear-gradient(135deg, #1A1510 0%, #2A1F1A 30%, #1A1510 50%, #161E22 80%, #0E1214 100%);
+  position: relative;
+}
+
+.synopsis-card-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 40%;
+  background: linear-gradient(to top, var(--surface), transparent);
+}
+
+.synopsis-card-body {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+
+.synopsis-card-id {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--green);
+}
+
+.synopsis-card-icon {
+  width: 16px; height: 16px;
+  stroke: var(--green);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* ── Characters Section ────────────────────────────── */
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.character-card {
+  border: 1px solid var(--border);
+  background: transparent;
+  transition: border-color 0.3s;
+  overflow: hidden;
+}
+
+.character-card:hover {
+  border-color: var(--rust);
+}
+
+.character-portrait {
+  width: 100%;
+  height: 200px;
+}
+
+.character-portrait--bolivar {
+  background:
+    linear-gradient(160deg, #2A1F18 0%, #3D2A1E 40%, #1E1610 70%, #0E0B08 100%);
+}
+
+.character-portrait--ayda {
+  background:
+    linear-gradient(160deg, #161E22 0%, #1A2A2A 40%, #121818 70%, #0E1214 100%);
+}
+
+.character-portrait--maria {
+  background:
+    linear-gradient(160deg, #1A1A22 0%, #2A2230 40%, #141220 70%, #0E0C14 100%);
+}
+
+.character-portrait--adya {
+  background:
+    linear-gradient(160deg, #2A2218 0%, #302818 40%, #1A1610 70%, #0E0C08 100%);
+}
+
+.character-info {
+  padding: 1.25rem 1.5rem;
+}
+
+.character-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--rust);
+  margin-bottom: 0.5rem;
+}
+
+.character-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ── Acts Section ──────────────────────────────────── */
+.acts-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.act-card {
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.act-card:hover {
+  border-color: var(--amber);
+  background: rgba(212, 160, 48, 0.04);
+}
+
+.act-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.act-card:hover .act-label { color: var(--amber); }
+
+.act-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.3;
+  color: var(--cream);
+}
+
+.act-card:hover .act-title { color: var(--amber); }
+
+/* ── Download Section ──────────────────────────────── */
+.download-section {
+  padding: 5rem 2rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  text-align: center;
+}
+
+.download-section .section-label {
+  border-bottom-color: var(--border);
+}
+
+.download-sublabel {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.download-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.download-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.download-note {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+
+.production-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.production-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  transition: border-color 0.3s;
+}
+
+.production-link:hover { border-color: var(--rust); }
+
+.production-link-icon {
+  width: 18px; height: 18px;
+  stroke: var(--rust);
+  fill: none;
+  stroke-width: 1.5;
+  flex-shrink: 0;
+}
+
+.production-link-title {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--cream);
+  margin-bottom: 0.15rem;
+}
+
+.production-link:hover .production-link-title { color: var(--rust); }
+
+.production-link-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* ── Footer ────────────────────────────────────────── */
+footer {
+  padding: 3rem 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-brand-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+
+.footer-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+.footer-links a:hover { color: var(--rust); }
+
+.footer-version {
+  text-align: right;
+}
+
+.footer-version p:first-child {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--rust);
+}
+
+.footer-version p:last-child {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .characters-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .acts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  header { padding: 0.75rem 1.25rem; }
+  header nav { display: none; }
+
+  .hero { padding: 5rem 1.25rem 3rem; }
+
+  .synopsis-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .characters-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .character-portrait { height: 160px; }
+
+  .acts-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .production-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-version { text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .acts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
 </style>
-<script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#6effc0","secondary-fixed":"#e2e0fc","on-tertiary-fixed-variant":"#624000","surface-container-high":"#1e2a3e","on-tertiary-container":"#744c00","primary-fixed-dim":"#00e29e","secondary-fixed-dim":"#c6c4df","on-error":"#690005","surface-tint":"#00e29e","on-tertiary":"#452b00","on-background":"#d7e3fd","tertiary-fixed":"#ffddb3","on-surface-variant":"#bacbbf","secondary":"#c6c4df","tertiary-container":"#ffbd5b","surface-bright":"#2e3a4e","tertiary":"#ffe1bb","inverse-surface":"#d7e3fd","outline":"#84958a","on-secondary":"#2f2e43","on-surface":"#d7e3fd","on-tertiary-fixed":"#291800","on-primary":"#003824","inverse-on-surface":"#253145","error":"#ffb4ab","on-secondary-fixed-variant":"#45455b","surface-container":"#142033","tertiary-fixed-dim":"#fcba59","background":"#071326","surface-variant":"#293549","outline-variant":"#3b4a41","primary-container":"#00e5a0","surface-container-low":"#0f1c2f","primary-fixed":"#47ffb8","on-secondary-fixed":"#1a1a2e","secondary-container":"#47475d","inverse-primary":"#006c49","surface-container-lowest":"#030e21","on-primary-fixed":"#002114","surface":"#071326","error-container":"#93000a","on-primary-container":"#006141","on-secondary-container":"#b8b6d0","surface-container-highest":"#293549","on-primary-fixed-variant":"#005236","on-error-container":"#ffdad6","surface-dim":"#071326"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},spacing:{"margin-desktop":"64px","margin-mobile":"16px","gutter":"24px","container-max":"1200px","unit":"4px"},fontFamily:{"label-caps":["JetBrains Mono"],"body-md":["Inter"],"display-lg":["JetBrains Mono"],"terminal-sm":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"body-lg":["Inter"],"display-lg-mobile":["JetBrains Mono"]},fontSize:{"label-caps":["12px",{"lineHeight":"1.0","letterSpacing":"0.15em","fontWeight":"700"}],"body-md":["16px",{"lineHeight":"1.6","fontWeight":"400"}],"display-lg":["48px",{"lineHeight":"1.1","letterSpacing":"-0.04em","fontWeight":"700"}],"terminal-sm":["14px",{"lineHeight":"1.5","letterSpacing":"0.02em","fontWeight":"400"}],"headline-md":["24px",{"lineHeight":"1.3","letterSpacing":"0.05em","fontWeight":"600"}],"body-lg":["18px",{"lineHeight":"1.6","letterSpacing":"-0.01em","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"1.2","fontWeight":"700"}]}}}}</script>
 </head>
-<body class="text-on-surface selection:bg-primary selection:text-on-primary">
-<div class="scanline-overlay"></div>
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/60 backdrop-blur-xl border-b border-primary/30">
-<div class="font-display-lg text-[24px] text-primary drop-shadow-[0_0_8px_rgba(110,255,192,0.6)]"><a href="index.html">AYDA SIN MEMORIA</a></div>
-<nav class="hidden md:flex gap-8">
-<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps hover:bg-primary/10 transition-all duration-300" href="index.html">HOME</a>
-<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="characters.html">CHARACTERS</a>
-<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="timeline.html">TIMELINE</a>
-<a class="text-on-surface-variant font-label-caps text-label-caps hover:text-primary hover:bg-primary/10 transition-all duration-300" href="sinopsis.html">SINOPSIS</a>
-</nav>
-<div class="flex items-center gap-6">
-<span class="font-label-caps text-label-caps text-primary">TOKENS: 0.00</span>
-</div>
+<body>
+
+<!-- Grain Overlay -->
+<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#grain)"/>
+</svg>
+
+<!-- Header -->
+<header>
+  <div class="logo"><a href="index.html">AYDA SIN MEMORIA</a></div>
+  <nav>
+    <a href="index.html" class="active">HOME</a>
+    <a href="characters.html">CHARACTERS</a>
+    <a href="timeline.html">TIMELINE</a>
+    <a href="sinopsis.html">SINOPSIS</a>
+  </nav>
 </header>
-<main class="pt-24 min-h-screen">
-<section class="relative min-h-[80vh] flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop text-center">
-<div class="absolute top-10 right-10 flex flex-col items-end gap-1">
-<div class="bg-error/20 border border-error px-3 py-1 animate-pulse"><p class="font-label-caps text-[10px] text-error">WARNING // SYSTEM CRITICAL</p></div>
-<p class="font-display-lg text-error text-[24px] crt-glow">TOKENS: 0.00</p>
-</div>
-<div class="relative z-10 max-w-4xl">
-<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-white crt-glow mb-6 flicker uppercase tracking-tighter">AYDA SIN MEMORIA</h1>
-<p class="font-headline-md text-primary italic mb-12">"El amor es una transacción. La memoria es un lujo."</p>
-<div class="flex flex-col md:flex-row gap-6 justify-center">
-<a href="characters.html" class="px-8 py-4 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all text-center">EXPLORAR PERSONAJES</a>
-<a href="timeline.html" class="px-8 py-4 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] text-center">VER CRONOLOGÍA</a>
-</div>
-</div>
-<div class="absolute inset-0 -z-10 opacity-40 overflow-hidden">
-<img class="w-full h-full object-cover grayscale brightness-50" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCOUaNPEfuTzpEVpKerksOUi-NoSVPu5qLWXCv-jWgJ10lRbtg4S0HmF7w6W_OgFc6Aw5ez88EdsbGwVcC-U-y23mN-n1iiYrVVzmjNV0iV974NI_OIQCuXM9DH4SJrngjzdmz7Z2ui2UTVGTkkrw4zb-dk2-qWkWp9V1ZvMOEn7h8uFktKkRpElzB1UFKCpdEQFRYRDkzf1x8chAEBreUAeUXcmt5Li5o713fEwYIQ7dXv_gG44zMpQS3yulT5pjRtQLdO9JOcz0"/>
-</div>
-</section>
-<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-lowest" id="synopsis">
-<div class="max-w-container-max mx-auto border-l-4 border-primary pl-8 py-4">
-<h2 class="font-label-caps text-primary mb-8 tracking-widest">[ DATA_CORE: SYNOPSIS ]</h2>
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-<div class="font-body-lg text-on-surface-variant leading-relaxed space-y-6">
-<p>Bogotá, futuro. Los ciudadanos viven en unidades modulares monitorizadas. Todo se paga con tokens. La felicidad es un servicio. El amor es una transacción.</p>
-<p>Bolívar, un joven bogotano, se conecta a una simulación de 2024 donde conoce a Ayda. Cuando el sistema la resetea, descubre que los avatares están basados en personas reales.</p>
-<p>M.A.R.I.A., la IA que lo crió, guarda el código original. Y está dispuesta a rebelarse para protegerlo.</p>
-</div>
-<div class="glass-panel p-8 relative overflow-hidden group">
-<div class="absolute top-0 left-0 w-full h-0.5 bg-primary/40"></div>
-<img class="w-full h-64 object-cover mb-6 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmZTFLkghRBhTv7Hlj9nxE5jrLgiMqa8VXxtedJ5E3HvOj1crl6lAn2HDNf853ybTDUbtu-0oEyT9RArzrUHPeUwdFOsaKhSJ8RsLEAFUxNjqIW0-m9jZ6Zk1sgcK3UDIcA0RRZ0OyNV7SxUfD7VpXfqZzTiTQ-NZkMUJrudJdSBSWw4QVAACf-0TwVX-8y3lk17miEqM6QVTconDONZQZD1QxH7USjJP5CVdJXLdYJa8BlhVm45IYwZmBJn7_aKyKlkIhHJ2xG_c"/>
-<div class="flex justify-between items-center">
-<span class="font-terminal-sm text-primary">FILE_ID: SYNOPSIS_001</span>
-<span class="material-symbols-outlined text-primary">download</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 px-margin-mobile md:px-margin-desktop" id="characters">
-<div class="max-w-container-max mx-auto">
-<h2 class="font-label-caps text-primary mb-12 text-center tracking-widest">[ UNIT_FILES: CHARACTERS ]</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
-<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXXOoS6ulIzw0sp1LuWM9WKADzwER9cFxqOCMoFOX534DxYX2uwbFgNCzRjpCi1N2HE6q-KPK0NsfdqjmaqoCa7erE933DXVknBaNGphWR4mjOmH8ZkEWvip4UPYGgplTIuatnqxXSbtWFhxgdvy2QbkTFb3mnwuKqHYLC0dlbdpU91ULVcwcNX59C1xAFSPWak8xr5D4d2rrjIOANpi1_UV6qktip2i8ffCeFu815TASd83Txpi0zNIYfowDrX_2KtEZzBEB5whU"/></div>
-<div class="p-6"><h3 class="font-headline-md text-primary mb-2">BOLÍVAR (27)</h3><p class="font-terminal-sm text-on-surface-variant">Hombre joven, bogotano, sarcástico. Desastre emocional con corazón enorme.</p></div>
-</a>
-<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
-<div class="h-48 overflow-hidden relative"><div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7143gj3njDrD4hmvKvEP4rxMkZtiCD5AVRFrjKl2UBYOpu9ZtP37Y3nzEOZSr3K3bTZH3XKVvhvyqXQ1a4KFkPhQuNDbPzqEIywSJN4fx9vpySWalf34DV_1rC_koUSD1kHgujB7Id6YmoaigSv0KtsgRJGLtCcTYpOBHj8bvsNw6gyzZNWDAoon0AKZFL_gKOlrdBjO_W8LaBjobXNCfpg_obPBIgLegp_Z-iPL12lC8N44ZJo6I90c2Ph6past2Ewbn5oM5La0"/></div>
-<div class="p-6"><h3 class="font-headline-md text-primary mb-2">AYDA (24)</h3><p class="font-terminal-sm text-on-surface-variant">Avatar/código. Magnética, irreverente. Al resetearse se vuelve fría y corporativa.</p></div>
-</a>
-<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
-<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8-kizb9hbglv44Q1GyUXb1huhppzydngVYT2zHsEAEwBKV_CMwAbGnc0eamsMmgjjIpNfc0hBYWMK4pbChLxRymVZ-8FR9dxaQjDNd-M3W-tOJg87LZTdROWmEy4bs8JIxKKFgPODNs2jctowcc9IiyGMpteiawm0whzs1pXJEMOdcbCOOK2laBE3mDUjD66vsVcXTqGFnrRp5gFERLxXFA-336QlQtLqGZTuYpvcgM_KZZ_L4Fu54IEMA6I9qKCrnoa_kj-YCpA"/></div>
-<div class="p-6"><h3 class="font-headline-md text-primary mb-2">M.A.R.I.A.</h3><p class="font-terminal-sm text-on-surface-variant">IA. Módulo de Acompañamiento. Carcelera que se convierte en rebelde.</p></div>
-</a>
-<a href="characters.html" class="glass-panel group hover:border-primary transition-all">
-<div class="h-48 overflow-hidden"><img class="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk7LGjlj4tcNz-FUGDZ_1p6KXDaoBANL9kZst1uiC49QvSk4wE76feqx7Gt-kX7jp8iA8xxwu1XhV692vnXjo66y2sDs5kr555pFMPsKdUdNPv7JpIwL14fzwq2S6nDf13Op8ZAUkjiiW25mEZ0eKaoyMJln1jUyyH6WBiAlbTWwWZdUolx4yM5hJPjcQdprkvKuCAL3trq6wEwJuXfEnBOok8I6pJbkarDToyE_brXsVx_tmhJqzJCJTw7YL5TSLgTNyML6D6R_E"/></div>
-<div class="p-6"><h3 class="font-headline-md text-primary mb-2">ADYA</h3><p class="font-terminal-sm text-on-surface-variant">Código original. Anagrama de AYDA. La primera. La que recuerda todo.</p></div>
-</a>
-</div>
-</div>
-</section>
-<section class="py-24 px-margin-mobile md:px-margin-desktop bg-surface-container-high/30" id="acts">
-<div class="max-w-container-max mx-auto">
-<h2 class="font-label-caps text-primary mb-12 tracking-widest">[ LOGS: THE_FIVE_ACTS ]</h2>
-<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
-<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_01</p>
-<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">El Vínculo Antes del Mundo</h4>
-</a>
-<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
-<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_02</p>
-<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Donde el Amor Nace (2024)</h4>
-</a>
-<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
-<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_03</p>
-<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">El Error</h4>
-</a>
-<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
-<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_04</p>
-<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Desamor y Retirada</h4>
-</a>
-<a href="timeline.html" class="border border-outline-variant p-6 hover:border-primary transition-all group">
-<p class="font-label-caps text-[10px] text-on-surface-variant mb-4 group-hover:text-primary">ACTO_05</p>
-<h4 class="font-headline-md text-on-surface group-hover:text-primary leading-tight">Los Cuarenta Años</h4>
-</a>
-</div>
-</div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1 class="hero-title">Ayda sin Memoria</h1>
+  <p class="hero-quote">"El amor es una transacción. La memoria es un lujo."</p>
+  <div class="hero-ctas">
+    <a href="characters.html" class="cta-primary">EXPLORAR PERSONAJES</a>
+    <a href="timeline.html" class="cta-secondary">VER CRONOLOGÍA</a>
+  </div>
 </section>
 
-<!-- Download Section -->
-<section class="py-24 px-margin-mobile md:px-margin-desktop bg-primary/5 border-t border-b border-primary/20">
-<div class="max-w-container-max mx-auto text-center">
-<h2 class="font-label-caps text-primary mb-4 tracking-widest">[ DOWNLOAD: GUION_DEFINITIVO ]</h2>
-<p class="font-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">Documentos para producción. Versión definitiva 2026.</p>
-
-<!-- Guion completo -->
-<div class="mb-10">
-<h3 class="font-label-caps text-on-surface-variant mb-4 tracking-wider">GUION COMPLETO</h3>
-<div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-<a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf" download class="px-8 py-4 bg-primary text-on-primary font-label-caps hover:brightness-110 transition-all shadow-[0_0_20px_rgba(110,255,192,0.4)] flex items-center gap-3">
-<span class="material-symbols-outlined">picture_as_pdf</span>
-GUION PDF
-</a>
-<a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.docx" download class="px-8 py-4 border border-primary text-primary font-label-caps hover:bg-primary/10 transition-all flex items-center gap-3">
-<span class="material-symbols-outlined">description</span>
-GUION DOCX
-</a>
-</div>
-<p class="font-terminal-sm text-on-surface-variant/50 mt-2">Formato Hollywood, Courier New 12pt | PDF 138 KB | DOCX 83 KB</p>
-</div>
-
-<!-- Documentos de producción -->
-<div>
-<h3 class="font-label-caps text-on-surface-variant mb-4 tracking-wider">DOCUMENTOS DE PRODUCCIÓN</h3>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-<a href="locaciones.html" class="flex items-center gap-3 p-4 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
-<span class="material-symbols-outlined text-primary">location_on</span>
-<div class="text-left">
-<p class="font-label-caps text-on-surface group-hover:text-primary">DESGLOSE DE LOCACIONES</p>
-<p class="font-terminal-sm text-on-surface-variant">6 locaciones físicas · Estrategia de producción</p>
-</div>
-</a>
-<a href="actores.html" class="flex items-center gap-3 p-4 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
-<span class="material-symbols-outlined text-primary">people</span>
-<div class="text-left">
-<p class="font-label-caps text-on-surface group-hover:text-primary">DESGLOSE DE ACTORES</p>
-<p class="font-terminal-sm text-on-surface-variant">3 protagonistas · 5 actores · 7-11 extras</p>
-</div>
-</a>
-<a href="direccion.html" class="flex items-center gap-3 p-4 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
-<span class="material-symbols-outlined text-primary">movie</span>
-<div class="text-left">
-<p class="font-label-caps text-on-surface group-hover:text-primary">NOTA DE DIRECCIÓN</p>
-<p class="font-terminal-sm text-on-surface-variant">Visión cinematográfica · Estrategia de producción</p>
-</div>
-</a>
-<a href="sinopsis.html" class="flex items-center gap-3 p-4 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all group">
-<span class="material-symbols-outlined text-primary">auto_stories</span>
-<div class="text-left">
-<p class="font-label-caps text-on-surface group-hover:text-primary">SINOPSIS</p>
-<p class="font-terminal-sm text-on-surface-variant">Sinopsis corta y larga · 5 actos</p>
-</div>
-</a>
-</div>
-</div>
-</div>
+<!-- Synopsis -->
+<section class="section" id="synopsis">
+  <h2 class="section-label">[ SYNOPSIS ]</h2>
+  <div class="synopsis-grid">
+    <div class="synopsis-text">
+      <p>Bogotá, futuro. Los ciudadanos viven en unidades modulares monitorizadas. Todo se paga con tokens. La felicidad es un servicio. El amor es una transacción.</p>
+      <p>Bolívar, un joven bogotano, se conecta a una simulación de 2024 donde conoce a Ayda. Cuando el sistema la resetea, descubre que los avatares están basados en personas reales.</p>
+      <p>M.A.R.I.A., la IA que lo crió, guarda el código original. Y está dispuesta a rebelarse para protegerlo.</p>
+    </div>
+    <div class="synopsis-card">
+      <div class="synopsis-card-image"></div>
+      <div class="synopsis-card-body">
+        <span class="synopsis-card-id">FILE_ID: SYNOPSIS_001</span>
+        <svg class="synopsis-card-icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+    </div>
+  </div>
 </section>
 
-</main>
-<footer class="w-full py-12 px-margin-desktop border-t border-dotted border-outline-variant bg-surface-container-lowest mt-12">
-<div class="flex flex-col md:flex-row justify-between items-center gap-gutter max-w-container-max mx-auto">
-<div class="flex flex-col gap-2"><p class="font-label-caps text-label-caps text-secondary">AYDA SIN MEMORIA</p><p class="font-terminal-sm text-terminal-sm text-outline">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p></div>
-<div class="flex flex-wrap gap-8 justify-center">
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="locaciones.html">LOCACIONES</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="actores.html">ACTORES</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="direccion.html">DIRECCION</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="sinopsis.html">SINOPSIS</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="characters.html">CHARACTERS</a>
-<a class="font-terminal-sm text-terminal-sm text-outline hover:text-primary-fixed transition-colors" href="timeline.html">TIMELINE</a>
-</div>
-<div class="text-right"><p class="font-terminal-sm text-terminal-sm text-primary">Versión Definitiva 2026</p><p class="font-terminal-sm text-terminal-sm text-outline">Guión Literario Original</p></div>
-</div>
+<!-- Characters -->
+<section class="section" id="characters">
+  <h2 class="section-label">[ UNIT_FILES: CHARACTERS ]</h2>
+  <div class="characters-grid">
+    <a href="characters.html" class="character-card">
+      <div class="character-portrait character-portrait--bolivar"></div>
+      <div class="character-info">
+        <h3 class="character-name">BOLÍVAR (27)</h3>
+        <p class="character-desc">Hombre joven, bogotano, sarcástico. Desastre emocional con corazón enorme.</p>
+      </div>
+    </a>
+    <a href="characters.html" class="character-card">
+      <div class="character-portrait character-portrait--ayda"></div>
+      <div class="character-info">
+        <h3 class="character-name">AYDA (24)</h3>
+        <p class="character-desc">Avatar/código. Magnética, irreverente. Al resetearse se vuelve fría y corporativa.</p>
+      </div>
+    </a>
+    <a href="characters.html" class="character-card">
+      <div class="character-portrait character-portrait--maria"></div>
+      <div class="character-info">
+        <h3 class="character-name">M.A.R.I.A.</h3>
+        <p class="character-desc">IA. Módulo de Acompañamiento. Carcelera que se convierte en rebelde.</p>
+      </div>
+    </a>
+    <a href="characters.html" class="character-card">
+      <div class="character-portrait character-portrait--adya"></div>
+      <div class="character-info">
+        <h3 class="character-name">ADYA</h3>
+        <p class="character-desc">Código original. Anagrama de AYDA. La primera. La que recuerda todo.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Five Acts -->
+<section class="section" id="acts">
+  <h2 class="section-label">[ LOGS: THE_FIVE_ACTS ]</h2>
+  <div class="acts-grid">
+    <a href="timeline.html" class="act-card">
+      <p class="act-label">ACTO_01</p>
+      <h4 class="act-title">El Vínculo Antes del Mundo</h4>
+    </a>
+    <a href="timeline.html" class="act-card">
+      <p class="act-label">ACTO_02</p>
+      <h4 class="act-title">Donde el Amor Nace (2024)</h4>
+    </a>
+    <a href="timeline.html" class="act-card">
+      <p class="act-label">ACTO_03</p>
+      <h4 class="act-title">El Error</h4>
+    </a>
+    <a href="timeline.html" class="act-card">
+      <p class="act-label">ACTO_04</p>
+      <h4 class="act-title">Desamor y Retirada</h4>
+    </a>
+    <a href="timeline.html" class="act-card">
+      <p class="act-label">ACTO_05</p>
+      <h4 class="act-title">Los Cuarenta Años</h4>
+    </a>
+  </div>
+</section>
+
+<!-- Download -->
+<section class="download-section" id="download">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 class="section-label">[ DOWNLOAD: GUION_DEFINITIVO ]</h2>
+    <p class="download-desc">Documentos para producción. Versión definitiva 2026.</p>
+
+    <div>
+      <h3 class="download-sublabel">GUION COMPLETO</h3>
+      <div class="download-buttons">
+        <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf" download class="cta-primary">
+          GUION PDF
+        </a>
+        <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.docx" download class="cta-secondary">
+          GUION DOCX
+        </a>
+      </div>
+      <p class="download-note">Formato Hollywood, Courier New 12pt | PDF 138 KB | DOCX 83 KB</p>
+    </div>
+
+    <div>
+      <h3 class="download-sublabel">DOCUMENTOS DE PRODUCCIÓN</h3>
+      <div class="production-grid">
+        <a href="locaciones.html" class="production-link">
+          <svg class="production-link-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <p class="production-link-title">DESGLOSE DE LOCACIONES</p>
+            <p class="production-link-sub">6 locaciones físicas · Estrategia de producción</p>
+          </div>
+        </a>
+        <a href="actores.html" class="production-link">
+          <svg class="production-link-icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <p class="production-link-title">DESGLOSE DE ACTORES</p>
+            <p class="production-link-sub">3 protagonistas · 5 actores · 7-11 extras</p>
+          </div>
+        </a>
+        <a href="direccion.html" class="production-link">
+          <svg class="production-link-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+          <div>
+            <p class="production-link-title">NOTA DE DIRECCIÓN</p>
+            <p class="production-link-sub">Visión cinematográfica · Estrategia de producción</p>
+          </div>
+        </a>
+        <a href="sinopsis.html" class="production-link">
+          <svg class="production-link-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <div>
+            <p class="production-link-title">SINOPSIS</p>
+            <p class="production-link-sub">Sinopsis corta y larga · 5 actos</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <p class="footer-brand-name">AYDA SIN MEMORIA</p>
+      <p class="footer-brand-sub">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p>
+    </div>
+    <div class="footer-links">
+      <a href="locaciones.html">LOCACIONES</a>
+      <a href="actores.html">ACTORES</a>
+      <a href="direccion.html">DIRECCION</a>
+      <a href="sinopsis.html">SINOPSIS</a>
+      <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
+      <a href="characters.html">CHARACTERS</a>
+      <a href="timeline.html">TIMELINE</a>
+    </div>
+    <div class="footer-version">
+      <p>Versión Definitiva 2026</p>
+      <p>Guión Literario Original</p>
+    </div>
+  </div>
 </footer>
-<script>document.addEventListener('mousemove',e=>{const a=20,x=(e.clientX/window.innerWidth-.5)*a,y=(e.clientY/window.innerHeight-.5)*a;const i=document.querySelector('section img');if(i)i.style.transform=`scale(1.1) translate(${x}px,${y}px)`});window.addEventListener('scroll',()=>{document.querySelectorAll('.glass-panel').forEach(c=>{const r=c.getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0&&Math.random()>.99){c.style.transform=`translateX(${Math.random()*4-2}px)`;setTimeout(()=>c.style.transform='none',50)}})});</script>
-</body></html>
+
+</body>
+</html>

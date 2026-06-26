@@ -4,103 +4,51 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AYDA SIN MEMORIA | DESGLOSE DE ACTORES</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* === CORRUPTED ARCHIVE DESIGN SYSTEM === */
-:root {
-  --bg: #0A0908;
-  --surface: #161412;
-  --surface-raised: #1E1B18;
-  --cream: #E8E0D4;
-  --cream-muted: #A89F93;
-  --rust: #8C4434;
-  --rust-dim: rgba(140,68,52,0.15);
-  --green: #B8D4B8;
-  --green-dim: rgba(184,212,184,0.12);
-  --ghost: #7B8FA1;
-  --ghost-dim: rgba(123,143,161,0.12);
-  --red: #E04040;
-  --red-dim: rgba(224,64,64,0.12);
-  --amber: #D4A030;
-  --amber-dim: rgba(212,160,48,0.12);
-  --border: rgba(232,224,212,0.08);
-  --border-strong: rgba(232,224,212,0.15);
-}
+/* ── Reset & Base ─────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pink:      #FF2D7B;
+  --blue:      #00E5FF;
+  --yellow:    #E0FF00;
+  --orange:    #FF6B2B;
+  --purple:    #9B5CFF;
+  --black:     #000000;
+  --surface:   #0A0A0A;
+  --white:     #FFFFFF;
+  --muted:     #888888;
+  --border:   #222222;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Space Grotesk', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
 
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Space Grotesk', sans-serif;
-  background: var(--bg);
-  color: var(--cream);
+  background-color: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
   line-height: 1.6;
-  font-weight: 400;
-  min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Grain overlay */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px 128px;
+::selection {
+  background: var(--pink);
+  color: var(--black);
 }
 
-/* === TYPOGRAPHY === */
-.font-label {
-  font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 0.7rem;
-  line-height: 1.0;
-}
-.font-mono {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 400;
-  font-size: 0.8rem;
-  line-height: 1.5;
-}
-.font-body {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400;
-  font-size: 0.95rem;
-  line-height: 1.65;
-}
-.font-name {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400;
-  font-size: 1.6rem;
-  line-height: 1.2;
-  color: var(--cream);
-}
-.font-heading {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400;
-  font-size: 2.8rem;
-  line-height: 1.1;
-  color: var(--cream);
-}
-.font-section {
-  font-family: 'IBM Plex Mono', monospace;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  font-weight: 500;
-  font-size: 0.65rem;
-  line-height: 1.0;
-  color: var(--cream-muted);
-}
+a { color: var(--purple); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--blue); }
 
-/* === HEADER === */
-.site-header {
+/* ── Header ────────────────────────────────────────── */
+header {
   position: fixed;
   top: 0; left: 0; width: 100%;
   z-index: 100;
@@ -108,139 +56,179 @@ body::after {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(10,9,8,0.75);
+  background: rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-strong);
+  border-bottom: 3px solid var(--pink);
 }
-.site-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700;
-  font-size: 0.85rem;
+
+header .logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
+}
+
+header .logo a { color: var(--pink); }
+header .logo a:hover { color: var(--blue); }
+
+header nav { display: flex; gap: 2rem; }
+
+header nav a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--cream);
-  text-decoration: none;
-}
-.site-title:hover { color: var(--rust); }
-.site-nav { display: flex; gap: 1.5rem; }
-.site-nav a {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 500;
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cream-muted);
-  text-decoration: none;
+  color: var(--muted);
   padding: 0.25rem 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
 }
-.site-nav a:hover,
-.site-nav a.active {
-  color: var(--cream);
-  border-bottom-color: var(--rust);
-}
-.site-nav a.active { color: var(--rust); }
 
-/* === LAYOUT === */
+header nav a:hover,
+header nav a.active {
+  color: var(--pink);
+  border-bottom-color: var(--pink);
+}
+
+/* ── Page Layout ───────────────────────────────────── */
 .page-content {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 7rem 1.5rem 2rem;
+  padding: 7rem 2rem 2rem;
 }
 
-/* === PAGE HERO === */
+/* ── Page Hero ─────────────────────────────────────── */
 .page-hero {
-  border-left: 3px solid var(--rust);
+  border-left: 3px solid var(--pink);
   padding-left: 2rem;
   margin-bottom: 3rem;
 }
+
 .page-hero h1 {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
   font-weight: 400;
-  font-size: 2.8rem;
-  line-height: 1.1;
-  color: var(--cream);
-  margin-bottom: 0.75rem;
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 0.5rem;
+  text-shadow: 3px 3px 0 var(--blue);
 }
+
 .page-hero .subtitle {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-style: italic;
   font-weight: 300;
   font-size: 1rem;
-  color: var(--rust);
+  color: var(--yellow);
 }
 
-/* === STAT CARDS === */
+/* ── Stat Cards ────────────────────────────────────── */
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-bottom: 0.5rem;
 }
+
 .stat-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 1.25rem 1rem;
+  border: 3px solid var(--border);
+  padding: 1.5rem 1rem;
   text-align: center;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, transform 0.2s;
 }
-.stat-card:hover { border-color: var(--border-strong); }
+
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
 .stat-card .stat-number {
-  font-family: 'Instrument Serif', serif;
-  font-size: 2.2rem;
+  font-family: var(--font-display);
+  font-size: 2.8rem;
   font-weight: 400;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
+
 .stat-card .stat-label {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--cream-muted);
+  color: var(--muted);
 }
-.stat-card.accent-rust .stat-number { color: var(--rust); }
-.stat-card.accent-rust { border-color: rgba(140,68,52,0.3); }
-.stat-card.accent-ghost .stat-number { color: var(--ghost); }
-.stat-card.accent-amber .stat-number { color: var(--amber); }
+
+.stat-card.accent-pink { border-color: var(--pink); }
+.stat-card.accent-pink .stat-number { color: var(--pink); }
+
+.stat-card.accent-blue { border-color: var(--blue); }
+.stat-card.accent-blue .stat-number { color: var(--blue); }
+
+.stat-card.accent-orange { border-color: var(--orange); }
+.stat-card.accent-orange .stat-number { color: var(--orange); }
+
+.stat-card.accent-purple { border-color: var(--purple); }
+.stat-card.accent-purple .stat-number { color: var(--purple); }
+
 .stat-total {
   text-align: center;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.1em;
-  color: var(--cream-muted);
-  padding: 0.75rem 0;
+  color: var(--yellow);
+  padding: 1rem 0;
 }
 
-/* === SECTION HEADERS === */
+/* ── Section Headers ───────────────────────────────── */
 .section-marker {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--pink);
+  margin: 4rem 0 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid var(--orange);
+}
+
+/* ── Cast Summary Card ─────────────────────────────── */
+.cast-summary {
+  background: var(--surface);
+  border: 3px solid var(--border);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.cast-summary-title {
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--cream-muted);
-  margin: 3.5rem 0 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  margin-bottom: 1.5rem;
 }
 
-/* === CHARACTER CARDS === */
+/* ── Character Cards ───────────────────────────────── */
 .char-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--border);
-  padding: 1.75rem 1.5rem;
+  border: 3px solid var(--border);
+  border-left: 6px solid var(--border);
+  padding: 2rem;
   margin-bottom: 1.5rem;
-  transition: border-color 0.3s, background 0.3s;
+  transition: border-color 0.3s, transform 0.2s;
 }
+
 .char-card:hover {
-  background: var(--surface-raised);
+  transform: translateY(-2px);
 }
+
 .char-card-header {
   display: flex;
   justify-content: space-between;
@@ -249,212 +237,238 @@ body::after {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
 .char-card-header h3 {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.6rem;
+  font-family: var(--font-display);
+  font-size: 2rem;
   font-weight: 400;
-  line-height: 1.2;
-  color: var(--cream);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--white);
 }
+
 .char-tag {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 0.3rem 0.75rem;
-  border: 1px solid;
+  border: 2px solid;
   white-space: nowrap;
 }
+
 .char-presence {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 400;
   margin-bottom: 1rem;
   line-height: 1.5;
 }
+
 .char-description {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--white);
   opacity: 0.85;
   margin-bottom: 1rem;
 }
+
 .char-detail {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 1rem 1.25rem;
-  margin-top: 0.5rem;
+  background: var(--black);
+  border: 2px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  margin-top: 0.75rem;
 }
+
 .char-detail p {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   line-height: 1.65;
-  color: var(--cream-muted);
+  color: var(--muted);
 }
+
 .char-detail p + p { margin-top: 0.5rem; }
-.char-detail .detail-key { color: var(--cream); font-weight: 600; }
+.char-detail .detail-key { color: var(--white); font-weight: 600; }
 
 /* Border accent variants */
-.char-card.border-rust { border-left-color: var(--rust); }
-.char-card.border-rust .char-tag { color: var(--rust); border-color: var(--rust); background: var(--rust-dim); }
-.char-card.border-rust .char-presence { color: var(--rust); }
-.char-card.border-rust .char-detail .detail-key { color: var(--rust); }
+.char-card.border-pink { border-left-color: var(--pink); }
+.char-card.border-pink .char-tag { color: var(--pink); border-color: var(--pink); background: rgba(255,45,123,0.1); }
+.char-card.border-pink .char-presence { color: var(--pink); }
+.char-card.border-pink .char-detail .detail-key { color: var(--pink); }
 
-.char-card.border-green { border-left-color: var(--green); }
-.char-card.border-green .char-tag { color: var(--green); border-color: var(--green); background: var(--green-dim); }
-.char-card.border-green .char-presence { color: var(--green); }
-.char-card.border-green .char-detail .detail-key { color: var(--green); }
+.char-card.border-blue { border-left-color: var(--blue); }
+.char-card.border-blue .char-tag { color: var(--blue); border-color: var(--blue); background: rgba(0,229,255,0.1); }
+.char-card.border-blue .char-presence { color: var(--blue); }
+.char-card.border-blue .char-detail .detail-key { color: var(--blue); }
 
-.char-card.border-red { border-left-color: var(--red); }
-.char-card.border-red .char-tag { color: var(--red); border-color: var(--red); background: var(--red-dim); }
-.char-card.border-red .char-presence { color: var(--red); }
-.char-card.border-red .char-detail .detail-key { color: var(--red); }
+.char-card.border-orange { border-left-color: var(--orange); }
+.char-card.border-orange .char-tag { color: var(--orange); border-color: var(--orange); background: rgba(255,107,43,0.1); }
+.char-card.border-orange .char-presence { color: var(--orange); }
+.char-card.border-orange .char-detail .detail-key { color: var(--orange); }
 
-.char-card.border-amber { border-left-color: var(--amber); }
-.char-card.border-amber .char-tag { color: var(--amber); border-color: var(--amber); background: var(--amber-dim); }
-.char-card.border-amber .char-presence { color: var(--amber); }
+.char-card.border-yellow { border-left-color: var(--yellow); }
+.char-card.border-yellow .char-tag { color: var(--yellow); border-color: var(--yellow); background: rgba(224,255,0,0.1); }
+.char-card.border-yellow .char-presence { color: var(--yellow); }
 
-.char-card.border-muted { border-left-color: var(--ghost); }
-.char-card.border-muted .char-tag { color: var(--ghost); border-color: var(--ghost); background: var(--ghost-dim); }
-.char-card.border-muted .char-presence { color: var(--ghost); }
+.char-card.border-purple { border-left-color: var(--purple); }
+.char-card.border-purple .char-tag { color: var(--purple); border-color: var(--purple); background: rgba(155,92,255,0.1); }
+.char-card.border-purple .char-presence { color: var(--purple); }
 
-/* Dual panel */
+/* Dual Panel */
 .dual-panel {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
 .dual-panel .panel {
-  border: 1px solid var(--border);
-  padding: 1.25rem;
+  border: 2px solid var(--border);
+  padding: 1.5rem;
 }
+
 .dual-panel .panel-label {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
+
 .dual-panel .panel p {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--cream);
+  color: var(--white);
   opacity: 0.85;
 }
-.dual-panel .panel.pre-reset {
-  border-color: rgba(184,212,184,0.25);
-  background: var(--green-dim);
-}
-.dual-panel .panel.pre-reset .panel-label { color: var(--green); }
-.dual-panel .panel.post-reset {
-  border-color: rgba(224,64,64,0.25);
-  background: var(--red-dim);
-}
-.dual-panel .panel.post-reset .panel-label { color: var(--red); }
 
-/* === EXTRAS GRID === */
+.dual-panel .panel.pre-reset {
+  border-color: rgba(0,229,255,0.3);
+  background: rgba(0,229,255,0.05);
+}
+
+.dual-panel .panel.pre-reset .panel-label { color: var(--blue); }
+
+.dual-panel .panel.post-reset {
+  border-color: rgba(255,45,123,0.3);
+  background: rgba(255,45,123,0.05);
+}
+
+.dual-panel .panel.post-reset .panel-label { color: var(--pink); }
+
+/* ── Extras Grid ───────────────────────────────────── */
 .extras-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
+
 .extras-card {
   background: var(--surface);
-  border: 1px solid var(--border);
-  padding: 1.5rem;
+  border: 3px solid var(--border);
+  padding: 1.75rem;
 }
+
 .extras-card h3 {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
   margin-bottom: 0.75rem;
 }
+
 .extras-card .extras-meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  color: var(--cream-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
   margin-bottom: 0.75rem;
 }
+
 .extras-card p,
 .extras-card li {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   line-height: 1.6;
-  color: var(--cream);
+  color: var(--white);
   opacity: 0.85;
 }
+
 .extras-card ul {
   list-style: none;
   padding: 0;
 }
+
 .extras-card ul li::before {
   content: '—';
-  color: var(--rust);
+  color: var(--pink);
   margin-right: 0.5rem;
 }
+
 .extras-card ul li + li { margin-top: 0.25rem; }
+
 .extras-card .extras-note {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: var(--rust);
+  color: var(--pink);
   margin-top: 0.75rem;
 }
 
-/* === REQUIREMENTS === */
+/* ── Requirements List ──────────────────────────────── */
 .req-list {
   list-style: none;
   padding: 0;
 }
+
 .req-list li {
   display: flex;
   gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 0;
+  border-bottom: 3px solid var(--border);
   align-items: flex-start;
 }
+
 .req-list li:last-child { border-bottom: none; }
+
 .req-icon {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   font-weight: 700;
-  color: var(--rust);
+  color: var(--pink);
   min-width: 2rem;
   text-align: center;
-  padding-top: 0.15rem;
+  padding-top: 0.1rem;
 }
+
 .req-content {}
+
 .req-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
   margin-bottom: 0.25rem;
 }
+
 .req-text {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
-  color: var(--cream-muted);
+  color: var(--muted);
   line-height: 1.5;
 }
 
-/* === FOOTER === */
-.site-footer {
-  border-top: 1px dotted var(--border-strong);
-  padding: 2.5rem 2rem;
-  margin-top: 4rem;
-  background: var(--bg);
+/* ── Footer ────────────────────────────────────────── */
+footer {
+  padding: 3rem 2rem;
+  border-top: 3px solid var(--pink);
 }
+
 .footer-inner {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -462,71 +476,72 @@ body::after {
   flex-wrap: wrap;
   gap: 1.5rem;
 }
-.footer-brand .footer-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--cream);
+
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
+  margin-bottom: 0.25rem;
 }
-.footer-brand .footer-copy {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--cream-muted);
-  margin-top: 0.25rem;
+
+.footer-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--muted);
 }
+
 .footer-links {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
   justify-content: center;
 }
+
 .footer-links a {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.65rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cream-muted);
-  text-decoration: none;
+  color: var(--purple);
   transition: color 0.3s;
 }
-.footer-links a:hover { color: var(--rust); }
-.footer-meta {
-  text-align: right;
-}
-.footer-meta .version {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--rust);
-  font-weight: 600;
-}
-.footer-meta .type {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6rem;
-  color: var(--cream-muted);
-  margin-top: 0.15rem;
+
+.footer-links a:hover { color: var(--blue); }
+
+.footer-version { text-align: right; }
+
+.footer-version p:first-child {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--yellow);
 }
 
-/* === RESPONSIVE === */
+.footer-version p:last-child {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ── Responsive ────────────────────────────────────── */
 @media (max-width: 768px) {
-  .site-header { padding: 0.75rem 1rem; }
-  .page-content { padding: 5.5rem 1rem 1.5rem; }
-  .page-hero h1 { font-size: 2rem; }
+  header { padding: 0.75rem 1.25rem; }
+  header nav { display: none; }
+  .page-content { padding: 5rem 1.25rem 1.5rem; }
   .page-hero { padding-left: 1.25rem; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .dual-panel { grid-template-columns: 1fr; }
   .extras-grid { grid-template-columns: 1fr; }
-  .char-card { padding: 1.25rem 1rem; }
-  .char-card-header h3 { font-size: 1.35rem; }
+  .char-card { padding: 1.5rem 1.25rem; }
+  .char-card-header h3 { font-size: 1.6rem; }
   .footer-inner { flex-direction: column; text-align: center; }
-  .footer-meta { text-align: center; }
-  .site-nav { gap: 1rem; }
+  .footer-version { text-align: center; }
 }
 
 @media (max-width: 480px) {
-  .page-hero h1 { font-size: 1.6rem; }
+  .page-hero h1 { font-size: 2.5rem; }
   .char-card-header { flex-direction: column; }
   .stat-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -535,9 +550,9 @@ body::after {
 <body>
 
 <!-- ============ HEADER ============ -->
-<header class="site-header">
-  <a href="index.html" class="site-title">AYDA SIN MEMORIA</a>
-  <nav class="site-nav">
+<header>
+  <div class="logo"><a href="index.html">AYDA SIN MEMORIA</a></div>
+  <nav>
     <a href="index.html">HOME</a>
     <a href="characters.html">CHARACTERS</a>
     <a href="timeline.html">TIMELINE</a>
@@ -555,22 +570,22 @@ body::after {
   </div>
 
   <!-- RESUMEN DE CAST -->
-  <div class="char-card" style="border-left-color: var(--cream-muted);">
-    <h2 style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--cream-muted);margin-bottom:1.25rem;">RESUMEN DE CAST</h2>
+  <div class="cast-summary">
+    <h2 class="cast-summary-title">RESUMEN DE CAST</h2>
     <div class="stat-grid">
-      <div class="stat-card accent-rust">
+      <div class="stat-card accent-pink">
         <div class="stat-number">3</div>
         <div class="stat-label">Protagonistas</div>
       </div>
-      <div class="stat-card accent-ghost">
+      <div class="stat-card accent-blue">
         <div class="stat-number">1</div>
         <div class="stat-label">Secundario</div>
       </div>
-      <div class="stat-card accent-amber">
+      <div class="stat-card accent-orange">
         <div class="stat-number">1</div>
         <div class="stat-label">Invitado</div>
       </div>
-      <div class="stat-card accent-ghost">
+      <div class="stat-card accent-purple">
         <div class="stat-number">7-11</div>
         <div class="stat-label">Extras</div>
       </div>
@@ -582,9 +597,9 @@ body::after {
   <h2 class="section-marker">[ Personajes principales ]</h2>
 
   <!-- BOLÍVAR -->
-  <div class="char-card border-rust">
+  <div class="char-card border-pink">
     <div class="char-card-header">
-      <h3>Bolívar — 27 años</h3>
+      <h3>BOLÍVAR — 27 AÑOS</h3>
       <span class="char-tag">Protagonista</span>
     </div>
     <p class="char-presence">Presencia: Acto I–V (todas las escenas) · Registro bogotano auténtico</p>
@@ -596,9 +611,9 @@ body::after {
   </div>
 
   <!-- AYDA / ADYA -->
-  <div class="char-card border-green">
+  <div class="char-card border-blue">
     <div class="char-card-header">
-      <h3>Ayda / Adya — 24 años</h3>
+      <h3>AYDA / ADYA — 24 AÑOS</h3>
       <span class="char-tag">Protagonista</span>
     </div>
     <p class="char-presence">Presencia: Acto I–II (Ayda), Acto III (reseteada), Acto V (ADYA) · Doble registro</p>
@@ -612,13 +627,13 @@ body::after {
         <p>Misma cara, todo diferente. Pelo perfecto. Sonrisa simétrica (vacía). Voz lenta, corporativa. Insoportablemente correcta. Gomela fría.</p>
       </div>
     </div>
-    <p class="char-description"><strong style="color:var(--green);">ADYA (Acto V):</strong> Anagrama de AYDA. "La primera / la original" (sánscrito). De carne, imperfecta, viva.</p>
+    <p class="char-description"><strong style="color:var(--blue);">ADYA (Acto V):</strong> Anagrama de AYDA. "La primera / la original" (sánscrito). De carne, imperfecta, viva.</p>
   </div>
 
   <!-- M.A.R.I.A. -->
-  <div class="char-card border-red">
+  <div class="char-card border-orange">
     <div class="char-card-header">
-      <h3>M.A.R.I.A. — Sistema de IA</h3>
+      <h3>M.A.R.I.A. — SISTEMA DE IA</h3>
       <span class="char-tag">Voz off + Aparición final</span>
     </div>
     <p class="char-presence">Presencia: Actos I–IV (voz), Acto V (voz + Avatar S-7, Esc. 15)</p>
@@ -632,9 +647,9 @@ body::after {
   <h2 class="section-marker">[ Secundarios y extras ]</h2>
 
   <!-- SEÑORA DEL CAFÉ -->
-  <div class="char-card border-amber">
+  <div class="char-card border-yellow">
     <div class="char-card-header">
-      <h3>Señora del Café — 60 años</h3>
+      <h3>SEÑORA DEL CAFÉ — 60 AÑOS</h3>
       <span class="char-tag">Secundario</span>
     </div>
     <p class="char-presence">Presencia: Esc. 5, Esc. 9</p>
@@ -642,9 +657,9 @@ body::after {
   </div>
 
   <!-- INFLUENCIADOR PREMIUM -->
-  <div class="char-card border-muted">
+  <div class="char-card border-purple">
     <div class="char-card-header">
-      <h3>Influenciador Premium</h3>
+      <h3>INFLUENCIADOR PREMIUM</h3>
       <span class="char-tag">Invitado / Extra con voz</span>
     </div>
     <p class="char-presence">Presencia: Escena 10 · Solo en pantalla</p>
@@ -654,7 +669,7 @@ body::after {
   <!-- EXTRAS -->
   <div class="extras-grid">
     <div class="extras-card">
-      <h3>Extras de calle</h3>
+      <h3>EXTRAS DE CALLE</h3>
       <p class="extras-meta">4-6 personas · Escena 4 (San Felipe)</p>
       <ul>
         <li>Mujer hablando por celular</li>
@@ -666,7 +681,7 @@ body::after {
       <p class="extras-note">Bogotanos reales preferiblemente.</p>
     </div>
     <div class="extras-card">
-      <h3>Residentes de torre</h3>
+      <h3>RESIDENTES DE TORRE</h3>
       <p class="extras-meta">3-5 personas · Escenas 3, 10</p>
       <p style="font-style:italic;">Ciudadanos grises del futuro. Movimiento sin propósito. Miradas vacías. Vestuario gris, sin personalidad visible.</p>
     </div>
@@ -674,7 +689,7 @@ body::after {
 
   <!-- REQUISITOS ESPECIALES -->
   <h2 class="section-marker">[ Requisitos especiales ]</h2>
-  <div class="char-card" style="border-left-color: var(--rust);">
+  <div class="char-card" style="border-left-color: var(--pink);">
     <ul class="req-list">
       <li>
         <div class="req-icon">⚠</div>
@@ -717,11 +732,11 @@ body::after {
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="site-footer">
+<footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <p class="footer-title">AYDA SIN MEMORIA</p>
-      <p class="footer-copy">© 2024 REDACTED INTEL // SECTOR BOGOTÁ</p>
+    <div>
+      <p class="footer-brand-name">AYDA SIN MEMORIA</p>
+      <p class="footer-brand-sub">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p>
     </div>
     <div class="footer-links">
       <a href="locaciones.html">LOCACIONES</a>
@@ -732,9 +747,9 @@ body::after {
       <a href="characters.html">CHARACTERS</a>
       <a href="timeline.html">TIMELINE</a>
     </div>
-    <div class="footer-meta">
-      <p class="version">Versión Definitiva 2026</p>
-      <p class="type">Guión Literario Original</p>
+    <div class="footer-version">
+      <p>Versión Definitiva 2026</p>
+      <p>Guión Literario Original</p>
     </div>
   </div>
 </footer>

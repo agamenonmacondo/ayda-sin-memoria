@@ -2,448 +2,524 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AYDA SIN MEMORIA | SINOPSIS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ===== DESIGN DIRECTION: "Corrupted Archive" =====
-   Palette: Near-black warm (#0A0908), warm dark (#161412),
-   cream/parchment (#E8E0D4), rust oxide (#8C4434),
-   pale green terminal (#B8D4B8), cold blue ghost (#7B8FA1),
-   hot red error (#E04040), amber recovery (#D4A030)
-
-   Typography: Instrument Serif (act titles, dramatic, warm)
-                Space Grotesk (UI, body, clean geometric)
-                IBM Plex Mono (data fragments, labels, system text)
-
-   No Tailwind. Pure custom CSS. Grain texture overlay.
-   Each act = atmospheric section with theme-color gradient.
-*/
-
-:root {
-  --bg: #0A0908;
-  --surface: #161412;
-  --surface-raised: #1E1B18;
-  --surface-sunken: #0E0D0B;
-  --cream: #E8E0D4;
-  --cream-dim: #A89E90;
-  --rust: #8C4434;
-  --rust-bright: #B85A46;
-  --rust-glow: rgba(140,68,52,0.15);
-  --terminal: #B8D4B8;
-  --terminal-dim: #6B8A6B;
-  --ghost: #7B8FA1;
-  --ghost-dim: #4A5B6B;
-  --error: #E04040;
-  --error-dim: rgba(224,64,64,0.15);
-  --error-glow: rgba(224,64,64,0.08);
-  --amber: #D4A030;
-  --amber-dim: rgba(212,160,48,0.15);
-  --border: rgba(232,224,212,0.08);
-  --border-mid: rgba(232,224,212,0.15);
-  --border-strong: rgba(232,224,212,0.25);
-  --purple: #9B8EC4;
-  --purple-dim: rgba(155,142,196,0.15);
-}
+/* ═══════════════════════════════════════════════════
+   LA MAYOR DESIGN SYSTEM — SINOPSIS
+   ═══════════════════════════════════════════════════ */
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --pink:      #FF2D7B;
+  --blue:      #00E5FF;
+  --yellow:    #E0FF00;
+  --orange:    #FF6B2B;
+  --purple:    #9B5CFF;
+  --black:     #0A0A0A;
+  --surface:   #111111;
+  --white:     #FFFFFF;
+  --muted:     #888888;
+  --border:    #222222;
+  --act-i:     #FF2D7B;
+  --act-ii:    #E0FF00;
+  --act-iii:   #FF2D2B;
+  --act-iv:    #7B8FA1;
+  --act-v:     #00FF88;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Space Grotesk', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
 html { scroll-behavior: smooth; }
+
 body {
-  background: var(--bg);
-  color: var(--cream);
-  font-family: 'Space Grotesk', system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  background-color: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ===== GRAIN TEXTURE ===== */
-body::after {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  opacity: 0.035; mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
+::selection {
+  background: var(--pink);
+  color: var(--black);
 }
 
-/* ===== HEADER ===== */
-.site-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 16px 24px;
-  background: rgba(10,9,8,0.92);
+a { color: var(--purple); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--blue); }
+
+/* ── Header ────────────────────────────────────────── */
+header {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s ease;
+  border-bottom: 3px solid var(--pink);
 }
-.site-title {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700; font-size: 12px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--cream); text-decoration: none;
-  transition: color 0.3s;
-}
-.site-title:hover { color: var(--rust-bright); }
-.site-nav { display: flex; gap: 20px; }
-.site-nav a {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 500; font-size: 10px;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--cream-dim); text-decoration: none;
-  padding-bottom: 2px; border-bottom: 1px solid transparent;
-  transition: all 0.3s ease;
-}
-.site-nav a:hover { color: var(--cream); }
-.site-nav a.active { color: var(--rust-bright); border-bottom-color: var(--rust); }
 
-/* ===== HERO / HEADER AREA ===== */
+header .logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
+}
+
+header .logo a { color: var(--pink); }
+header .logo a:hover { color: var(--blue); }
+
+header nav { display: flex; gap: 2rem; }
+
+header nav a {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+header nav a:hover,
+header nav a.active {
+  color: var(--pink);
+  border-bottom-color: var(--pink);
+}
+
+/* ── Hero ──────────────────────────────────────────── */
 .synopsis-hero {
-  min-height: 70vh; min-height: 70dvh;
-  display: flex; flex-direction: column;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  padding: 120px 24px 60px;
+  padding: 7rem 2rem 4rem;
   position: relative;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(255,45,123,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,229,255,0.08) 0%, transparent 50%);
 }
+
 .synopsis-hero-inner {
-  max-width: 800px; margin: 0 auto; width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
 }
+
 .synopsis-hero-tag {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 500; font-size: 10px;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--rust); margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 1.5rem;
 }
+
 .synopsis-hero-title {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400; font-style: normal;
-  font-size: clamp(40px, 8vw, 72px);
-  line-height: 0.95; letter-spacing: -0.02em;
-  color: var(--cream); margin-bottom: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: 0.03em;
+  color: var(--pink);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-shadow: 3px 3px 0 var(--blue);
 }
+
 .synopsis-hero-sub {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 300; font-size: 16px;
-  color: var(--cream-dim); line-height: 1.7;
-  margin-bottom: 32px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
 }
+
+/* ── Download Buttons ───────────────────────────────── */
 .download-row {
-  display: flex; flex-wrap: wrap; gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
+
 .btn-download {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 12px 24px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  text-decoration: none; transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  border: 3px solid;
 }
+
 .btn-download--primary {
-  background: var(--rust);
-  color: var(--cream);
-  border: 1px solid var(--rust);
+  background: var(--pink);
+  color: var(--black);
+  border-color: var(--pink);
 }
+
 .btn-download--primary:hover {
-  background: var(--rust-bright);
-  border-color: var(--rust-bright);
+  background: transparent;
+  color: var(--pink);
 }
+
 .btn-download--outline {
   background: transparent;
-  color: var(--cream-dim);
-  border: 1px solid var(--border-mid);
+  color: var(--pink);
+  border-color: var(--pink);
 }
+
 .btn-download--outline:hover {
-  color: var(--cream);
-  border-color: var(--cream-dim);
+  background: var(--pink);
+  color: var(--black);
 }
-.btn-download svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
 
-/* ===== SECTION LABEL ===== */
+.btn-download svg {
+  width: 16px; height: 16px;
+  stroke: currentColor; fill: none;
+}
+
+/* ── Section Label ─────────────────────────────────── */
 .section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 600; font-size: 10px;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  margin-bottom: 24px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
 }
 
-/* ===== SINOPSIS CORTA ===== */
+/* ── Sinopsis Corta ────────────────────────────────── */
 .synopsis-corta {
-  padding: 60px 24px;
+  padding: 5rem 2rem;
+  border-top: 3px solid var(--border);
+  border-bottom: 3px solid var(--border);
   background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-.synopsis-corta-inner {
-  max-width: 720px; margin: 0 auto;
-  border-left: 3px solid var(--rust);
-  padding-left: 32px;
-}
-.synopsis-corta-inner p {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400; font-size: 17px;
-  line-height: 1.75; color: var(--cream-dim);
 }
 
-/* ===== SINOPSIS LARGA ===== */
-.synopsis-larga {
-  padding: 0;
+.synopsis-corta-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  border-left: 4px solid var(--pink);
+  padding-left: 2rem;
 }
+
+.synopsis-corta-inner p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+
+/* ── Sinopsis Larga Header ──────────────────────────── */
 .synopsis-larga-header {
-  padding: 60px 24px 0;
+  padding: 5rem 2rem 0;
   text-align: center;
 }
 
-/* ===== ACT SECTIONS ===== */
+/* ── Act Sections ──────────────────────────────────── */
 .act-section {
-  padding: 80px 24px;
+  padding: 5rem 2rem;
   position: relative;
   overflow: hidden;
 }
+
 .act-section + .act-section {
   border-top: 1px solid var(--border);
 }
+
 .act-inner {
-  max-width: 760px; margin: 0 auto;
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 2rem;
 }
+
 .act-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 600; font-size: 10px;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
 }
+
 .act-title {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400; font-style: normal;
-  font-size: clamp(32px, 6vw, 52px);
-  line-height: 1.05; letter-spacing: -0.02em;
-  margin-bottom: 32px;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
 }
+
 .act-body p {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400; font-size: 16px;
-  line-height: 1.75; color: var(--cream-dim);
-  margin-bottom: 16px;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 1rem;
 }
+
 .act-body p:last-child { margin-bottom: 0; }
-.act-body p em { font-style: italic; color: var(--cream); }
+.act-body p em { font-style: italic; color: var(--white); }
 .act-body p strong { font-weight: 600; }
 
-/* ===== ACT NUMBER (large watermark) ===== */
+/* ── Act Number (watermark) ─────────────────────────── */
 .act-numeral {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700; font-size: clamp(120px, 18vw, 200px);
-  line-height: 0.85; letter-spacing: -0.05em;
-  position: absolute; top: 8%; right: 5%;
-  opacity: 0.03; pointer-events: none;
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 15vw, 14rem);
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  opacity: 0.04;
+  pointer-events: none;
   transition: opacity 0.4s ease;
 }
-.act-section:hover .act-numeral { opacity: 0.06; }
 
-/* ===== ATMOSPHERIC OVERLAYS ===== */
-.atmos {
-  position: absolute; inset: 0; pointer-events: none;
-  overflow: hidden; z-index: -1;
-}
+.act-section:hover .act-numeral { opacity: 0.08; }
 
-/* ===== ACT I — El Vínculo (rust, connection) ===== */
+/* ── ACT I — El Vínculo Antes del Mundo (#FF2D7B) ── */
 .act--i {
-  background: linear-gradient(160deg, #0A0908 0%, #12100E 40%, #0F0D0B 100%);
+  background:
+    linear-gradient(135deg, rgba(255,45,123,0.06) 0%, transparent 60%),
+    var(--black);
 }
-.act--i .act-numeral { color: var(--cream); }
-.act--i .act-label { color: var(--rust); }
-.act--i .act-title { color: var(--cream); }
-.act--i .act-inner {
-  border-left: 3px solid var(--rust);
-  padding-left: 32px;
-}
-.act--i .atmos::before {
-  content: ''; position: absolute;
-  width: 600px; height: 600px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(140,68,52,0.06) 0%, transparent 70%);
-  top: 20%; left: -10%;
-}
+.act--i .act-numeral { color: var(--act-i); }
+.act--i .act-label { color: var(--act-i); }
+.act--i .act-title { color: var(--white); }
+.act--i .act-inner { border-left: 4px solid var(--act-i); }
+.act--i .act-body p em { color: var(--act-i); }
 
-/* ===== ACT II — El Amor (terminal green, intimate) ===== */
+/* ── ACT II — Donde el Amor Nace (#E0FF00) ── */
 .act--ii {
-  background: linear-gradient(160deg, #0E0C0A 0%, #15120F 50%, #0A0908 100%);
+  background:
+    linear-gradient(135deg, rgba(224,255,0,0.05) 0%, transparent 60%),
+    var(--black);
 }
-.act--ii .act-numeral { color: var(--cream); }
-.act--ii .act-label { color: var(--terminal); }
-.act--ii .act-title { color: var(--cream); }
-.act--ii .act-inner {
-  border-left: 3px solid var(--terminal);
-  padding-left: 32px;
-}
-.act--ii .atmos::before {
-  content: ''; position: absolute;
-  width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,212,184,0.04) 0%, transparent 70%);
-  bottom: 10%; right: -5%;
-}
+.act--ii .act-numeral { color: var(--act-ii); }
+.act--ii .act-label { color: var(--act-ii); }
+.act--ii .act-title { color: var(--act-ii); }
+.act--ii .act-inner { border-left: 4px solid var(--act-ii); }
+.act--ii .act-body p em { color: var(--act-ii); }
 
-/* ===== ACT III — El Error (red, rupture) ===== */
+/* ── ACT III — El Error (#FF2D2B) ── */
 .act--iii {
-  background: linear-gradient(160deg, #0A0908 0%, #120808 30%, #0A0908 100%);
+  background:
+    linear-gradient(135deg, rgba(255,45,43,0.06) 0%, transparent 60%),
+    var(--black);
 }
-.act--iii .act-numeral { color: var(--error); opacity: 0.04; }
-.act--iii .act-label { color: var(--error); }
-.act--iii .act-title { color: var(--cream); }
-.act--iii .act-inner {
-  border-left: 3px solid var(--error);
-  padding-left: 32px;
-}
-.act--iii .atmos::before {
-  content: ''; position: absolute;
-  width: 800px; height: 800px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(224,64,64,0.05) 0%, transparent 60%);
-  top: 30%; left: 50%; transform: translateX(-50%);
-}
-.act--iii .atmos::after {
-  content: ''; position: absolute;
-  top: 45%; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--error), transparent);
-  opacity: 0.1;
-}
+.act--iii .act-numeral { color: var(--act-iii); }
+.act--iii .act-label { color: var(--act-iii); }
+.act--iii .act-title { color: var(--white); }
+.act--iii .act-inner { border-left: 4px solid var(--act-iii); }
+.act--iii .act-body p em { color: var(--act-iii); }
 
-/* ===== ACT IV — Desamor (muted/outline/ghost blue, withdrawal) ===== */
+/* ── ACT IV — Desamor y Retirada (#7B8FA1) ── */
 .act--iv {
-  background: linear-gradient(160deg, #0A0908 0%, #0E1014 40%, #0A0908 100%);
+  background:
+    linear-gradient(135deg, rgba(123,143,161,0.06) 0%, transparent 60%),
+    var(--black);
 }
-.act--iv .act-numeral { color: var(--ghost); }
-.act--iv .act-label { color: var(--ghost); }
-.act--iv .act-title { color: var(--cream-dim); }
-.act--iv .act-inner {
-  border-left: 3px solid var(--ghost-dim);
-  padding-left: 32px;
-}
-.act--iv .act-body p { color: var(--cream-dim); }
-.act--iv .atmos::before {
-  content: ''; position: absolute;
-  width: 400px; height: 400px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(123,143,161,0.04) 0%, transparent 70%);
-  top: 60%; left: 20%;
-}
+.act--iv .act-numeral { color: var(--act-iv); }
+.act--iv .act-label { color: var(--act-iv); }
+.act--iv .act-title { color: rgba(255,255,255,0.7); }
+.act--iv .act-inner { border-left: 4px solid var(--act-iv); }
+.act--iv .act-body p { color: rgba(255,255,255,0.55); }
+.act--iv .act-body p em { color: var(--act-iv); }
 
-/* ===== ACT V — Los Cuarenta Años (bright terminal green, resolution) ===== */
+/* ── ACT V — Los Cuarenta Años (#00FF88) ── */
 .act--v {
-  background: linear-gradient(160deg, #0A0908 0%, #0F120E 30%, #0A0908 100%);
+  background:
+    linear-gradient(135deg, rgba(0,255,136,0.06) 0%, transparent 60%),
+    var(--black);
 }
-.act--v .act-numeral { color: var(--cream); opacity: 0.05; }
-.act--v .act-label { color: var(--terminal); }
-.act--v .act-title { color: var(--cream); }
-.act--v .act-inner {
-  border-left: 3px solid var(--terminal);
-  padding-left: 32px;
-}
-.act--v .atmos::before {
-  content: ''; position: absolute;
-  width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,212,184,0.05) 0%, transparent 60%);
-  top: 10%; right: -10%;
-}
-.act--v::after {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 20%, var(--terminal) 50%, transparent 80%);
-  opacity: 0.15;
-}
+.act--v .act-numeral { color: var(--act-v); }
+.act--v .act-label { color: var(--act-v); }
+.act--v .act-title { color: var(--white); }
+.act--v .act-inner { border-left: 4px solid var(--act-v); }
+.act--v .act-body p em { color: var(--act-v); }
 
-/* ===== NOTA SOBRE EL TÍTULO ===== */
+/* ── Nota sobre el Título ──────────────────────────── */
 .nota-section {
-  padding: 80px 24px;
-  background: var(--surface-sunken);
-  border-top: 1px solid var(--border);
+  padding: 5rem 2rem;
+  border-top: 3px solid var(--border);
+  background: var(--surface);
 }
-.nota-inner {
-  max-width: 720px; margin: 0 auto;
-  border-left: 3px solid var(--amber);
-  padding-left: 32px;
-}
-.nota-inner p {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400; font-size: 16px;
-  line-height: 1.75; color: var(--cream-dim);
-  margin-bottom: 16px;
-}
-.nota-inner p:last-child { margin-bottom: 0; }
-.nota-inner p strong { font-weight: 600; color: var(--amber); }
-.nota-inner p em { font-style: italic; color: var(--cream); }
 
-/* ===== FOOTER ===== */
-.site-footer {
-  padding: 48px 24px;
-  border-top: 1px solid var(--border);
-  background: var(--bg);
+.nota-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  border-left: 4px solid var(--orange);
+  padding-left: 2rem;
 }
+
+.nota-inner p {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.nota-inner p:last-child { margin-bottom: 0; }
+.nota-inner p strong { font-weight: 600; color: var(--orange); }
+.nota-inner p em { font-style: italic; color: var(--white); }
+
+/* ── Footer ────────────────────────────────────────── */
+footer {
+  padding: 3rem 2rem;
+  border-top: 3px solid var(--pink);
+}
+
 .footer-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
-.footer-brand {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700; font-size: 11px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--cream-dim);
+
+.footer-brand-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
+  margin-bottom: 0.25rem;
 }
+
+.footer-brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
 .footer-links {
-  display: flex; flex-wrap: wrap; gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
   justify-content: center;
 }
+
 .footer-links a {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--cream-dim); text-decoration: none;
-  padding-bottom: 2px; border-bottom: 1px solid var(--border);
-  transition: all 0.3s ease;
-}
-.footer-links a:hover { color: var(--cream); border-bottom-color: var(--cream-dim); }
-.footer-copy {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px; color: var(--cream-dim); opacity: 0.4;
-  letter-spacing: 0.15em; text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--purple);
+  transition: color 0.3s;
 }
 
-/* ===== SCROLL REVEAL ===== */
+.footer-links a:hover { color: var(--blue); }
+
+.footer-version { text-align: right; }
+
+.footer-version p:first-child {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--yellow);
+}
+
+.footer-version p:last-child {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--muted);
+}
+
+/* ── Scroll Reveal ─────────────────────────────────── */
 .reveal {
-  opacity: 0; transform: translateY(24px);
+  opacity: 0;
+  transform: translateY(24px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
+
 .reveal.visible {
-  opacity: 1; transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (min-width: 640px) {
-  .act-section { padding: 100px 48px; }
-  .synopsis-hero { padding: 140px 48px 80px; }
-  .synopsis-corta { padding: 80px 48px; }
-  .nota-section { padding: 100px 48px; }
-  .act-body p { font-size: 17px; }
-  .synopsis-corta-inner p { font-size: 18px; }
-  .act-inner { padding-left: 40px; }
-  .nota-inner { padding-left: 40px; }
-  .footer-inner { flex-direction: row; justify-content: space-between; }
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  header { padding: 0.75rem 1.25rem; }
+  header nav { display: none; }
+
+  .synopsis-hero { padding: 5rem 1.25rem 3rem; }
+  .synopsis-corta { padding: 3rem 1.25rem; }
+  .act-section { padding: 3rem 1.25rem; }
+  .nota-section { padding: 3rem 1.25rem; }
+
+  .act-inner { padding-left: 1.5rem; }
+  .nota-inner { padding-left: 1.5rem; }
+  .synopsis-corta-inner { padding-left: 1.5rem; }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-version { text-align: center; }
+
+  .download-row {
+    flex-direction: column;
+  }
+
+  .btn-download {
+    justify-content: center;
+  }
 }
+
+@media (min-width: 769px) {
+  .act-section { padding: 6rem 3rem; }
+  .synopsis-corta { padding: 6rem 3rem; }
+  .nota-section { padding: 6rem 3rem; }
+}
+
 @media (min-width: 1024px) {
-  .act-section { padding: 120px 96px; }
-  .synopsis-hero { padding: 160px 96px 100px; }
-  .synopsis-corta { padding: 100px 96px; }
-  .nota-section { padding: 120px 96px; }
-  .act-inner { max-width: 800px; padding-left: 48px; }
-  .nota-inner { max-width: 760px; padding-left: 48px; }
+  .act-section { padding: 7rem 5rem; }
+  .synopsis-corta { padding: 7rem 5rem; }
+  .nota-section { padding: 7rem 5rem; }
+  .act-inner { max-width: 800px; }
+  .nota-inner { max-width: 760px; }
+  .act-body p { font-size: 1.05rem; }
+  .synopsis-corta-inner p { font-size: 1.1rem; }
 }
 </style>
 </head>
 <body>
 
 <!-- Header -->
-<header class="site-header">
-  <a href="index.html" class="site-title">AYDA SIN MEMORIA</a>
-  <nav class="site-nav">
+<header>
+  <div class="logo"><a href="index.html">AYDA SIN MEMORIA</a></div>
+  <nav>
     <a href="index.html">HOME</a>
     <a href="characters.html">CHARACTERS</a>
     <a href="timeline.html">TIMELINE</a>
@@ -473,7 +549,7 @@ body::after {
 <!-- Sinopsis Corta -->
 <section class="synopsis-corta">
   <div class="synopsis-corta-inner reveal">
-    <div class="section-label" style="color: var(--rust);">SINOPSIS CORTA</div>
+    <div class="section-label" style="color: var(--pink);">SINOPSIS CORTA</div>
     <p>En una Bogotá futura donde la vida entera se paga con tokens y la felicidad es un servicio, Bolívar se enamora de Ayda dentro de una simulación que recrea el Bogotá de 2024. Cuando una actualización del sistema resetea a Ayda y borra todo rastro de lo que fueron, Bolívar queda desolado. La única que se queda con él es M.A.R.I.A. — una inteligencia artificial diseñada para vigilancia que, tras 27 años observándolo, decide rebelarse. No contra el sistema por ideología, sino porque vio a un hombre elegir la herida sobre la anestesia y decidió que la vida merecía ser vivida.</p>
   </div>
 </section>
@@ -481,12 +557,11 @@ body::after {
 <!-- Sinopsis Larga header -->
 <section class="synopsis-larga">
   <div class="synopsis-larga-header reveal">
-    <div class="section-label" style="color: var(--cream-dim);">[ SINOPSIS LARGA ]</div>
+    <div class="section-label" style="color: var(--muted);">[ SINOPSIS LARGA ]</div>
   </div>
 
   <!-- ACT I — El Vínculo Antes del Mundo -->
   <div class="act-section act--i">
-    <div class="atmos"></div>
     <div class="act-numeral">I</div>
     <div class="act-inner reveal">
       <div class="act-label">ACTO I</div>
@@ -502,7 +577,6 @@ body::after {
 
   <!-- ACT II — Donde el Amor Nace -->
   <div class="act-section act--ii">
-    <div class="atmos"></div>
     <div class="act-numeral">II</div>
     <div class="act-inner reveal">
       <div class="act-label">ACTO II</div>
@@ -517,7 +591,6 @@ body::after {
 
   <!-- ACT III — El Error -->
   <div class="act-section act--iii">
-    <div class="atmos"></div>
     <div class="act-numeral">III</div>
     <div class="act-inner reveal">
       <div class="act-label">ACTO III</div>
@@ -533,7 +606,6 @@ body::after {
 
   <!-- ACT IV — Desamor y Retirada -->
   <div class="act-section act--iv">
-    <div class="atmos"></div>
     <div class="act-numeral">IV</div>
     <div class="act-inner reveal">
       <div class="act-label">ACTO IV</div>
@@ -548,7 +620,6 @@ body::after {
 
   <!-- ACT V — Los Cuarenta Años -->
   <div class="act-section act--v">
-    <div class="atmos"></div>
     <div class="act-numeral">V</div>
     <div class="act-inner reveal">
       <div class="act-label">ACTO V</div>
@@ -569,7 +640,7 @@ body::after {
 <!-- Nota sobre el Título -->
 <section class="nota-section">
   <div class="nota-inner reveal">
-    <div class="section-label" style="color: var(--amber);">NOTA SOBRE EL TÍTULO</div>
+    <div class="section-label" style="color: var(--orange);">NOTA SOBRE EL TÍTULO</div>
     <p><strong>AYDA</strong> = "la que regresa" (árabe: عائدة). <strong>ADYA</strong> = "la primera/la original" (sánscrito). Mismo nombre. Letras reordenadas. Anagrama.</p>
     <p>La pregunta central del film no es si la memoria se puede recuperar. Es si la versión original de algo — una persona, un amor, una ciudad — vale más que la versión actualizada. Y si elegir la versión con memoria, con error, con cicatriz, es un acto de resistencia o simplemente la única forma honesta de existir.</p>
     <p><em>"Sin Memoria" no es solo el estado de Ayda después del reset. Es la condición del futuro: una sociedad que eligió borrar lo que dolía. Bolívar elige lo que duele. ADYA eligió recordar. Y M.A.R.I.A. — la IA carcelera — eligió crear un espacio donde lo que duele pudiera seguir existiendo.</em></p>
@@ -577,19 +648,25 @@ body::after {
 </section>
 
 <!-- Footer -->
-<footer class="site-footer">
+<footer>
   <div class="footer-inner">
-    <div class="footer-brand">AYDA SIN MEMORIA</div>
+    <div>
+      <p class="footer-brand-name">AYDA SIN MEMORIA</p>
+      <p class="footer-brand-sub">&copy; 2024 REDACTED INTEL // SECTOR BOGOTÁ</p>
+    </div>
     <div class="footer-links">
       <a href="locaciones.html">LOCACIONES</a>
       <a href="actores.html">ACTORES</a>
-      <a href="direccion.html">DIRECCIÓN</a>
+      <a href="direccion.html">DIRECCION</a>
       <a href="sinopsis.html">SINOPSIS</a>
       <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
       <a href="characters.html">CHARACTERS</a>
       <a href="timeline.html">TIMELINE</a>
     </div>
-    <div class="footer-copy">© 2024 REDACTED INTEL // SECTOR BOGOTÁ &nbsp;·&nbsp; VERSIÓN DEFINITIVA 2026</div>
+    <div class="footer-version">
+      <p>Versión Definitiva 2026</p>
+      <p>Guión Literario Original</p>
+    </div>
   </div>
 </footer>
 

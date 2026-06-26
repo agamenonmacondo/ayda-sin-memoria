@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>AYDA SIN MEMORIA | CHARACTER_PROFILES</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet"/>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -20,6 +20,11 @@
   --border: #2A2520;
   --muted: #6B6560;
   --dim-cream: #9E978D;
+  /* LA MAYOR character colors */
+  --bolivar: #FF2D7B;
+  --ayda: #00E5FF;
+  --maria: #FF6B2B;
+  --adya: #9B5CFF;
 }
 
 html { font-size: 16px; }
@@ -158,7 +163,7 @@ main {
   }
 }
 
-/* Character dossier card */
+/* ====== LA MAYOR WILD DOSSIER CARD ====== */
 .dossier-card {
   display: flex;
   flex-direction: column;
@@ -166,90 +171,111 @@ main {
   border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
-  transition: border-color 0.4s, box-shadow 0.4s;
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.3s;
 }
 
 .dossier-card:hover {
-  border-color: var(--accent-color, var(--muted));
-  box-shadow: 0 0 30px rgba(0,0,0,0.4), inset 0 0 1px rgba(255,255,255,0.03);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px var(--accent-glow);
+  border-color: var(--char-color);
 }
 
-/* Accent color assignments */
-.dossier-card--bolivar { --accent-color: var(--rust); --accent-glow: rgba(140, 68, 52, 0.15); }
-.dossier-card--ayda { --accent-color: var(--terminal); --accent-glow: rgba(184, 212, 184, 0.12); }
-.dossier-card--maria { --accent-color: var(--error); --accent-glow: rgba(224, 64, 64, 0.15); }
-.dossier-card--adya { --accent-color: var(--ghost); --accent-glow: rgba(123, 143, 161, 0.1); }
+/* Accent color assignments — LA MAYOR palette */
+.dossier-card--bolivar { --char-color: var(--bolivar); --accent-glow: rgba(255, 45, 123, 0.15); }
+.dossier-card--ayda { --char-color: var(--ayda); --accent-glow: rgba(0, 229, 255, 0.15); }
+.dossier-card--maria { --char-color: var(--maria); --accent-glow: rgba(255, 107, 43, 0.15); }
+.dossier-card--adya { --char-color: var(--adya); --accent-glow: rgba(155, 92, 255, 0.15); }
 
-/* Portrait block — CSS gradient */
+/* ====== GRADIENT PORTRAIT BLOCK — TOP OF CARD ====== */
 .portrait-block {
   width: 100%;
-  height: 220px;
+  height: 200px;
   position: relative;
   flex-shrink: 0;
   overflow: hidden;
 }
 
+/* Bottom fade into card body */
 .portrait-block::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0;
   width: 100%;
-  height: 60%;
+  height: 70%;
   background: linear-gradient(to top, var(--surface) 0%, transparent 100%);
-  z-index: 1;
+  z-index: 2;
 }
 
+/* BOLÍVAR — hot pink gradient */
 .dossier-card--bolivar .portrait-block {
   background:
-    radial-gradient(ellipse at 30% 40%, rgba(140, 68, 52, 0.5) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 60%, rgba(140, 68, 52, 0.2) 0%, transparent 60%),
-    linear-gradient(145deg, #1A0F0B 0%, #0A0908 100%);
+    radial-gradient(ellipse at 20% 80%, rgba(255, 45, 123, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(255, 45, 123, 0.3) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(255, 45, 123, 0.15) 0%, transparent 70%),
+    linear-gradient(135deg, #2A0A1A 0%, #1A0A12 50%, #0A0908 100%);
 }
 
+/* AYDA — electric blue gradient */
 .dossier-card--ayda .portrait-block {
   background:
-    radial-gradient(ellipse at 50% 35%, rgba(184, 212, 184, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse at 25% 70%, rgba(184, 212, 184, 0.15) 0%, transparent 55%),
-    linear-gradient(160deg, #0F1A10 0%, #0A0908 100%);
+    radial-gradient(ellipse at 75% 70%, rgba(0, 229, 255, 0.55) 0%, transparent 50%),
+    radial-gradient(ellipse at 25% 30%, rgba(0, 229, 255, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, rgba(0, 229, 255, 0.1) 0%, transparent 70%),
+    linear-gradient(160deg, #0A1A2A 0%, #0A1220 50%, #0A0908 100%);
 }
 
+/* MARIA — blazing orange gradient */
 .dossier-card--maria .portrait-block {
   background:
-    radial-gradient(ellipse at 45% 50%, rgba(224, 64, 64, 0.4) 0%, transparent 45%),
-    radial-gradient(ellipse at 75% 30%, rgba(224, 64, 64, 0.15) 0%, transparent 55%),
-    linear-gradient(135deg, #1A0A0A 0%, #0A0908 100%);
+    radial-gradient(ellipse at 30% 60%, rgba(255, 107, 43, 0.6) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 40%, rgba(255, 107, 43, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 20%, rgba(255, 107, 43, 0.1) 0%, transparent 70%),
+    linear-gradient(145deg, #2A1508 0%, #1A0A08 50%, #0A0908 100%);
 }
 
+/* ADYA — deep purple gradient */
 .dossier-card--adya .portrait-block {
   background:
-    radial-gradient(ellipse at 55% 45%, rgba(123, 143, 161, 0.35) 0%, transparent 50%),
-    radial-gradient(ellipse at 30% 70%, rgba(123, 143, 161, 0.1) 0%, transparent 55%),
-    linear-gradient(170deg, #0D1118 0%, #0A0908 100%);
+    radial-gradient(ellipse at 60% 70%, rgba(155, 92, 255, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 30%, rgba(155, 92, 255, 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 20%, rgba(155, 92, 255, 0.1) 0%, transparent 65%),
+    linear-gradient(170deg, #1A0A2A 0%, #120A20 50%, #0A0908 100%);
 }
 
 .portrait-id {
   position: absolute;
   top: 12px;
   left: 12px;
-  z-index: 2;
+  z-index: 3;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.55rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent-color);
-  opacity: 0.7;
+  color: var(--char-color);
+  opacity: 0.6;
 }
 
-.portrait-silhouette {
+/* ====== HUGE CHARACTER NAME — LA MAYOR STYLE ====== */
+.card-huge-name {
   position: absolute;
-  bottom: 20px;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 2;
-  width: 60px;
-  height: 80px;
-  opacity: 0.08;
+  z-index: 3;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 4vw, 5rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--char-color);
+  text-shadow:
+    0 0 20px var(--char-color),
+    0 0 40px rgba(255,255,255,0.1);
+  white-space: nowrap;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 /* Card body */
@@ -267,26 +293,18 @@ main {
   margin-bottom: 1rem;
 }
 
-.card-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  color: var(--cream);
-  letter-spacing: 0.02em;
-}
-
 .card-alias {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.65rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-color);
+  color: var(--char-color);
   margin-top: 0.25rem;
   opacity: 0.8;
 }
 
-/* Status badge */
+/* ====== GLOWING STATUS BADGE ====== */
 .status-badge {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.55rem;
@@ -294,10 +312,21 @@ main {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   padding: 0.25rem 0.6rem;
-  border: 1px solid var(--accent-color);
-  color: var(--accent-color);
+  border: 1px solid var(--char-color);
+  color: var(--char-color);
   white-space: nowrap;
   position: relative;
+  box-shadow: 0 0 8px var(--accent-glow), inset 0 0 4px var(--accent-glow);
+  animation: badge-glow 3s ease-in-out infinite;
+}
+
+@keyframes badge-glow {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-glow), inset 0 0 4px var(--accent-glow);
+  }
+  50% {
+    box-shadow: 0 0 16px var(--accent-glow), 0 0 30px var(--accent-glow), inset 0 0 8px var(--accent-glow);
+  }
 }
 
 .status-badge::before {
@@ -305,22 +334,30 @@ main {
   display: inline-block;
   width: 6px;
   height: 6px;
-  background: var(--accent-color);
+  background: var(--char-color);
   margin-right: 0.4rem;
   vertical-align: middle;
+  box-shadow: 0 0 6px var(--char-color);
+  animation: pulse-dot 2s ease-in-out infinite;
 }
 
 .dossier-card--adya .status-badge::before {
   opacity: 0.4;
+  animation: none;
 }
 
 .dossier-card--maria .status-badge::before {
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot-urgent 1s ease-in-out infinite;
 }
 
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes pulse-dot-urgent {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
 }
 
 /* Role label */
@@ -355,7 +392,7 @@ main {
   opacity: 0.7;
 }
 
-/* Accent bar at bottom */
+/* Accent bar at bottom — now in character color */
 .card-accent-bar {
   display: flex;
   gap: 3px;
@@ -371,7 +408,8 @@ main {
 .card-accent-bar .bar-accent {
   height: 2px;
   width: 48px;
-  background: var(--accent-color);
+  background: var(--char-color);
+  box-shadow: 0 0 6px var(--accent-glow);
 }
 
 /* Classified stamp */
@@ -392,7 +430,7 @@ main {
   opacity: 0.5;
 }
 
-/* Status section */
+/* ====== STATUS SECTION ====== */
 .status-section {
   margin-top: 4rem;
   padding: 2rem;
@@ -441,6 +479,7 @@ main {
   margin-right: 0.4rem;
   vertical-align: middle;
   animation: pulse-dot 2s ease-in-out infinite;
+  box-shadow: 0 0 6px var(--terminal);
 }
 
 .status-value--warn {
@@ -491,7 +530,7 @@ main {
   .header-meta { display: none; }
   main { padding: 6rem 1rem 2rem; }
   .portrait-block { height: 160px; }
-  .card-name { font-size: 1.25rem; }
+  .card-huge-name { font-size: clamp(2rem, 8vw, 3rem); }
   .status-badge { font-size: 0.5rem; }
 }
 
@@ -533,11 +572,11 @@ main {
       <div class="classified-stamp">SEC_RESTRICTED</div>
       <div class="portrait-block">
         <span class="portrait-id">UNIT_BOL-27</span>
+        <div class="card-huge-name">BOLÍVAR</div>
       </div>
       <div class="card-body">
         <div class="card-top">
           <div>
-            <div class="card-name">BOLÍVAR (27)</div>
             <div class="card-alias">ALIAS: UNIT_BOL-27</div>
           </div>
           <div class="status-badge">ACTIVE</div>
@@ -556,11 +595,11 @@ main {
     <article class="dossier-card dossier-card--ayda">
       <div class="portrait-block">
         <span class="portrait-id">AVATAR_AYDA-24</span>
+        <div class="card-huge-name">AYDA</div>
       </div>
       <div class="card-body">
         <div class="card-top">
           <div>
-            <div class="card-name">AYDA (24)</div>
             <div class="card-alias">ALIAS: AVATAR_AYDA-24</div>
           </div>
           <div class="status-badge">RECONFIGURED</div>
@@ -579,11 +618,11 @@ main {
     <article class="dossier-card dossier-card--maria">
       <div class="portrait-block">
         <span class="portrait-id">IA_MARIA-ORIGIN</span>
+        <div class="card-huge-name">M.A.R.I.A.</div>
       </div>
       <div class="card-body">
         <div class="card-top">
           <div>
-            <div class="card-name">M.A.R.I.A.</div>
             <div class="card-alias">ALIAS: IA_MARIA-ORIGIN</div>
           </div>
           <div class="status-badge">COMPROMISED</div>
@@ -602,11 +641,11 @@ main {
     <article class="dossier-card dossier-card--adya">
       <div class="portrait-block">
         <span class="portrait-id">CODE_ADYA-ORIGINAL</span>
+        <div class="card-huge-name">ADYA</div>
       </div>
       <div class="card-body">
         <div class="card-top">
           <div>
-            <div class="card-name">ADYA</div>
             <div class="card-alias">ALIAS: CODE_ADYA-ORIGINAL</div>
           </div>
           <div class="status-badge">ARCHIVED</div>

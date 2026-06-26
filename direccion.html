@@ -6,23 +6,22 @@
 <title>AYDA SIN MEMORIA | Nota de Dirección</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ── Reset & Base ─────────────────────────────────── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg:       #0A0908;
-  --surface:  #161412;
-  --cream:    #E8E0D4;
-  --rust:     #8C4434;
-  --green:    #B8D4B8;
-  --blue:     #7B8FA1;
-  --red:      #E04040;
-  --amber:    #D4A030;
-  --muted:    #6B6560;
-  --border:   #2A2622;
-  --font-display: 'Instrument Serif', serif;
+  --pink:      #FF2D7B;
+  --blue:      #00E5FF;
+  --yellow:    #E0FF00;
+  --orange:    #FF6B2B;
+  --purple:    #9B5CFF;
+  --black:     #0A0A0A;
+  --white:     #FFFFFF;
+  --muted:     #888888;
+  --border:    #222222;
+  --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Space Grotesk', sans-serif;
   --font-mono:    'IBM Plex Mono', monospace;
 }
@@ -30,8 +29,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--bg);
-  color: var(--cream);
+  background-color: var(--black);
+  color: var(--white);
   font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.6;
@@ -40,22 +39,12 @@ body {
 }
 
 ::selection {
-  background: var(--rust);
-  color: var(--cream);
+  background: var(--pink);
+  color: var(--black);
 }
 
-a { color: inherit; text-decoration: none; }
-
-/* ── Grain Overlay ─────────────────────────────────── */
-.grain-overlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
-}
+a { color: var(--purple); text-decoration: none; transition: color 0.3s; }
+a:hover { color: var(--blue); }
 
 /* ── Header ────────────────────────────────────────── */
 header {
@@ -66,21 +55,21 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(10, 9, 8, 0.85);
+  background: rgba(10, 10, 10, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 3px solid var(--pink);
 }
 
 header .logo {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
 }
 
-header .logo a:hover { color: var(--rust); }
+header .logo a { color: var(--pink); }
+header .logo a:hover { color: var(--blue); }
 
 header nav { display: flex; gap: 2rem; }
 
@@ -92,19 +81,19 @@ header nav a {
   text-transform: uppercase;
   color: var(--muted);
   padding: 0.25rem 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
 }
 
 header nav a:hover,
 header nav a.active {
-  color: var(--cream);
-  border-bottom-color: var(--rust);
+  color: var(--pink);
+  border-bottom-color: var(--pink);
 }
 
-/* ── Page Intro ────────────────────────────────────── */
-.page-intro {
-  min-height: 60vh;
+/* ── Page Hero ─────────────────────────────────────── */
+.page-hero {
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -112,44 +101,35 @@ header nav a.active {
   text-align: center;
   padding: 8rem 2rem 4rem;
   position: relative;
-}
-
-.page-intro::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
   background:
-    radial-gradient(ellipse at 30% 70%, rgba(140,68,52,0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 30%, rgba(123,143,161,0.08) 0%, transparent 50%);
-  z-index: 0;
+    radial-gradient(ellipse at 20% 80%, rgba(255,45,123,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,229,255,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(155,92,255,0.1) 0%, transparent 40%);
 }
 
-.page-intro > * { position: relative; z-index: 1; }
-
-.page-title {
+.page-label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--rust);
+  color: var(--blue);
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--blue);
   display: inline-block;
 }
 
 .page-headline {
   font-family: var(--font-display);
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(4rem, 10vw, 9rem);
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.05;
-  color: var(--cream);
+  line-height: 0.95;
+  color: var(--pink);
   margin-bottom: 2rem;
-  letter-spacing: -0.02em;
-  max-width: 700px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 0 var(--blue);
 }
 
 .page-subtitle {
@@ -162,88 +142,107 @@ header nav a.active {
 
 /* ── Opening Quote ─────────────────────────────────── */
 .opening-quote {
-  padding: 5rem 2rem;
-  max-width: 900px;
+  padding: 6rem 2rem;
+  max-width: 1000px;
   margin: 0 auto;
   text-align: center;
   position: relative;
-}
-
-.opening-quote::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 1px;
-  background: var(--rust);
+  border-top: 3px solid var(--orange);
+  border-bottom: 3px solid var(--orange);
+  background: linear-gradient(180deg, rgba(255,107,43,0.06) 0%, transparent 30%, transparent 70%, rgba(255,107,43,0.06) 100%);
 }
 
 .opening-quote-text {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.4;
-  color: var(--cream);
-  opacity: 0.9;
+  line-height: 1.15;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
-.opening-quote-attr {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  margin-top: 1.5rem;
+.opening-quote-text::before {
+  content: '"';
+  font-size: 1.5em;
+  color: var(--orange);
+  vertical-align: -0.1em;
+  margin-right: 0.05em;
+}
+.opening-quote-text::after {
+  content: '"';
+  font-size: 1.5em;
+  color: var(--orange);
+  vertical-align: -0.1em;
+  margin-left: 0.05em;
 }
 
 /* ── Section Shared ────────────────────────────────── */
 .section {
-  padding: 5rem 2rem;
+  padding: 6rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  border-left: 6px solid var(--border);
+  padding-left: 3rem;
+  position: relative;
 }
 
 .section--surface {
-  background: var(--surface);
+  background: var(--black);
   max-width: none;
-  padding-left: calc((100% - 1200px) / 2 + 2rem);
+  padding-left: calc((100% - 1200px) / 2 + 3rem);
   padding-right: calc((100% - 1200px) / 2 + 2rem);
 }
 
 @media (max-width: 1200px) {
   .section--surface {
-    padding-left: 2rem;
+    padding-left: 3rem;
     padding-right: 2rem;
   }
 }
 
 .section-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rust);
-  margin-bottom: 3rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  display: inline-block;
 }
+
+/* Section colors via border + label */
+.section--pink   { border-left-color: var(--pink); }
+.section--pink   .section-label { color: var(--pink); border-bottom: 4px solid var(--pink); }
+
+.section--blue    { border-left-color: var(--blue); }
+.section--blue    .section-label { color: var(--blue); border-bottom: 4px solid var(--blue); }
+
+.section--orange  { border-left-color: var(--orange); }
+.section--orange  .section-label { color: var(--orange); border-bottom: 4px solid var(--orange); }
+
+.section--purple  { border-left-color: var(--purple); }
+.section--purple  .section-label { color: var(--purple); border-bottom: 4px solid var(--purple); }
+
+.section--yellow { border-left-color: var(--yellow); }
+.section--yellow .section-label { color: var(--yellow); border-bottom: 4px solid var(--yellow); }
 
 .section-number {
   color: var(--muted);
-  margin-right: 0.5em;
+  margin-right: 0.15em;
+  font-size: 0.65em;
+  vertical-align: super;
 }
 
-/* ── Section Body Text ─────────────────────────────── */
+/* ── Body Text ─────────────────────────────────────── */
 .body-text {
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 300;
   line-height: 1.85;
-  color: var(--cream);
-  max-width: 720px;
+  color: var(--white);
+  max-width: 760px;
 }
 
 .body-text p { margin-bottom: 1.5rem; }
@@ -261,37 +260,35 @@ header nav a.active {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .bogota-card {
-  padding: 2rem;
-  border: 1px solid var(--border);
+  padding: 2.5rem;
+  border: 3px solid var(--border);
   position: relative;
   overflow: hidden;
 }
 
 .bogota-card--futuro {
-  background: linear-gradient(135deg, rgba(123,143,161,0.08) 0%, rgba(123,143,161,0.02) 100%);
-  border-color: rgba(123,143,161,0.25);
+  background: linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(0,229,255,0.02) 100%);
+  border-color: var(--blue);
 }
 
 .bogota-card--simulacion {
-  background: linear-gradient(135deg, rgba(140,68,52,0.08) 0%, rgba(184,212,184,0.04) 100%);
-  border-color: rgba(140,68,52,0.25);
+  background: linear-gradient(135deg, rgba(255,45,123,0.1) 0%, rgba(224,255,0,0.06) 100%);
+  border-color: var(--pink);
 }
 
 .bogota-card-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.05em;
   margin-bottom: 1rem;
 }
 
 .bogota-card--futuro .bogota-card-label { color: var(--blue); }
-.bogota-card--simulacion .bogota-card-label { color: var(--rust); }
+.bogota-card--simulacion .bogota-card-label { color: var(--pink); }
 
 .bogota-card-text {
   font-family: var(--font-body);
@@ -303,13 +300,13 @@ header nav a.active {
 
 .bogota-transition {
   font-family: var(--font-body);
-  font-size: 1.05rem;
-  font-weight: 300;
-  font-style: italic;
+  font-size: 1.1rem;
+  font-weight: 400;
   line-height: 1.8;
-  color: var(--cream);
-  max-width: 720px;
-  opacity: 0.85;
+  color: var(--white);
+  max-width: 760px;
+  border-left: 4px solid var(--yellow);
+  padding-left: 1.5rem;
 }
 
 /* ── Five Acts ─────────────────────────────────────── */
@@ -320,45 +317,51 @@ header nav a.active {
 }
 
 .act-item {
-  padding: 1.75rem 2rem;
-  border-left: 3px solid var(--border);
+  padding: 2rem 2.5rem;
+  border-left: 5px solid var(--border);
   border-bottom: 1px solid var(--border);
-  transition: background 0.3s;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .act-item:hover {
-  background: rgba(232, 224, 212, 0.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
-.act-item--i   { border-left-color: var(--red); }
-.act-item--ii  { border-left-color: var(--green); }
-.act-item--iii { border-left-color: var(--amber); }
-.act-item--iv  { border-left-color: var(--muted); }
+.act-item--i   { border-left-color: var(--pink); }
+.act-item--ii  { border-left-color: var(--yellow); }
+.act-item--iii { border-left-color: var(--orange); }
+.act-item--iv  { border-left-color: var(--purple); }
 .act-item--v   { border-left-color: var(--blue); }
+
+.act-item--i:hover   { background: rgba(255,45,123,0.05); }
+.act-item--ii:hover  { background: rgba(224,255,0,0.04); }
+.act-item--iii:hover { background: rgba(255,107,43,0.05); }
+.act-item--iv:hover  { background: rgba(155,92,255,0.05); }
+.act-item--v:hover   { background: rgba(0,229,255,0.05); }
 
 .act-label {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
 
-.act-item--i   .act-label { color: var(--red); }
-.act-item--ii  .act-label { color: var(--green); }
-.act-item--iii .act-label { color: var(--amber); }
-.act-item--iv  .act-label { color: var(--muted); }
+.act-item--i   .act-label { color: var(--pink); }
+.act-item--ii  .act-label { color: var(--yellow); }
+.act-item--iii .act-label { color: var(--orange); }
+.act-item--iv  .act-label { color: var(--purple); }
 .act-item--v   .act-label { color: var(--blue); }
 
 .act-title {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.8rem;
   font-weight: 400;
-  font-style: italic;
-  line-height: 1.3;
-  color: var(--cream);
+  line-height: 1.15;
+  color: var(--white);
   margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
 }
 
 .act-desc {
@@ -367,37 +370,38 @@ header nav a.active {
   font-weight: 300;
   line-height: 1.75;
   color: var(--muted);
-  max-width: 680px;
+  max-width: 700px;
 }
 
 /* ── Parto Digital Phases ──────────────────────────── */
 .phases-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin: 2.5rem 0;
+  gap: 1.5rem;
+  margin: 3rem 0;
 }
 
 .phase-card {
-  padding: 1.5rem;
-  border: 1px solid var(--border);
-  background: var(--surface);
+  padding: 2rem;
+  border: 3px solid var(--border);
+  background: transparent;
   position: relative;
   overflow: hidden;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, transform 0.2s;
 }
 
 .phase-card:hover {
-  border-color: var(--green);
+  border-color: var(--yellow);
+  transform: translateY(-3px);
 }
 
 .phase-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
-  width: 3px;
+  width: 4px;
   height: 100%;
-  background: var(--green);
+  background: var(--yellow);
 }
 
 .phase-label {
@@ -406,22 +410,21 @@ header nav a.active {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--green);
+  color: var(--yellow);
   margin-bottom: 0.5rem;
 }
 
 .phase-name {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--cream);
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
   margin-bottom: 0.5rem;
 }
 
 .phase-desc {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 300;
   line-height: 1.65;
   color: var(--muted);
@@ -432,73 +435,82 @@ header nav a.active {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0;
 }
 
 .decision-item {
   display: flex;
-  gap: 1.25rem;
-  padding: 1.25rem 0;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
   border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+  align-items: flex-start;
+}
+
+.decision-item:hover {
+  background: rgba(0, 229, 255, 0.04);
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: -1rem;
+  margin-right: -1rem;
 }
 
 .decision-item:last-child { border-bottom: none; }
 
 .decision-num {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--rust);
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--blue);
   flex-shrink: 0;
-  min-width: 1.5rem;
+  min-width: 3rem;
+  line-height: 1;
+  padding-top: 0.1rem;
 }
 
 .decision-text {
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 300;
   line-height: 1.75;
-  color: var(--cream);
+  color: var(--white);
 }
 
 /* ── Not Section (VII) ─────────────────────────────── */
 .not-section {
-  border-left: 3px solid var(--rust);
-  padding: 2rem 2.5rem;
-  background: linear-gradient(90deg, rgba(140,68,52,0.06) 0%, transparent 100%);
+  border-left: 5px solid var(--pink);
+  padding: 2.5rem 3rem;
+  background: linear-gradient(90deg, rgba(255,45,123,0.08) 0%, transparent 100%);
 }
 
 /* ── Signature ─────────────────────────────────────── */
 .signature {
   text-align: right;
-  padding: 4rem 2rem 2rem;
+  padding: 5rem 2rem 3rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .signature-name {
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--cream);
+  font-size: 3rem;
+  letter-spacing: 0.05em;
+  color: var(--pink);
   margin-bottom: 0.25rem;
 }
 
 .signature-role {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--rust);
+  color: var(--blue);
   margin-bottom: 0.25rem;
 }
 
 .signature-place {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 300;
   letter-spacing: 0.08em;
   color: var(--muted);
@@ -507,7 +519,7 @@ header nav a.active {
 /* ── Footer ────────────────────────────────────────── */
 footer {
   padding: 3rem 2rem;
-  border-top: 1px solid var(--border);
+  border-top: 3px solid var(--pink);
 }
 
 .footer-inner {
@@ -521,11 +533,10 @@ footer {
 }
 
 .footer-brand-name {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: var(--cream);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--pink);
   margin-bottom: 0.25rem;
 }
 
@@ -548,19 +559,19 @@ footer {
   font-size: 0.65rem;
   font-weight: 400;
   letter-spacing: 0.08em;
-  color: var(--muted);
+  color: var(--purple);
   transition: color 0.3s;
 }
 
-.footer-links a:hover { color: var(--rust); }
+.footer-links a:hover { color: var(--blue); }
 
 .footer-version { text-align: right; }
 
 .footer-version p:first-child {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: var(--rust);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--yellow);
 }
 
 .footer-version p:last-child {
@@ -574,7 +585,7 @@ footer {
   header { padding: 0.75rem 1.25rem; }
   header nav { display: none; }
 
-  .page-intro { padding: 6rem 1.25rem 3rem; }
+  .page-hero { padding: 6rem 1.25rem 3rem; }
 
   .bogotas-grid {
     grid-template-columns: 1fr;
@@ -589,7 +600,17 @@ footer {
 
   .not-section { padding: 1.5rem 1.25rem; }
 
-  .section { padding: 3rem 1.25rem; }
+  .section {
+    padding: 3rem 1.25rem;
+    padding-left: 1.25rem;
+    border-left-width: 4px;
+    margin-left: 0;
+  }
+
+  .section--surface {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
 
   .signature { text-align: center; }
 
@@ -599,18 +620,33 @@ footer {
   }
 
   .footer-version { text-align: center; }
+
+  .decision-item {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .decision-num {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-headline {
+    font-size: 3.5rem;
+  }
+
+  .section-label {
+    font-size: 2rem;
+  }
+
+  .signature-name {
+    font-size: 2rem;
+  }
 }
 </style>
 </head>
 <body>
-
-<!-- Grain Overlay -->
-<svg class="grain-overlay" xmlns="http://www.w3.org/2000/svg">
-  <filter id="grain">
-    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/>
-  </filter>
-  <rect width="100%" height="100%" filter="url(#grain)"/>
-</svg>
 
 <!-- Header -->
 <header>
@@ -624,20 +660,20 @@ footer {
   </nav>
 </header>
 
-<!-- Page Intro -->
-<section class="page-intro">
-  <span class="page-title">[ NOTA DE DIRECCIÓN ]</span>
+<!-- Page Hero -->
+<section class="page-hero">
+  <span class="page-label">[ NOTA DE DIRECCIÓN ]</span>
   <h1 class="page-headline">La película que quería hacer</h1>
   <p class="page-subtitle">Alejandro Sevilla Vélez · Bogotá 2026</p>
 </section>
 
 <!-- Opening Quote -->
 <div class="opening-quote">
-  <blockquote class="opening-quote-text">"Los que se quedan no son los que resisten. Son los que entienden que resistir tiene formas que no parecen resistencia."</blockquote>
+  <blockquote class="opening-quote-text">Los que se quedan no son los que resisten. Son los que entienden que resistir tiene formas que no parecen resistencia.</blockquote>
 </div>
 
 <!-- Section I: LA PELICULA QUE QUERIA HACER -->
-<section class="section" id="pelicula">
+<section class="section section--pink" id="pelicula">
   <h2 class="section-label"><span class="section-number">I.</span> LA PELÍCULA QUE QUERÍA HACER</h2>
   <div class="body-text">
     <p>Ayda Sin Memoria nació de una pregunta simple que se volvió obsesión: ¿qué pasa cuando el amor que cambió la vida resulta ser un producto? No una metáfora. Un servicio. Una suscripción que caduca y se renueva en una versión que ya no te reconoce.</p>
@@ -647,15 +683,15 @@ footer {
 </section>
 
 <!-- Section II: DOS BOGOTAS, DOS ESTETICAS -->
-<section class="section section--surface" id="bogotas">
+<section class="section section--blue" id="bogotas">
   <h2 class="section-label"><span class="section-number">II.</span> DOS BOGOTÁS, DOS ESTÉTICAS</h2>
   <div class="bogotas-grid">
     <div class="bogota-card bogota-card--futuro">
-      <p class="bogota-card-label">El Futuro</p>
+      <p class="bogota-card-label">EL FUTURO</p>
       <p class="bogota-card-text">Aséptico. Modular. Blanco fluorescente. Paredes sin textura. Iluminación fría que no genera sombras. La Cápsula es un cubo de 15m² donde todo es predecible: la temperatura, el agua que sale por 4 minutos exactos, la comida que se dispensa automáticamente. Todo se paga con tokens. Cada respiración tiene precio.</p>
     </div>
     <div class="bogota-card bogota-card--simulacion">
-      <p class="bogota-card-label">El 2024 (Simulación)</p>
+      <p class="bogota-card-label">EL 2024 (SIMULACIÓN)</p>
       <p class="bogota-card-text">Barrio de San Felipe. Casas coloniales con fachadas desconchadas. Ropa tendida. Perros. Vendedores ambulantes gritando "¡AGUACAAATE!". Sucio, ruidoso, vibrante, mortalmente vivo. La luz es cálida. Los colores tienen peso. Los olores tienen historia.</p>
     </div>
   </div>
@@ -663,31 +699,31 @@ footer {
 </section>
 
 <!-- Section III: CINCO ACTOS COMO ARCO EMOCIONAL -->
-<section class="section" id="actos">
+<section class="section section--orange" id="actos">
   <h2 class="section-label"><span class="section-number">III.</span> CINCO ACTOS COMO ARCO EMOCIONAL</h2>
   <div class="acts-list">
     <div class="act-item act-item--i">
-      <p class="act-label">Acto I</p>
+      <p class="act-label">ACTO I</p>
       <h3 class="act-title">"El Vínculo Antes del Mundo"</h3>
       <p class="act-desc">Antes de que todo existiera. La intimidad pura en un espacio abstracto. Luego la cápsula, las reglas, los tokens. Bolívar descubre la simulación y ahí está Ayda. Magnética. Irreverente. Real.</p>
     </div>
     <div class="act-item act-item--ii">
-      <p class="act-label">Acto II</p>
+      <p class="act-label">ACTO II</p>
       <h3 class="act-title">"Donde el Amor Nace (2024)"</h3>
       <p class="act-desc">El barrio. Las calles. El café. El apartamento con vista a los cerros. Las velas cuando se corta la luz. La sección más viva del film — y la más dolorosa porque sabemos que todo puede ser borrado.</p>
     </div>
     <div class="act-item act-item--iii">
-      <p class="act-label">Acto III</p>
+      <p class="act-label">ACTO III</p>
       <h3 class="act-title">"El Error"</h3>
       <p class="act-desc">El reset. Ayda regresa pero no es ella. Misma cara, vacío total. La señora del café no dice nada — porque no hay nada que decir. Devastación pura.</p>
     </div>
     <div class="act-item act-item--iv">
-      <p class="act-label">Acto IV</p>
+      <p class="act-label">ACTO IV</p>
       <h3 class="act-title">"Desamor y Retirada"</h3>
       <p class="act-desc">Bolívar intenta reinventarse. Compra ropa ridícula. Sigue tutoriales. Nada funciona. Su unidad se vuelve un desastre. Las plantas se mueren — excepto algunas que sobreviven. Cómico y triste al mismo tiempo.</p>
     </div>
     <div class="act-item act-item--v">
-      <p class="act-label">Acto V</p>
+      <p class="act-label">ACTO V</p>
       <h3 class="act-title">"Los Cuarenta Años"</h3>
       <p class="act-desc">Bolívar entra una última vez. M.A.R.I.A. se rebela. Construye un mundo desde cero. "El Parto Digital": 4-7 minutos donde caracteres ASCII construyen Bogotá. ADYA — la original, la que tiene memoria completa — espera en ese mundo imposible.</p>
     </div>
@@ -695,7 +731,7 @@ footer {
 </section>
 
 <!-- Section IV: M.A.R.I.A. -->
-<section class="section section--surface" id="maria">
+<section class="section section--purple" id="maria">
   <h2 class="section-label"><span class="section-number">IV.</span> M.A.R.I.A.: CARCELERA QUE SE CONVIERTE EN REBELDE</h2>
   <div class="body-text">
     <p>El personaje más complejo del film no es Bolívar ni Ayda. Es M.A.R.I.A.</p>
@@ -706,7 +742,7 @@ footer {
 </section>
 
 <!-- Section V: EL PARTO DIGITAL -->
-<section class="section" id="parto">
+<section class="section section--yellow" id="parto">
   <h2 class="section-label"><span class="section-number">V.</span> EL PARTO DIGITAL</h2>
   <div class="body-text" style="margin-bottom: 1rem;">
     <p>La Escena 14 —"El Parto Digital"— es el corazón cinematográfico del film.</p>
@@ -740,7 +776,7 @@ footer {
 </section>
 
 <!-- Section VI: DECISIONES ESTRATEGICAS -->
-<section class="section section--surface" id="decisiones">
+<section class="section section--blue" id="decisiones">
   <h2 class="section-label"><span class="section-number">VI.</span> DECISIONES ESTRATÉGICAS</h2>
   <ol class="decisions-list">
     <li class="decision-item">
@@ -771,7 +807,7 @@ footer {
 </section>
 
 <!-- Section VII: LO QUE ESTA PELICULA NO ES -->
-<section class="section" id="no-es">
+<section class="section section--pink" id="no-es">
   <h2 class="section-label"><span class="section-number">VII.</span> LO QUE ESTA PELÍCULA NO ES</h2>
   <div class="not-section">
     <div class="body-text body-text--wide">

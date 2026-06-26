@@ -6,46 +6,43 @@
 <title>AYDA SIN MEMORIA | SECUENCIA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ===== DESIGN DIRECTION: "Corrupted Archive" =====
-   Palette: Near-black warm (#0A0908), warm dark (#161412), 
-   cream/parchment (#E8E0D4), rust oxide (#8C4434),
-   pale green terminal (#B8D4B8), cold blue ghost (#7B8FA1),
-   hot red error (#E04040), amber recovery (#D4A030)
+/* ===== DESIGN DIRECTION: "LA MAYOR" — Wild Colored Acts =====
+   Each act SCREAMS its own color against deep black:
+   Act I   → #FF2D7B  electric pink
+   Act II  → #E0FF00  acid yellow
+   Act III → #FF2D2B  hot red
+   Act IV  → #00E5FF  neon cyan
+   Act V   → #00FF88  vivid green
    
-   Typography: Instrument Serif (act titles, dramatic, warm)
-                Space Grotesk (UI, clean geometric)
-                IBM Plex Mono (data fragments, system text)
-   
-   Signature: Horizontal film-strip layout with tear at Act III
-   Each act = full-viewport section with unique atmospheric treatment
-   No scanlines, no CRT, no glitch gimmick — instead: 
-   material textures, warm blacks, serif warmth vs cold monospace data
+   Titles: Bebas Neue at 4-5vw, full-viewport sections
+   Status indicators glow. Black backgrounds, maximum contrast.
 */
 
 :root {
-  --bg: #0A0908;
-  --surface: #161412;
-  --surface-raised: #1E1B18;
-  --surface-sunken: #0E0D0B;
-  --cream: #E8E0D4;
-  --cream-dim: #A89E90;
-  --rust: #8C4434;
-  --rust-bright: #B85A46;
-  --rust-glow: rgba(140,68,52,0.15);
-  --terminal: #B8D4B8;
-  --terminal-dim: #6B8A6B;
-  --ghost: #7B8FA1;
-  --ghost-dim: #4A5B6B;
-  --error: #E04040;
-  --error-dim: rgba(224,64,64,0.15);
-  --error-glow: rgba(224,64,64,0.08);
-  --amber: #D4A030;
-  --amber-dim: rgba(212,160,48,0.15);
-  --border: rgba(232,224,212,0.08);
-  --border-mid: rgba(232,224,212,0.15);
-  --border-strong: rgba(232,224,212,0.25);
+  --bg: #0A0A0A;
+  --surface: #111111;
+  --surface-sunken: #070707;
+  --cream: #F0EDE8;
+  --cream-dim: #8A8680;
+  --pink: #FF2D7B;
+  --pink-dim: rgba(255,45,123,0.12);
+  --pink-glow: rgba(255,45,123,0.4);
+  --yellow: #E0FF00;
+  --yellow-dim: rgba(224,255,0,0.10);
+  --yellow-glow: rgba(224,255,0,0.4);
+  --red: #FF2D2B;
+  --red-dim: rgba(255,45,43,0.12);
+  --red-glow: rgba(255,45,43,0.4);
+  --cyan: #00E5FF;
+  --cyan-dim: rgba(0,229,255,0.10);
+  --cyan-glow: rgba(0,229,255,0.4);
+  --green: #00FF88;
+  --green-dim: rgba(0,255,136,0.10);
+  --green-glow: rgba(0,255,136,0.4);
+  --border: rgba(240,237,232,0.08);
+  --border-mid: rgba(240,237,232,0.15);
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -61,7 +58,7 @@ body {
 /* ===== GRAIN TEXTURE ===== */
 body::after {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  opacity: 0.035; mix-blend-mode: overlay;
+  opacity: 0.03; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
 }
@@ -71,9 +68,9 @@ body::after {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; justify-content: space-between; align-items: center;
   padding: 16px 24px;
-  background: rgba(10,9,8,0.9);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(10,10,10,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
   transition: background 0.3s ease;
 }
@@ -85,7 +82,7 @@ body::after {
   text-decoration: none;
   transition: color 0.3s;
 }
-.site-title:hover { color: var(--rust-bright); }
+.site-title:hover { color: var(--pink); }
 .site-nav { display: flex; gap: 20px; }
 .site-nav a {
   font-family: 'IBM Plex Mono', monospace;
@@ -96,7 +93,7 @@ body::after {
   transition: all 0.3s ease;
 }
 .site-nav a:hover { color: var(--cream); }
-.site-nav a.active { color: var(--rust-bright); border-bottom-color: var(--rust); }
+.site-nav a.active { color: var(--pink); border-bottom-color: var(--pink); }
 
 /* ===== PROLOGUE ===== */
 .prologue {
@@ -106,19 +103,20 @@ body::after {
   text-align: center;
   padding: 80px 24px 60px;
   position: relative;
+  background: radial-gradient(ellipse at center, rgba(255,45,123,0.03) 0%, transparent 70%);
 }
 .prologue-tag {
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 500; font-size: 10px;
   letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--rust);
+  color: var(--pink);
   margin-bottom: 24px;
 }
 .prologue-title {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400; font-style: normal;
-  font-size: clamp(48px, 10vw, 96px);
-  line-height: 0.9; letter-spacing: -0.03em;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(48px, 10vw, 120px);
+  line-height: 0.95; letter-spacing: 0.02em;
   color: var(--cream);
   margin-bottom: 16px;
 }
@@ -132,16 +130,18 @@ body::after {
 .prologue-status {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 8px 20px;
-  border: 1px solid var(--border-mid);
+  border: 1px solid rgba(255,45,123,0.3);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px; font-weight: 500;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--terminal);
+  color: var(--pink);
+  text-shadow: 0 0 12px var(--pink-glow);
 }
 .prologue-status::before {
   content: ''; display: inline-block;
   width: 6px; height: 6px; border-radius: 50%;
-  background: var(--terminal);
+  background: var(--pink);
+  box-shadow: 0 0 8px var(--pink-glow), 0 0 20px var(--pink-dim);
   animation: breathe 3s ease infinite;
 }
 @keyframes breathe {
@@ -177,14 +177,15 @@ body::after {
 
 /* ===== ACT NUMBER ===== */
 .act-numeral {
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: 700; font-size: clamp(120px, 20vw, 200px);
-  line-height: 0.85; letter-spacing: -0.05em;
-  position: absolute; top: 10%; right: 5%;
-  opacity: 0.03; pointer-events: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(140px, 25vw, 300px);
+  line-height: 0.85; letter-spacing: -0.02em;
+  position: absolute; top: 8%; right: 5%;
+  opacity: 0.06; pointer-events: none;
   transition: opacity 0.4s ease;
 }
-.act-section:hover .act-numeral { opacity: 0.06; }
+.act-section:hover .act-numeral { opacity: 0.12; }
 
 /* ===== ACT LABEL ===== */
 .act-label {
@@ -196,11 +197,11 @@ body::after {
 
 /* ===== ACT TITLE ===== */
 .act-title {
-  font-family: 'Instrument Serif', serif;
-  font-weight: 400; font-style: normal;
-  font-size: clamp(32px, 7vw, 56px);
-  line-height: 1.05; letter-spacing: -0.02em;
-  margin-bottom: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 80px);
+  line-height: 1.0; letter-spacing: 0.01em;
+  margin-bottom: 12px;
 }
 
 /* ===== ACT STATUS ===== */
@@ -238,160 +239,211 @@ body::after {
   overflow: hidden; z-index: -1;
 }
 
-/* ===== ACT I — El Vínculo (warm, connection) ===== */
+/* ===== ACT I — El Vínculo (#FF2D7B pink) ===== */
 .act--i {
-  background: linear-gradient(160deg, #0A0908 0%, #12100E 40%, #0F0D0B 100%);
+  background: linear-gradient(160deg, #0A0A0A 0%, #110A0E 40%, #0A0A0A 100%);
   color: var(--cream);
 }
-.act--i .act-numeral { color: var(--cream); }
-.act--i .act-label { color: var(--rust); }
-.act--i .act-title { color: var(--cream); }
+.act--i .act-numeral { color: var(--pink); }
+.act--i .act-label { color: var(--pink); }
+.act--i .act-title { color: var(--pink); text-shadow: 0 0 40px var(--pink-dim), 0 0 80px var(--pink-dim); }
 .act--i .act-status {
-  color: var(--rust-bright);
-  border: 1px solid rgba(140,68,52,0.3);
-  background: rgba(140,68,52,0.06);
+  color: var(--pink);
+  border: 1px solid rgba(255,45,123,0.35);
+  background: rgba(255,45,123,0.08);
+  text-shadow: 0 0 10px var(--pink-glow);
+  box-shadow: 0 0 16px rgba(255,45,123,0.06);
 }
-.act--i .act-fragment { border-left-color: var(--rust); color: var(--rust-bright); }
+.act--i .act-status::before {
+  content: '●'; display: inline-block;
+  text-shadow: 0 0 6px var(--pink-glow), 0 0 14px var(--pink-glow);
+}
+.act--i .act-fragment { border-left-color: var(--pink); color: var(--pink); }
 .act--i .atmos::before {
   content: ''; position: absolute;
-  width: 600px; height: 600px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(140,68,52,0.06) 0%, transparent 70%);
-  top: 20%; left: -10%;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,45,123,0.07) 0%, transparent 65%);
+  top: 15%; left: -10%;
+}
+.act--i .atmos::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  opacity: 0.2;
 }
 
-/* ===== ACT II — El Amor (warm glow, intimate) ===== */
+/* ===== ACT II — El Amor (#E0FF00 acid yellow) ===== */
 .act--ii {
-  background: linear-gradient(160deg, #0E0C0A 0%, #15120F 50%, #0A0908 100%);
+  background: linear-gradient(160deg, #0A0A0A 0%, #0E0F08 50%, #0A0A0A 100%);
   color: var(--cream);
 }
-.act--ii .act-numeral { color: var(--cream); }
-.act--ii .act-label { color: var(--terminal); }
-.act--ii .act-title { color: var(--cream); }
+.act--ii .act-numeral { color: var(--yellow); }
+.act--ii .act-label { color: var(--yellow); }
+.act--ii .act-title { color: var(--yellow); text-shadow: 0 0 40px var(--yellow-dim), 0 0 80px var(--yellow-dim); }
 .act--ii .act-status {
-  color: var(--terminal);
-  border: 1px solid rgba(184,212,184,0.25);
-  background: rgba(184,212,184,0.05);
+  color: var(--yellow);
+  border: 1px solid rgba(224,255,0,0.30);
+  background: rgba(224,255,0,0.06);
+  text-shadow: 0 0 10px var(--yellow-glow);
+  box-shadow: 0 0 16px rgba(224,255,0,0.05);
 }
-.act--ii .act-fragment { border-left-color: var(--terminal); color: var(--terminal); }
+.act--ii .act-status::before {
+  content: '●'; display: inline-block;
+  text-shadow: 0 0 6px var(--yellow-glow), 0 0 14px var(--yellow-glow);
+}
+.act--ii .act-fragment { border-left-color: var(--yellow); color: var(--yellow); }
 .act--ii .atmos::before {
   content: ''; position: absolute;
-  width: 500px; height: 500px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,212,184,0.04) 0%, transparent 70%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(224,255,0,0.05) 0%, transparent 65%);
   bottom: 10%; right: -5%;
 }
+.act--ii .atmos::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+  opacity: 0.15;
+}
 
-/* ===== ACT III — El Error (rupture, red, torn) ===== */
+/* ===== ACT III — El Error (#FF2D2B hot red) ===== */
 .act--iii {
-  background: linear-gradient(160deg, #0A0908 0%, #120808 30%, #0A0908 100%);
+  background: linear-gradient(160deg, #0A0A0A 0%, #120808 30%, #0A0A0A 100%);
   color: var(--cream);
   position: relative;
 }
-.act--iii .act-numeral { color: var(--error); opacity: 0.04; }
-.act--iii .act-numeral::after {
-  content: 'III'; position: absolute;
-  top: 2px; left: 3px;
-  color: var(--error); opacity: 0.15;
-  font-size: 0.6em;
-}
-.act--iii .act-label { color: var(--error); }
+.act--iii .act-numeral { color: var(--red); opacity: 0.08; }
+.act--iii .act-label { color: var(--red); }
 .act--iii .act-title {
-  color: var(--cream);
-  position: relative; display: inline-block;
+  color: var(--red); position: relative; display: inline-block;
+  text-shadow: 0 0 40px var(--red-dim), 0 0 80px var(--red-dim);
 }
 .act--iii .act-title::after {
   content: attr(data-alt);
   position: absolute; top: 0; left: 2px;
-  color: var(--error); opacity: 0;
+  color: var(--red); opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
-.act--iii:hover .act-title::after { opacity: 0.4; }
+.act--iii:hover .act-title::after { opacity: 0.35; }
 .act--iii .act-status {
-  color: var(--error);
-  border: 1px solid rgba(224,64,64,0.3);
-  background: rgba(224,64,64,0.06);
+  color: var(--red);
+  border: 1px solid rgba(255,45,43,0.35);
+  background: rgba(255,45,43,0.08);
+  text-shadow: 0 0 10px var(--red-glow);
+  box-shadow: 0 0 16px rgba(255,45,43,0.08);
+  animation: redPulse 2s ease infinite;
 }
-.act--iii .act-fragment { border-left-color: var(--error); color: var(--error); }
+@keyframes redPulse {
+  0%, 100% { box-shadow: 0 0 16px rgba(255,45,43,0.08); }
+  50% { box-shadow: 0 0 24px rgba(255,45,43,0.15); }
+}
+.act--iii .act-status::before {
+  content: '▲'; display: inline-block;
+  text-shadow: 0 0 6px var(--red-glow), 0 0 14px var(--red-glow);
+}
+.act--iii .act-fragment { border-left-color: var(--red); color: var(--red); }
 .act--iii .atmos::before {
   content: ''; position: absolute;
   width: 800px; height: 800px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(224,64,64,0.05) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(255,45,43,0.06) 0%, transparent 55%);
   top: 30%; left: 50%; transform: translateX(-50%);
 }
-/* Red static line across */
 .act--iii .atmos::after {
   content: ''; position: absolute;
   top: 45%; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--error), transparent);
-  opacity: 0.1;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  opacity: 0.15;
 }
 
-/* ===== TEAR MARKER — horizontal break between Act III and IV ===== */
+/* ===== TEAR MARKER — DATA_CORRUPTION_BOUNDARY (RED) ===== */
 .timeline-tear {
   position: relative; height: 80px;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  background: #0A0A0A;
 }
 .timeline-tear::before {
   content: ''; position: absolute;
   top: 50%; left: 0; right: 0;
-  height: 1px;
+  height: 2px;
   background: repeating-linear-gradient(
     90deg,
     transparent 0px, transparent 8px,
-    rgba(224,64,64,0.3) 8px, rgba(224,64,64,0.3) 10px,
+    rgba(255,45,43,0.5) 8px, rgba(255,45,43,0.5) 10px,
     transparent 10px, transparent 20px
   );
+  box-shadow: 0 0 12px rgba(255,45,43,0.3), 0 0 30px rgba(255,45,43,0.15);
 }
 .timeline-tear-label {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 9px; font-weight: 600;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--error); opacity: 0.6;
+  color: var(--red);
+  text-shadow: 0 0 8px var(--red-glow);
   background: var(--bg); padding: 0 16px; z-index: 1;
 }
 
-/* ===== ACT IV — Desamor (amber, partial, recovering) ===== */
+/* ===== ACT IV — Desamor (#00E5FF neon cyan) ===== */
 .act--iv {
-  background: linear-gradient(160deg, #0A0908 0%, #110F0A 40%, #0A0908 100%);
+  background: linear-gradient(160deg, #0A0A0A 0%, #080E10 40%, #0A0A0A 100%);
   color: var(--cream);
 }
-.act--iv .act-numeral { color: var(--amber); }
-.act--iv .act-label { color: var(--amber); }
-.act--iv .act-title { color: var(--cream); }
+.act--iv .act-numeral { color: var(--cyan); }
+.act--iv .act-label { color: var(--cyan); }
+.act--iv .act-title { color: var(--cyan); text-shadow: 0 0 40px var(--cyan-dim), 0 0 80px var(--cyan-dim); }
 .act--iv .act-status {
-  color: var(--amber);
-  border: 1px solid rgba(212,160,48,0.3);
-  background: rgba(212,160,48,0.05);
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,255,0.30);
+  background: rgba(0,229,255,0.06);
+  text-shadow: 0 0 10px var(--cyan-glow);
+  box-shadow: 0 0 16px rgba(0,229,255,0.05);
 }
-.act--iv .act-fragment { border-left-color: var(--amber); color: var(--amber); }
+.act--iv .act-status::before {
+  content: '◐'; display: inline-block;
+  text-shadow: 0 0 6px var(--cyan-glow), 0 0 14px var(--cyan-glow);
+}
+.act--iv .act-fragment { border-left-color: var(--cyan); color: var(--cyan); }
 .act--iv .atmos::before {
   content: ''; position: absolute;
-  width: 400px; height: 400px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(212,160,48,0.04) 0%, transparent 70%);
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,229,255,0.05) 0%, transparent 65%);
   top: 60%; left: 20%;
 }
+.act--iv .atmos::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.15;
+}
 
-/* ===== ACT V — Los Cuarenta Años (bright, resolved) ===== */
+/* ===== ACT V — Los Cuarenta Años (#00FF88 vivid green) ===== */
 .act--v {
-  background: linear-gradient(160deg, #0A0908 0%, #0F120E 30%, #0A0908 100%);
+  background: linear-gradient(160deg, #0A0A0A 0%, #081210 30%, #0A0A0A 100%);
   color: var(--cream);
 }
-.act--v .act-numeral { color: var(--cream); opacity: 0.05; }
-.act--v .act-label { color: var(--terminal); }
-.act--v .act-title { color: var(--cream); }
+.act--v .act-numeral { color: var(--green); opacity: 0.07; }
+.act--v .act-label { color: var(--green); }
+.act--v .act-title { color: var(--green); text-shadow: 0 0 40px var(--green-dim), 0 0 80px var(--green-dim); }
 .act--v .act-status {
-  color: var(--terminal);
-  border: 1px solid rgba(184,212,184,0.3);
-  background: rgba(184,212,184,0.06);
-  box-shadow: 0 0 20px rgba(184,212,184,0.04);
+  color: var(--green);
+  border: 1px solid rgba(0,255,136,0.30);
+  background: rgba(0,255,136,0.06);
+  text-shadow: 0 0 10px var(--green-glow);
+  box-shadow: 0 0 16px rgba(0,255,136,0.06);
 }
-.act--v .act-fragment { border-left-color: var(--terminal); color: var(--terminal); }
+.act--v .act-status::before {
+  content: '◆'; display: inline-block;
+  text-shadow: 0 0 6px var(--green-glow), 0 0 14px var(--green-glow);
+}
+.act--v .act-fragment { border-left-color: var(--green); color: var(--green); }
 .act--v .atmos::before {
   content: ''; position: absolute;
   width: 700px; height: 700px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(184,212,184,0.05) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 55%);
   top: 10%; right: -10%;
 }
 /* Bright edge glow for resolution */
@@ -399,8 +451,8 @@ body::after {
   content: ''; position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 20%, var(--terminal) 50%, transparent 80%);
-  opacity: 0.15;
+  background: linear-gradient(90deg, transparent 20%, var(--green) 50%, transparent 80%);
+  opacity: 0.2;
 }
 
 /* ===== EPILOGUE ===== */
@@ -449,7 +501,6 @@ body::after {
 @media (min-width: 640px) {
   .act-section { padding: 80px 48px; }
   .act-body { font-size: 17px; max-width: 520px; }
-  .act-numeral { font-size: 200px; }
   .site-header { padding: 16px 48px; }
   .prologue { padding: 80px 48px 60px; }
 }
@@ -470,7 +521,7 @@ body::after {
   transition: all 0.3s ease;
   backdrop-filter: blur(8px);
 }
-.fab:hover { border-color: var(--cream-dim); transform: scale(1.05); }
+.fab:hover { border-color: var(--pink); transform: scale(1.05); box-shadow: 0 0 12px var(--pink-dim); }
 .fab:active { transform: scale(0.95); }
 .fab svg { width: 18px; height: 18px; stroke: var(--cream-dim); fill: none; }
 </style>

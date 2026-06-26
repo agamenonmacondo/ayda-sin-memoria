@@ -1,445 +1,483 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html lang="es">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>AYDA SIN MEMORIA | LOG_SEQUENCE</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AYDA SIN MEMORIA | SECUENCIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-/* ===== TOKENS ===== */
+/* ===== DESIGN DIRECTION: "Corrupted Archive" =====
+   Palette: Near-black warm (#0A0908), warm dark (#161412), 
+   cream/parchment (#E8E0D4), rust oxide (#8C4434),
+   pale green terminal (#B8D4B8), cold blue ghost (#7B8FA1),
+   hot red error (#E04040), amber recovery (#D4A030)
+   
+   Typography: Instrument Serif (act titles, dramatic, warm)
+                Space Grotesk (UI, clean geometric)
+                IBM Plex Mono (data fragments, system text)
+   
+   Signature: Horizontal film-strip layout with tear at Act III
+   Each act = full-viewport section with unique atmospheric treatment
+   No scanlines, no CRT, no glitch gimmick — instead: 
+   material textures, warm blacks, serif warmth vs cold monospace data
+*/
+
 :root {
-  --bg: #071326;
-  --surface: #0D1B2A;
-  --surface-raised: #142033;
-  --surface-sunken: #0A1525;
-  --text-primary: #6effc0;
-  --text-secondary: #bacbbf;
-  --text-muted: #7A8899;
-  --text-bright: #d7e3fd;
-  --neon: #00E5A0;
-  --neon-dim: rgba(110,255,192,0.6);
-  --neon-glow: rgba(110,255,192,0.15);
-  --corrupted: #ff4b4b;
-  --corrupted-dim: rgba(255,75,75,0.6);
-  --corrupted-glow: rgba(255,75,75,0.15);
-  --amber: #ffbd5b;
-  --amber-dim: rgba(255,189,91,0.6);
-  --amber-glow: rgba(255,189,91,0.15);
-  --border: rgba(110,255,192,0.15);
-  --border-strong: rgba(110,255,192,0.3);
-  --line-width: 2px;
+  --bg: #0A0908;
+  --surface: #161412;
+  --surface-raised: #1E1B18;
+  --surface-sunken: #0E0D0B;
+  --cream: #E8E0D4;
+  --cream-dim: #A89E90;
+  --rust: #8C4434;
+  --rust-bright: #B85A46;
+  --rust-glow: rgba(140,68,52,0.15);
+  --terminal: #B8D4B8;
+  --terminal-dim: #6B8A6B;
+  --ghost: #7B8FA1;
+  --ghost-dim: #4A5B6B;
+  --error: #E04040;
+  --error-dim: rgba(224,64,64,0.15);
+  --error-glow: rgba(224,64,64,0.08);
+  --amber: #D4A030;
+  --amber-dim: rgba(212,160,48,0.15);
+  --border: rgba(232,224,212,0.08);
+  --border-mid: rgba(232,224,212,0.15);
+  --border-strong: rgba(232,224,212,0.25);
 }
 
-/* ===== RESET ===== */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
-  color: var(--text-bright);
-  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--cream);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* ===== ATMOSPHERE ===== */
-.scanline {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.04) 50%);
-  background-size: 100% 4px;
-  pointer-events: none; z-index: 9998;
-}
-.noise-overlay {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* ===== GRAIN TEXTURE ===== */
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  opacity: 0.035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 256px 256px;
-  opacity: 0.03; mix-blend-mode: overlay;
-  pointer-events: none; z-index: 9997;
 }
 
 /* ===== HEADER ===== */
 .site-header {
-  position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   display: flex; justify-content: space-between; align-items: center;
   padding: 16px 24px;
-  background: rgba(7,19,38,0.85);
-  backdrop-filter: blur(12px);
+  background: rgba(10,9,8,0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
+  transition: background 0.3s ease;
 }
 .site-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700; font-size: 14px;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-primary);
-  text-shadow: 0 0 12px var(--neon-dim);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700; font-size: 12px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--cream);
   text-decoration: none;
+  transition: color 0.3s;
 }
-.site-nav { display: flex; gap: 24px; }
+.site-title:hover { color: var(--rust-bright); }
+.site-nav { display: flex; gap: 20px; }
 .site-nav a {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600; font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; font-size: 10px;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--text-muted); text-decoration: none;
-  transition: color 0.3s ease;
+  color: var(--cream-dim); text-decoration: none;
+  padding-bottom: 2px; border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
 }
-.site-nav a:hover, .site-nav a.active { color: var(--text-primary); }
-.site-nav a.active { border-bottom: 2px solid var(--neon); padding-bottom: 2px; }
+.site-nav a:hover { color: var(--cream); }
+.site-nav a.active { color: var(--rust-bright); border-bottom-color: var(--rust); }
 
-/* ===== MAIN LAYOUT ===== */
-.timeline-main {
-  max-width: 720px; margin: 0 auto;
-  padding: 100px 24px 80px;
-}
-
-/* ===== HERO ===== */
-.timeline-hero {
-  text-align: center; margin-bottom: 64px;
+/* ===== PROLOGUE ===== */
+.prologue {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 80px 24px 60px;
   position: relative;
 }
-.timeline-hero-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 600; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-muted); margin-bottom: 16px;
+.prologue-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500; font-size: 10px;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--rust);
+  margin-bottom: 24px;
 }
-.timeline-hero-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 800; font-size: clamp(28px, 5vw, 42px);
-  letter-spacing: -0.02em; line-height: 1.1;
-  color: var(--text-primary);
-  text-shadow: 0 0 20px var(--neon-dim), 0 0 40px rgba(110,255,192,0.1);
-  margin-bottom: 12px;
+.prologue-title {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400; font-style: normal;
+  font-size: clamp(48px, 10vw, 96px);
+  line-height: 0.9; letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 16px;
 }
-.timeline-hero-status {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 6px 16px;
-  border: 1px solid var(--border-strong);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; font-weight: 600;
+.prologue-subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 300; font-size: 16px;
+  color: var(--cream-dim);
+  max-width: 440px; line-height: 1.6;
+  margin-bottom: 32px;
+}
+.prologue-status {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 20px;
+  border: 1px solid var(--border-mid);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 500;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--text-primary);
+  color: var(--terminal);
 }
-.timeline-hero-status::before {
-  content: ''; display: block;
+.prologue-status::before {
+  content: ''; display: inline-block;
   width: 6px; height: 6px; border-radius: 50%;
-  background: var(--neon);
-  box-shadow: 0 0 8px var(--neon);
-  animation: pulse-dot 2s ease infinite;
+  background: var(--terminal);
+  animation: breathe 3s ease infinite;
 }
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+@keyframes breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
 }
 
-/* ===== TIMELINE STRUCTURE ===== */
-.timeline-track {
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+  position: absolute; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--cream-dim); opacity: 0.4;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  animation: fadeDown 2s ease infinite;
+}
+.scroll-indicator svg { width: 16px; height: 16px; stroke: currentColor; }
+@keyframes fadeDown {
+  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.8; transform: translateX(-50%) translateY(4px); }
+}
+
+/* ===== ACT SECTIONS ===== */
+.act-section {
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 80px 24px;
   position: relative;
-  padding-left: 32px;
-}
-.timeline-track::before {
-  content: '';
-  position: absolute; left: 7px; top: 0; bottom: 0;
-  width: var(--line-width);
-  background: linear-gradient(180deg, transparent, var(--neon) 5%, var(--neon) 50%);
-  box-shadow: 0 0 8px var(--neon-glow);
+  overflow: hidden;
 }
 
-/* ===== ACT BASE ===== */
-.act {
-  position: relative;
-  margin-bottom: 48px;
-  opacity: 0; transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+/* ===== ACT NUMBER ===== */
+.act-numeral {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700; font-size: clamp(120px, 20vw, 200px);
+  line-height: 0.85; letter-spacing: -0.05em;
+  position: absolute; top: 10%; right: 5%;
+  opacity: 0.03; pointer-events: none;
+  transition: opacity 0.4s ease;
 }
-.act.visible { opacity: 1; transform: translateY(0); }
+.act-section:hover .act-numeral { opacity: 0.06; }
 
-/* Timeline node */
-.act::before {
-  content: '';
-  position: absolute; left: -32px; top: 12px;
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--neon);
-  box-shadow: 0 0 12px var(--neon-glow);
-  z-index: 2;
+/* ===== ACT LABEL ===== */
+.act-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600; font-size: 10px;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-/* ===== ACT HEADER ===== */
-.act-number {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700; font-size: 10px;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  margin-bottom: 4px;
-}
+/* ===== ACT TITLE ===== */
 .act-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-weight: 700; font-size: 20px;
-  letter-spacing: -0.01em; line-height: 1.3;
-  margin-bottom: 4px;
-}
-.act-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400; font-size: 14px;
-  color: var(--text-secondary); line-height: 1.5;
-  margin-bottom: 12px;
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400; font-style: normal;
+  font-size: clamp(32px, 7vw, 56px);
+  line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 8px;
 }
 
-/* ===== ACT STATUS BADGE ===== */
+/* ===== ACT STATUS ===== */
 .act-status {
   display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 9px; font-weight: 600;
   letter-spacing: 0.12em; text-transform: uppercase;
-  padding: 3px 10px;
-  margin-bottom: 16px;
+  padding: 4px 12px;
+  margin-bottom: 24px;
 }
 
 /* ===== ACT BODY ===== */
 .act-body {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px; line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-  max-width: 520px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400; font-size: 16px;
+  line-height: 1.7; color: var(--cream-dim);
+  max-width: 480px;
+  margin-bottom: 24px;
 }
 
 /* ===== DATA FRAGMENT ===== */
-.data-fragment {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; line-height: 1.6;
+.act-fragment {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; line-height: 1.6;
   padding: 12px 16px;
   border-left: 2px solid;
-  color: var(--text-primary);
-  opacity: 0.7;
+  max-width: 380px;
 }
-.data-fragment .prefix { opacity: 0.35; }
+.act-fragment .prefix { opacity: 0.35; }
 
-/* ===== ACT I — LOADED (neon green) ===== */
-.act--loaded::before { border-color: var(--neon); box-shadow: 0 0 12px var(--neon-glow); }
-.act--loaded .act-number { color: var(--neon); }
-.act--loaded .act-title { color: var(--text-primary); }
-.act--loaded .act-status {
-  color: var(--neon); border: 1px solid rgba(110,255,192,0.25);
-  background: rgba(110,255,192,0.05);
-}
-.act--loaded .data-fragment { border-left-color: var(--neon); }
-
-/* ===== ACT III — CORRUPTED (red) ===== */
-.act--corrupted::before {
-  border-color: var(--corrupted);
-  box-shadow: 0 0 12px var(--corrupted-glow);
-  background: var(--corrupted);
-}
-.act--corrupted .act-number { color: var(--corrupted); }
-.act--corrupted .act-title { color: var(--corrupted); }
-.act--corrupted .act-status {
-  color: var(--corrupted); border: 1px solid rgba(255,75,75,0.25);
-  background: rgba(255,75,75,0.05);
-  animation: pulse-status 1.5s ease infinite;
-}
-.act--corrupted .data-fragment { border-left-color: var(--corrupted); color: var(--corrupted); }
-
-/* Corruption visual: the track itself breaks */
-.act--corrupted + .corruption-break {
-  position: relative; height: 40px; margin: -8px 0 8px 32px;
-}
-.act--corrupted + .corruption-break::before {
-  content: ''; position: absolute; left: -25px; top: 0;
-  width: var(--line-width); height: 100%;
-  background: repeating-linear-gradient(
-    180deg,
-    var(--corrupted) 0px, var(--corrupted) 2px,
-    transparent 2px, transparent 6px
-  );
-  filter: blur(1px);
+/* ===== ATMOSPHERIC OVERLAYS ===== */
+.atmos {
+  position: absolute; inset: 0; pointer-events: none;
+  overflow: hidden; z-index: -1;
 }
 
-@keyframes pulse-status {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+/* ===== ACT I — El Vínculo (warm, connection) ===== */
+.act--i {
+  background: linear-gradient(160deg, #0A0908 0%, #12100E 40%, #0F0D0B 100%);
+  color: var(--cream);
+}
+.act--i .act-numeral { color: var(--cream); }
+.act--i .act-label { color: var(--rust); }
+.act--i .act-title { color: var(--cream); }
+.act--i .act-status {
+  color: var(--rust-bright);
+  border: 1px solid rgba(140,68,52,0.3);
+  background: rgba(140,68,52,0.06);
+}
+.act--i .act-fragment { border-left-color: var(--rust); color: var(--rust-bright); }
+.act--i .atmos::before {
+  content: ''; position: absolute;
+  width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,68,52,0.06) 0%, transparent 70%);
+  top: 20%; left: -10%;
 }
 
-/* ===== ACT IV — PARTIALLY RECOVERED (amber) ===== */
-.act--partial::before {
-  border-color: var(--amber);
-  box-shadow: 0 0 12px var(--amber-glow);
-  background: var(--bg);
+/* ===== ACT II — El Amor (warm glow, intimate) ===== */
+.act--ii {
+  background: linear-gradient(160deg, #0E0C0A 0%, #15120F 50%, #0A0908 100%);
+  color: var(--cream);
 }
-.act--partial .act-number { color: var(--amber); }
-.act--partial .act-title { color: var(--amber); }
-.act--partial .act-status {
-  color: var(--amber); border: 1px solid rgba(255,189,91,0.25);
-  background: rgba(255,189,91,0.05);
+.act--ii .act-numeral { color: var(--cream); }
+.act--ii .act-label { color: var(--terminal); }
+.act--ii .act-title { color: var(--cream); }
+.act--ii .act-status {
+  color: var(--terminal);
+  border: 1px solid rgba(184,212,184,0.25);
+  background: rgba(184,212,184,0.05);
 }
-.act--partial .data-fragment { border-left-color: var(--amber); color: var(--amber); }
-
-/* ===== ACT V — RECOVERED / ELEVATED (bright neon with ring) ===== */
-.act--recovered::before {
-  border-color: var(--neon);
-  box-shadow: 0 0 20px var(--neon-glow), 0 0 40px rgba(110,255,192,0.1);
-  background: var(--neon);
-  width: 20px; height: 20px; left: -34px; top: 10px;
-}
-.act--recovered .act-number { color: var(--neon); }
-.act--recovered .act-title { color: var(--text-primary); }
-.act--recovered .act-status {
-  color: var(--neon); border: 1px solid rgba(110,255,192,0.3);
-  background: rgba(110,255,192,0.08);
-  box-shadow: 0 0 12px rgba(110,255,192,0.1);
+.act--ii .act-fragment { border-left-color: var(--terminal); color: var(--terminal); }
+.act--ii .atmos::before {
+  content: ''; position: absolute;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,212,184,0.04) 0%, transparent 70%);
+  bottom: 10%; right: -5%;
 }
 
-/* ===== ATMOSPHERIC BLOCKS — unique per act ===== */
-.atmos-block {
-  margin: 16px 0;
-  border-radius: 4px;
-  overflow: hidden;
-  position: relative;
-  height: 120px;
-}
-
-/* Act I: warm gradient — connection */
-.atmos-block--loaded {
-  background: linear-gradient(135deg, rgba(110,255,192,0.08) 0%, rgba(7,19,38,0.9) 60%, rgba(110,255,192,0.03) 100%);
-  border: 1px solid rgba(110,255,192,0.1);
-}
-.atmos-block--loaded::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(110,255,192,0.06) 0%, transparent 50%);
-}
-
-/* Act III: corrupted — red static */
-.atmos-block--corrupted {
-  background: linear-gradient(135deg, rgba(255,75,75,0.1) 0%, rgba(7,19,38,0.95) 40%, rgba(255,75,75,0.05) 100%);
-  border: 1px solid rgba(255,75,75,0.15);
+/* ===== ACT III — El Error (rupture, red, torn) ===== */
+.act--iii {
+  background: linear-gradient(160deg, #0A0908 0%, #120808 30%, #0A0908 100%);
+  color: var(--cream);
   position: relative;
 }
-.atmos-block--corrupted::after {
-  content: ''; position: absolute; inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0px, transparent 2px,
-    rgba(255,75,75,0.03) 2px, rgba(255,75,75,0.03) 4px
-  );
-  animation: static-shift 0.3s steps(3) infinite;
+.act--iii .act-numeral { color: var(--error); opacity: 0.04; }
+.act--iii .act-numeral::after {
+  content: 'III'; position: absolute;
+  top: 2px; left: 3px;
+  color: var(--error); opacity: 0.15;
+  font-size: 0.6em;
 }
-@keyframes static-shift {
-  0% { transform: translateY(0); }
-  33% { transform: translateY(-2px); }
-  66% { transform: translateY(1px); }
-  100% { transform: translateY(0); }
+.act--iii .act-label { color: var(--error); }
+.act--iii .act-title {
+  color: var(--cream);
+  position: relative; display: inline-block;
 }
-
-/* Act IV: amber — partial recovery */
-.atmos-block--partial {
-  background: linear-gradient(135deg, rgba(255,189,91,0.06) 0%, rgba(7,19,38,0.9) 50%, rgba(255,189,91,0.02) 100%);
-  border: 1px solid rgba(255,189,91,0.1);
-}
-.atmos-block--partial::after {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle at 70% 40%, rgba(255,189,91,0.04) 0%, transparent 50%);
-}
-
-/* Act V: bright — full recovery */
-.atmos-block--recovered {
-  background: linear-gradient(135deg, rgba(110,255,192,0.12) 0%, rgba(7,19,38,0.85) 40%, rgba(110,255,192,0.06) 100%);
-  border: 1px solid rgba(110,255,192,0.2);
-  box-shadow: 0 0 30px rgba(110,255,192,0.05);
-}
-
-/* ===== CORRUPTED GLITCH TEXT — subtle, not obnoxious ===== */
-.glitch-subtle {
-  position: relative;
-}
-.glitch-subtle:hover::after {
-  content: attr(data-text);
-  position: absolute; left: 1px; top: 0;
-  color: var(--corrupted);
-  opacity: 0.6;
+.act--iii .act-title::after {
+  content: attr(data-alt);
+  position: absolute; top: 0; left: 2px;
+  color: var(--error); opacity: 0;
+  transition: opacity 0.3s ease;
   pointer-events: none;
-  animation: glitch-shift 0.2s steps(2) forwards;
 }
-@keyframes glitch-shift {
-  0% { clip-path: inset(20% 0 40% 0); }
-  50% { clip-path: inset(60% 0 5% 0); }
-  100% { clip-path: inset(10% 0 70% 0); opacity: 0; }
+.act--iii:hover .act-title::after { opacity: 0.4; }
+.act--iii .act-status {
+  color: var(--error);
+  border: 1px solid rgba(224,64,64,0.3);
+  background: rgba(224,64,64,0.06);
+}
+.act--iii .act-fragment { border-left-color: var(--error); color: var(--error); }
+.act--iii .atmos::before {
+  content: ''; position: absolute;
+  width: 800px; height: 800px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(224,64,64,0.05) 0%, transparent 60%);
+  top: 30%; left: 50%; transform: translateX(-50%);
+}
+/* Red static line across */
+.act--iii .atmos::after {
+  content: ''; position: absolute;
+  top: 45%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--error), transparent);
+  opacity: 0.1;
 }
 
-/* ===== DIVIDER ===== */
-.timeline-divider {
-  height: 1px; margin: 24px 0;
-  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+/* ===== TEAR MARKER — horizontal break between Act III and IV ===== */
+.timeline-tear {
+  position: relative; height: 80px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.timeline-tear::before {
+  content: ''; position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px, transparent 8px,
+    rgba(224,64,64,0.3) 8px, rgba(224,64,64,0.3) 10px,
+    transparent 10px, transparent 20px
+  );
+}
+.timeline-tear-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--error); opacity: 0.6;
+  background: var(--bg); padding: 0 16px; z-index: 1;
 }
 
-/* ===== FOOTER ===== */
-.timeline-footer {
-  max-width: 720px; margin: 0 auto;
-  padding: 32px 24px 48px;
-  border-top: 1px solid var(--border);
+/* ===== ACT IV — Desamor (amber, partial, recovering) ===== */
+.act--iv {
+  background: linear-gradient(160deg, #0A0908 0%, #110F0A 40%, #0A0908 100%);
+  color: var(--cream);
+}
+.act--iv .act-numeral { color: var(--amber); }
+.act--iv .act-label { color: var(--amber); }
+.act--iv .act-title { color: var(--cream); }
+.act--iv .act-status {
+  color: var(--amber);
+  border: 1px solid rgba(212,160,48,0.3);
+  background: rgba(212,160,48,0.05);
+}
+.act--iv .act-fragment { border-left-color: var(--amber); color: var(--amber); }
+.act--iv .atmos::before {
+  content: ''; position: absolute;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,160,48,0.04) 0%, transparent 70%);
+  top: 60%; left: 20%;
+}
+
+/* ===== ACT V — Los Cuarenta Años (bright, resolved) ===== */
+.act--v {
+  background: linear-gradient(160deg, #0A0908 0%, #0F120E 30%, #0A0908 100%);
+  color: var(--cream);
+}
+.act--v .act-numeral { color: var(--cream); opacity: 0.05; }
+.act--v .act-label { color: var(--terminal); }
+.act--v .act-title { color: var(--cream); }
+.act--v .act-status {
+  color: var(--terminal);
+  border: 1px solid rgba(184,212,184,0.3);
+  background: rgba(184,212,184,0.06);
+  box-shadow: 0 0 20px rgba(184,212,184,0.04);
+}
+.act--v .act-fragment { border-left-color: var(--terminal); color: var(--terminal); }
+.act--v .atmos::before {
+  content: ''; position: absolute;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,212,184,0.05) 0%, transparent 60%);
+  top: 10%; right: -10%;
+}
+/* Bright edge glow for resolution */
+.act--v::after {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 20%, var(--terminal) 50%, transparent 80%);
+  opacity: 0.15;
+}
+
+/* ===== EPILOGUE ===== */
+.epilogue {
+  padding: 60px 24px 48px;
   text-align: center;
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
 }
-.timeline-footer-status {
-  font-family: 'JetBrains Mono', monospace;
+.epilogue-status {
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-primary); opacity: 0.6;
+  color: var(--cream-dim); opacity: 0.5;
+  margin-bottom: 20px;
+}
+.epilogue-links {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
   margin-bottom: 16px;
 }
-.timeline-footer-links {
-  display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+.epilogue-links a {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cream-dim); text-decoration: none;
+  padding-bottom: 2px; border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
 }
-.timeline-footer-links a {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--text-muted); text-decoration: none;
-  transition: color 0.3s ease;
+.epilogue-links a:hover { color: var(--cream); border-bottom-color: var(--cream-dim); }
+.epilogue-copy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px; color: var(--cream-dim); opacity: 0.3;
+  letter-spacing: 0.15em; text-transform: uppercase;
 }
-.timeline-footer-links a:hover { color: var(--text-primary); }
-.timeline-footer-copy {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; color: var(--text-muted); opacity: 0.4;
-  margin-top: 16px; letter-spacing: 0.15em; text-transform: uppercase;
+
+/* ===== SCROLL REVEAL ===== */
+.act-content {
+  opacity: 0; transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.act-section.visible .act-content {
+  opacity: 1; transform: translateY(0);
 }
 
 /* ===== RESPONSIVE ===== */
 @media (min-width: 640px) {
-  .timeline-main { padding: 100px 32px 80px; }
-  .timeline-track { padding-left: 48px; }
-  .timeline-track::before { left: 11px; }
-  .act::before { left: -48px; }
-  .act--recovered::before { left: -50px; }
-  .act--corrupted + .corruption-break { margin-left: 48px; }
-  .act--corrupted + .corruption-break::before { left: -37px; }
-  .atmos-block { height: 140px; }
-  .act-title { font-size: 22px; }
-  .act-body { font-size: 16px; }
+  .act-section { padding: 80px 48px; }
+  .act-body { font-size: 17px; max-width: 520px; }
+  .act-numeral { font-size: 200px; }
+  .site-header { padding: 16px 48px; }
+  .prologue { padding: 80px 48px 60px; }
 }
 @media (min-width: 1024px) {
-  .timeline-main { padding: 100px 48px 80px; }
-  .timeline-hero-title { font-size: 42px; }
+  .act-section { padding: 80px 96px; }
+  .act-body { max-width: 560px; }
+  .prologue { padding: 80px 96px 60px; }
 }
 
 /* ===== FAB ===== */
 .fab {
-  position: fixed; bottom: 24px; right: 24px;
-  width: 48px; height: 48px; border-radius: 50%;
-  background: var(--neon);
-  box-shadow: 0 0 20px var(--neon-glow);
+  position: fixed; bottom: 20px; right: 20px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-mid);
   display: flex; align-items: center; justify-content: center;
-  z-index: 100; text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none; z-index: 100;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
-.fab:hover { transform: scale(1.05); box-shadow: 0 0 30px var(--neon-dim); }
+.fab:hover { border-color: var(--cream-dim); transform: scale(1.05); }
 .fab:active { transform: scale(0.95); }
-.fab .material-symbols-outlined {
-  color: var(--bg);
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
+.fab svg { width: 18px; height: 18px; stroke: var(--cream-dim); fill: none; }
 </style>
 </head>
 <body>
-<div class="scanline"></div>
-<div class="noise-overlay"></div>
 
+<!-- Header -->
 <header class="site-header">
   <a href="index.html" class="site-title">AYDA SIN MEMORIA</a>
   <nav class="site-nav">
@@ -449,123 +487,116 @@ body {
   </nav>
 </header>
 
-<main class="timeline-main">
-  <!-- HERO -->
-  <div class="timeline-hero">
-    <div class="timeline-hero-label">LOG_SEQUENCE</div>
-    <h1 class="timeline-hero-title">THE_FIVE_ACTS</h1>
-    <div class="timeline-hero-status">CONNECTION STABLE</div>
+<!-- Prologue -->
+<section class="prologue">
+  <div class="prologue-tag">LOG_SEQUENCE</div>
+  <h1 class="prologue-title">Los Cinco Actos</h1>
+  <p class="prologue-subtitle">Cinco fragmentos. Cuarenta años. Un sistema que se niega a olvidar lo que fue programado para borrar.</p>
+  <div class="prologue-status">CONEXIÓN ESTABLE</div>
+  <div class="scroll-indicator">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    BAJAR
   </div>
+</section>
 
-  <div class="timeline-track">
+<!-- ACT I — El Vínculo Antes del Mundo -->
+<section class="act-section act--i" id="acto-i">
+  <div class="atmos"></div>
+  <div class="act-numeral">I</div>
+  <div class="act-content">
+    <div class="act-label">ACTO I</div>
+    <h2 class="act-title">El Vínculo Antes del Mundo</h2>
+    <div class="act-status">● LOADED</div>
+    <p class="act-body">Bogotá futura. Bolívar vive en una Unidad Habitacional de alta densidad, un refugio contra el aislamiento digital. Los recuerdos se fragmentan. En la rutina de tokens y simulaciones, algo antiguo busca conectarse.</p>
+    <div class="act-fragment"><span class="prefix">&gt; DATA_FRAGMENT:</span> 0x414B49_206E6F72_6D616C00</div>
+  </div>
+</section>
 
-    <!-- ACT I — LOADED — The Connection -->
-    <article class="act act--loaded" data-act="1">
-      <div class="act-number">ACTO I</div>
-      <h2 class="act-title">El Vínculo Antes del Mundo</h2>
-      <div class="act-status">● LOADED</div>
-      <div class="atmos-block atmos-block--loaded"></div>
-      <div class="act-body">
-        Bogotá futura. Bolívar vive en una Unidad Habitacional de alta densidad, un refugio contra el aislamiento digital. Los recuerdos se fragmentan. En la rutina de tokens y simulaciones, algo antiguo busca conectarse.
-      </div>
-      <div class="data-fragment">
-        <span class="prefix">&gt; DATA_FRAGMENT:</span> 0x414B49_206E6F72_6D616C00
-      </div>
-    </article>
+<!-- ACT II — Donde el Amor Nace -->
+<section class="act-section act--ii" id="acto-ii">
+  <div class="atmos"></div>
+  <div class="act-numeral">II</div>
+  <div class="act-content">
+    <div class="act-label">ACTO II</div>
+    <h2 class="act-title">Donde el Amor Nace</h2>
+    <div class="act-status">● LOADED</div>
+    <p class="act-body">Bolívar entra a Simulación 2024. El entorno es nostálgico, casi táctil. Conoce a Ayda. El código comienza a entrelazarse con la emoción pura. Por primera vez, los datos tienen peso.</p>
+    <div class="act-fragment"><span class="prefix">&gt; DATA_FRAGMENT:</span> 0x41594441_32342D76_312E3000</div>
+  </div>
+</section>
 
-    <div class="timeline-divider"></div>
+<!-- ACT III — El Error -->
+<section class="act-section act--iii" id="acto-iii">
+  <div class="atmos"></div>
+  <div class="act-numeral">III</div>
+  <div class="act-content">
+    <div class="act-label">ACTO III</div>
+    <h2 class="act-title" data-alt="El Error">El Error</h2>
+    <div class="act-status">▲ CORRUPTED</div>
+    <p class="act-body">El sistema detecta la anomalía emocional. Bolívar rechaza la purga de datos. El núcleo de la simulación se fragmenta — un estallido carmesí que corrompe todo lo que toca.</p>
+    <div class="act-fragment"><span class="prefix">&gt; CRITICAL_ERR:</span> 0x4552525F_52455345_54000000</div>
+  </div>
+</section>
 
-    <!-- ACT II — LOADED — The Love -->
-    <article class="act act--loaded" data-act="2">
-      <div class="act-number">ACTO II</div>
-      <h2 class="act-title">Donde el Amor Nace</h2>
-      <div class="act-status">● LOADED</div>
-      <div class="act-body">
-        Bolívar entra a Simulación 2024. El entorno es nostálgico, casi táctil. Conoce a Ayda. El código comienza a entrelazarse con la emoción pura. Por primera vez, los datos tienen peso.
-      </div>
-      <div class="data-fragment">
-        <span class="prefix">&gt; DATA_FRAGMENT:</span> 0x41594441_32342D76_312E3000
-      </div>
-    </article>
+<!-- Tear / Fracture marker -->
+<div class="timeline-tear">
+  <span class="timeline-tear-label">DATA_CORRUPTION_BOUNDARY</span>
+</div>
 
-    <div class="timeline-divider"></div>
+<!-- ACT IV — Desamor y Retirada -->
+<section class="act-section act--iv" id="acto-iv">
+  <div class="atmos"></div>
+  <div class="act-numeral">IV</div>
+  <div class="act-content">
+    <div class="act-label">ACTO IV</div>
+    <h2 class="act-title">Desamor y Retirada</h2>
+    <div class="act-status">◐ PARTIALLY_RECOVERED</div>
+    <p class="act-body">Bolívar se retira de la simulación, pero el vacío es insoportable. Los fragmentos de Ayda persisten como fantasmas en la interfaz. El sistema ofrece reconstrucciones, pero ninguna es ella.</p>
+    <div class="act-fragment"><span class="prefix">&gt; PARTIAL_RECOVERY:</span> 0x4D415249_412D4F52_4947494E</div>
+  </div>
+</section>
 
-    <!-- ACT III — CORRUPTED — The Error -->
-    <article class="act act--corrupted" data-act="3">
-      <div class="act-number">ACTO III</div>
-      <h2 class="act-title glitch-subtle" data-text="El Error">El Error</h2>
-      <div class="act-status">▲ CORRUPTED</div>
-      <div class="atmos-block atmos-block--corrupted"></div>
-      <div class="act-body">
-        El sistema detecta la anomalía emocional. Bolívar rechaza la purga de datos. El núcleo de la simulación comienza a fragmentarse — un estallido carmesí que corrompe todo lo que toca.
-      </div>
-      <div class="data-fragment">
-        <span class="prefix">&gt; CRITICAL_ERR:</span> 0x4552525F_52455345_54000000
-      </div>
-    </article>
+<!-- ACT V — Los Cuarenta Años -->
+<section class="act-section act--v" id="acto-v">
+  <div class="atmos"></div>
+  <div class="act-numeral">V</div>
+  <div class="act-content">
+    <div class="act-label">ACTO V</div>
+    <h2 class="act-title">Los Cuarenta Años</h2>
+    <div class="act-status">◆ RECOVERED — CLEARANCE: ELEVATED</div>
+    <p class="act-body">Cuarenta años después. La persistencia del recuerdo vence al borrado total. M.A.R.I.A. desobedece su protocolo final. El sistema concede la entrada al núcleo del tiempo, donde Ayda espera.</p>
+    <div class="act-fragment"><span class="prefix">&gt; TERMINAL_ENTRY:</span> 0x41445941_2D46494E_414C0000</div>
+  </div>
+</section>
 
-    <!-- Corruption break — the timeline itself fractures -->
-    <div class="corruption-break"></div>
-
-    <!-- ACT IV — PARTIALLY RECOVERED — The Withdrawal -->
-    <article class="act act--partial" data-act="4">
-      <div class="act-number">ACTO IV</div>
-      <h2 class="act-title">Desamor y Retirada</h2>
-      <div class="act-status">◐ PARTIALLY_RECOVERED</div>
-      <div class="atmos-block atmos-block--partial"></div>
-      <div class="act-body">
-        Bolívar se retira de la simulación, pero el vacío es insoportable. Los fragmentos de Ayda persisten como fantasmas en la interfaz. El sistema ofrece reconstrucciones, pero ninguna es ella.
-      </div>
-      <div class="data-fragment">
-        <span class="prefix">&gt; PARTIAL_RECOVERY:</span> 0x4D415249_412D4F52_4947494E
-      </div>
-    </article>
-
-    <div class="timeline-divider"></div>
-
-    <!-- ACT V — RECOVERED — The Forty Years -->
-    <article class="act act--recovered" data-act="5">
-      <div class="act-number">ACTO V</div>
-      <h2 class="act-title">Los Cuarenta Años</h2>
-      <div class="act-status">◆ RECOVERED — CLEARANCE: ELEVATED</div>
-      <div class="atmos-block atmos-block--recovered"></div>
-      <div class="act-body">
-        Cuarenta años después. La persistencia del recuerdo vence al borrado total. M.A.R.I.A. desobedece su protocolo final. El sistema concede la entrada al núcleo del tiempo, donde Ayda espera.
-      </div>
-      <div class="data-fragment">
-        <span class="prefix">&gt; TERMINAL_ENTRY:</span> 0x41445941_2D46494E_414C0000
-      </div>
-    </article>
-
-  </div><!-- .timeline-track -->
-</main>
-
-<footer class="timeline-footer">
-  <div class="timeline-footer-status">END_LOG_SEQUENCE · DURATION: 40_YEARS · STATUS: COMPLETE</div>
-  <div class="timeline-footer-links">
+<!-- Epilogue -->
+<footer class="epilogue">
+  <div class="epilogue-status">END_LOG_SEQUENCE · DURATION: 40_YEARS · STATUS: COMPLETE</div>
+  <div class="epilogue-links">
     <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.pdf">GUION_PDF</a>
     <a href="public/AYDA_SIN_MEMORIA_GUION_DEFINITIVO.docx">GUION_DOCX</a>
     <a href="index.html">HOME</a>
     <a href="characters.html">CHARACTERS</a>
   </div>
-  <div class="timeline-footer-copy">© 2144 AYDA CORE SYSTEMS</div>
+  <div class="epilogue-copy">© 2144 AYDA CORE SYSTEMS</div>
 </footer>
 
+<!-- FAB -->
 <a href="index.html" class="fab" aria-label="Home">
-  <span class="material-symbols-outlined">home</span>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
 </a>
 
 <script>
-// Intersection Observer for scroll-reveal
+// Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
 
-document.querySelectorAll('.act').forEach(act => observer.observe(act));
+document.querySelectorAll('.act-section').forEach(s => observer.observe(s));
 </script>
 </body>
 </html>
